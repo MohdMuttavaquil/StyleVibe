@@ -1,0 +1,12 @@
+.logo{
+     font-family: 'Pacifico', cursive;
+}
+
+.heroImage{
+     background-image: url("./heroImage.png");
+     background-size: cover;
+}
+
+.cetogry::-webkit-scrollbar{
+     display: none;
+}
