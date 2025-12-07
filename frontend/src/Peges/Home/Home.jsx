@@ -3,6 +3,9 @@ import { cetogry } from '../../Data/Data'
 import Product from './Product'
 import Products from '../Products'
 import Detail from '../Detail'
+import Cart from '../Cart'
+import Order from '../Order'
+import Singin from '../Singin'
 
 const Home = () => {
   return (
@@ -30,7 +33,7 @@ const Home = () => {
       
      </div>
 
-    <Detail />
+    <Singin />
     </>
   )
 }
