@@ -1,6 +1,6 @@
+import Navbar from "./Abmain/Component/Navbar"
+import Home from "./Abmain/Pages/Home"
 import Footer from "./Component/Footer"
-import Navbar from "./Component/Navbar"
-import Home from "./Peges/Home/Home"
 
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
   return (
     <>
     <Navbar />
-    <div>
+    <div className="my-20">
     <Home /> 
     </div>
     <Footer />
