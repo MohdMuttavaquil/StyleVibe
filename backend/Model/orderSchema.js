@@ -1,0 +1,52 @@
+import mongoose from "mongoose";
+
+const orderSchema = new mongoose.Schema({
+
+    ProductName: {
+        type: String,
+        require: true
+    },
+    address: {
+        type: String,
+        require: true
+    },
+    phoneNo: {
+        type: Number,
+        require: true
+    },
+    payment: {
+        type: String,
+        enum: ["Online", "Cash On dliverey", "failed"],
+        require: true
+    },
+    price: {
+        type: Number,
+        require: true
+    },
+    sellerName: {
+        type: String,
+        require: true
+    },
+    buyerName: {
+        type: String,
+        require: true
+    },
+    status: {
+        type: String,
+        enum: ["Processing", "shipping", "Delivered", "Return"],
+        require: true,
+        default: "Processing"
+    },
+    casueOfReturn: {
+        type: String,
+        require: true,
+        default: ""
+    }
+
+})
+
+orderSchema.index({buyerName: 1, sellerName: 1})
+
+const orderModel = mongoose.model || mongoose.model("Orders", orderSchema)
+
+export default orderModel
