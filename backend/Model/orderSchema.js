@@ -47,6 +47,6 @@ const orderSchema = new mongoose.Schema({
 
 orderSchema.index({buyerName: 1, sellerName: 1})
 
-const orderModel = mongoose.model || mongoose.model("Orders", orderSchema)
+const orderModel = mongoose.model.Orders || mongoose.model("Orders", orderSchema)
 
 export default orderModel
