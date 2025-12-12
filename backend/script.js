@@ -3,6 +3,7 @@ import "dotenv/config"
 import cors from 'cors'
 import dbConnaction from './Config/dbConfig.js'
 import userRoute from './Routes/userRoute.js'
+import productRoute from './Routes/productRoute.js'
 
 const app = express()
 app.use(express.json())
@@ -14,7 +15,7 @@ dbConnaction()
 
 //Piuter 
 app.use('/api/user', userRoute)
-
+app.use('/api/product', productRoute)
 
 app.get('/', (req, res)=>{
    res.json("Servier is running")

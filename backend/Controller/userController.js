@@ -9,7 +9,7 @@ const createToken = (id, name) => {
 
 const singIn = async (req, res) => {
 
-    const { name, email, password } = req.body
+    const { name, email, password, admain } = req.body
 
     try {
         if (!validator.isEmail(email)) {
@@ -27,12 +27,12 @@ const singIn = async (req, res) => {
         const newUser = new userModel({
             name: name,
             email: email,
-            password: hashPassword
+            password: hashPassword,
+            role: admain ? "admain" : "user"
         })
 
         await newUser.save()
         const token = createToken(newUser._id, name)
-        console.log(token)
 
         res.json({ success: true, token })
     } catch (error) {
@@ -66,4 +66,4 @@ const login = async (req, res) => {
     }
 }
 
-export { singIn, login }
+export { singIn, login } 
