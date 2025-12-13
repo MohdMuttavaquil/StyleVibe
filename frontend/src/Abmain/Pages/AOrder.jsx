@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Order = () => {
+const AOrder = () => {
   return (
-    <div>
+    <div className='min-h-screen'>
         there is all orders of admain products.
     </div>
   )
 }
 
-export default Order
+export default AOrder

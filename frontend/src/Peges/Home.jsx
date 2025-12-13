@@ -1,7 +1,14 @@
 import React from 'react'
 import { cetogry } from '../Data/Data'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Home = () => {
+
+  const navigate = useNavigate()
+  const render = ()=>{
+    console.log("send to detail")
+    navigate('/detail')
+  }
   return (
     <>
 
@@ -33,7 +40,7 @@ const Home = () => {
 
         <div className='flex w-full justify-evenly flex-wrap items-center h-[90vh]'>
 
-          {cetogry.map((i, index) => <div key={index} className='rounded-2xl bg-[#f5f2f0] text-gray-700 h-[40vh] sm:min-w-[30%] sm:max-w-[30%] min-w-[45%] max-w-[45%]'>
+          {cetogry.map((i, index) => <div onClick={()=> render()} key={index} className='rounded-2xl bg-[#f5f2f0] text-gray-700 h-[40vh] sm:w-[30%] w-[45%] cursor-pointer'>
             <img src={i.url} className='h-[32vh] w-full rounded-2xl'></img>
             <p className='text-lg font-semibold my-2 px-2'>{i.name}</p>
           </div>)}
@@ -44,7 +51,7 @@ const Home = () => {
 
         <div className='flex w-full justify-evenly flex-wrap items-center h-[90vh]'>
 
-          {cetogry.map((i, index) => <div key={index} className='rounded-2xl bg-[#f5f2f0] text-gray-700 h-[40vh] sm:min-w-[30%] sm:max-w-[30%] min-w-[45%] max-w-[45%]'>
+          {cetogry.map((i, index) => <div onClick={()=> render()} key={index} className='rounded-2xl bg-[#f5f2f0] text-gray-700 h-[40vh] sm:w-[30%] w-[45%] cursor-pointer'>
             <img src={i.url} className='h-[32vh] w-full rounded-2xl'></img>
             <p className='text-lg font-semibold my-2 px-2'>{i.name}</p>
           </div>)}

@@ -4,7 +4,10 @@ import bcrypt from 'bcrypt'
 import validator from "validator"
 
 const createToken = (id, name) => {
-    return Jwt.sign({ id: id, name: name }, process.env.JWT_SECRET)
+    return Jwt.sign({ id: id, name: name }, process.env.JWT_SECRET, 
+        { expiresIn: "1d" }
+    )
+
 }
 
 const singIn = async (req, res) => {
@@ -32,9 +35,10 @@ const singIn = async (req, res) => {
         })
 
         await newUser.save()
+        const role = newUser.role
         const token = createToken(newUser._id, name)
 
-        res.json({ success: true, token })
+        res.json({ success: true, token, role })
     } catch (error) {
         console.log(error)
         res.json({ success: false, massege: "some error" })
@@ -57,8 +61,8 @@ const login = async (req, res) => {
             return res.json({ success: false, massege: "Password is wrong" })
         }
         const token = createToken(existUser._id, existUser.name)
-        console.log(token)
-        res.json({ success: true, token })
+        const role = existUser.role
+        res.json({ success: true, token, role })
 
     } catch (error) {
         console.log(error)

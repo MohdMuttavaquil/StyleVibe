@@ -1,18 +1,23 @@
 import React, { useState } from 'react'
 import { FaTimes } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
 
 const Singin = () => {
 
     const [data, setData] = useState({
         email: "",
         userName: "",
-        password: ""
+        password: "",
+        admain: false
     })
     const [singin, setSingin] = useState(false)
 
     const handleChange = (e) => {
         const { name, value } = e.target
         setData((prev) => ({ ...prev, [name]: value }))
+    }
+    const role = (e)=>{
+        setData({admain: e.target.checked})
     }
 
     const handleSubmit = (e) => {
@@ -27,7 +32,9 @@ const Singin = () => {
 
                 <div className='flex justify-between items-center'>
                     <p className='text-2xl'>{singin ? "SingIn" : "Login"}</p>
+                    <Link to='/'>
                     <FaTimes className='text-gray-800 h-6 w-6 cursor-pointer' />
+                    </Link>
                 </div>
 
                 <label className={`${singin ? "" : "hidden"}`}>
@@ -45,10 +52,10 @@ const Singin = () => {
                     <input type='text' placeholder='Enter Password' name='password' onChange={handleChange} value={data.password} className='input w-full' required />
                 </label>
 
-                <label className='flex gap-2'>
-                    <input type='checkbox' required />
-                    <p>I accepte all term & condition</p>
-                </label>
+                {singin && <label className='flex gap-2'>
+                    <input type='checkbox' checked={data.admain} onChange={(e)=>  setData((prev) => ({ ...prev, admain: e.target.checked }) ) } />
+                      <p>Create account as a admain</p>
+                </label> }
 
                 <input type='submit' className='px-3 py-1 bg-[#f97316] text-white rounded-lg cursor-pointer my-2 font-semibold' value={singin ? "Singin" : "Login"} />
 

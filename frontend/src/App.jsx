@@ -1,19 +1,49 @@
-import Navbar from "./Abmain/Component/Navbar"
-import Home from "./Abmain/Pages/Home"
-import TestCloude from "./Abmain/Pages/testCloude"
-import Footer from "./Component/Footer"
-
+import { Route, Routes } from 'react-router-dom'
+import { useState } from 'react'
+import Navbar from './Component/Navbar'
+import Home from './Peges/Home'
+import Footer from './Component/Footer'
+import Singin from './Peges/Singin'
+import Cart from './Peges/Cart'
+import Detail from './Peges/Detail'
+import Products from './Peges/Products'
+import ANavbar from './Abmain/Component/ANavbar'
+import AHome from './Abmain/Pages/AHome'
+import AddProducts from './Abmain/Pages/AddProducts'
+import AOrder from './Abmain/Pages/AOrder'
 
 function App() {
 
+  const [role, setRole] = useState("admain")
   return (
     <>
-    <Navbar />
-    <div className="my-20">
-    <Home /> 
-    <TestCloude />
-    </div>
-    <Footer />
+
+      {role === "admain" ? <div>
+        <ANavbar />
+        <div className='sm:my-24 my-20 sm:w-[80%] sm:mx-auto mx-2'>
+          <Routes>
+            <Route path='/' element={<AHome />}></Route>
+            <Route path='/addproduct' element={<AddProducts />}></Route>
+            <Route path='/order' element={<AOrder />}></Route>
+          </Routes>
+        </div>
+
+      </div> :
+
+        <div>
+          <Navbar />
+
+          <Routes>
+            <Route path='/' element={<Home />}></Route>
+            <Route path='/singin' element={<Singin />}></Route>
+            <Route path='/cart' element={<Cart />}></Route>
+            <Route path='/detail' element={<Detail />}></Route>
+            <Route path='/search' element={<Products />}></Route>
+          </Routes>
+
+        </div>}
+
+      <Footer />
     </>
   )
 }
