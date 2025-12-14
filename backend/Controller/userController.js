@@ -16,12 +16,12 @@ const singIn = async (req, res) => {
 
     try {
         if (!validator.isEmail(email)) {
-            return res.json({ success: false, massege: "enter valid email" })
+            return res.json({ success: false, message: "enter valid email" })
         }
 
         const existUser = await userModel.findOne({ email: email })
         if (existUser) {
-            return res.json({ success: false, massege: "user already exist" })
+            return res.json({ success: false, message: "user already exist" })
         }
 
         const salt = await bcrypt.genSalt(10)
@@ -41,7 +41,7 @@ const singIn = async (req, res) => {
         res.json({ success: true, token, role })
     } catch (error) {
         console.log(error)
-        res.json({ success: false, massege: "some error" })
+        res.json({ success: false, message: "some error" })
     }
 }
 
@@ -53,12 +53,12 @@ const login = async (req, res) => {
         const existUser = await userModel.findOne({ email: email })
 
         if (!existUser) {
-            return res.json({ success: false, massege: "Enter valid email" })
+            return res.json({ success: false, message: "Enter valid email" })
         }
 
         const checkPassword = await bcrypt.compare(password, existUser.password)
         if (!checkPassword) {
-            return res.json({ success: false, massege: "Password is wrong" })
+            return res.json({ success: false, message: "Password is wrong" })
         }
         const token = createToken(existUser._id, existUser.name)
         const role = existUser.role
@@ -66,7 +66,7 @@ const login = async (req, res) => {
 
     } catch (error) {
         console.log(error)
-        res.json({ success: false, massege: "some error" })
+        res.json({ success: false, message: "some error" })
     }
 }
 

@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import { FaTimes } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { singinApi, loginApi } from '../Api/user.api'
 
 const Singin = () => {
+
+    const navigate = useNavigate()
 
     const [data, setData] = useState({
         email: "",
@@ -16,13 +19,30 @@ const Singin = () => {
         const { name, value } = e.target
         setData((prev) => ({ ...prev, [name]: value }))
     }
-    const role = (e)=>{
-        setData({admain: e.target.checked})
+    const role = (e) => {
+        setData({ admain: e.target.checked })
     }
 
-    const handleSubmit = (e) => {
+    const settoken = (res) => {
+        localStorage.setItem('token', res.token)
+        localStorage.getItem('role', res.role)
+        navigate("/")
+    }
+
+    const handleSubmit = async (e) => {
         e.preventDefault()
         console.log(data)
+
+        if (singin) {
+            const res = await singinApi(data)
+            console.log(res)
+            res.success ? settoken(res) : alert(res.message)
+        } else {
+            const res = await loginApi(data)
+            console.log(res)
+            res.success ? settoken(res) : alert(res.message)
+        }
+
     }
 
     return (
@@ -33,29 +53,29 @@ const Singin = () => {
                 <div className='flex justify-between items-center'>
                     <p className='text-2xl'>{singin ? "SingIn" : "Login"}</p>
                     <Link to='/'>
-                    <FaTimes className='text-gray-800 h-6 w-6 cursor-pointer' />
+                        <FaTimes className='text-gray-800 h-6 w-6 cursor-pointer' />
                     </Link>
                 </div>
 
-                <label className={`${singin ? "" : "hidden"}`}>
+                <label >
                     <p>Email</p>
-                    <input type='text' placeholder='Enter Emali' name='email' onChange={handleChange} value={data.email} className='input w-full' />
+                    <input type='text' placeholder='Enter Emali' name='email' onChange={handleChange} value={data.email} className='input w-full' required />
                 </label>
 
-                <label>
+                <label className={`${singin ? "" : "hidden"}`}>
                     <p>User Name</p>
-                    <input type='text' placeholder='Enter user Name' name='userName' onChange={handleChange} value={data.userName} className='input w-full' required />
+                    <input type='text' placeholder='Enter user Name' name='userName' onChange={handleChange} value={data.userName} className='input w-full' />
                 </label>
 
                 <label>
                     <p>Password</p>
-                    <input type='text' placeholder='Enter Password' name='password' onChange={handleChange} value={data.password} className='input w-full' required />
+                    <input type='password' placeholder='Enter Password' name='password' onChange={handleChange} value={data.password} className='input w-full' required />
                 </label>
 
                 {singin && <label className='flex gap-2'>
-                    <input type='checkbox' checked={data.admain} onChange={(e)=>  setData((prev) => ({ ...prev, admain: e.target.checked }) ) } />
-                      <p>Create account as a admain</p>
-                </label> }
+                    <input type='checkbox' checked={data.admain} onChange={(e) => setData((prev) => ({ ...prev, admain: e.target.checked }))} />
+                    <p>Create account as a admain</p>
+                </label>}
 
                 <input type='submit' className='px-3 py-1 bg-[#f97316] text-white rounded-lg cursor-pointer my-2 font-semibold' value={singin ? "Singin" : "Login"} />
 
@@ -65,7 +85,7 @@ const Singin = () => {
                 }
 
             </form>
-            
+
         </div>
     )
 }

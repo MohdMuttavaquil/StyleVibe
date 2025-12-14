@@ -14,7 +14,7 @@ import AOrder from './Abmain/Pages/AOrder'
 
 function App() {
 
-  const [role, setRole] = useState("admain")
+  const [role, setRole] = useState("")
   return (
     <>
 
@@ -44,6 +44,7 @@ function App() {
         </div>}
 
       <Footer />
+    
     </>
   )
 }

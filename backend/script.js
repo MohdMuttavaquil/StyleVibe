@@ -7,8 +7,8 @@ import productRoute from './Routes/productRoute.js'
 import itemRoute from './Routes/itemRoute.js'
 
 const app = express()
-app.use(express.json())
 app.use(cors())
+app.use(express.json())
 const PORT = 3000
 
 // Db connaction 
