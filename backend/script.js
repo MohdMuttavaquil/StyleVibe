@@ -1,13 +1,18 @@
 import express from 'express'
 import "dotenv/config"
-import cors from 'cors'
 import dbConnaction from './Config/dbConfig.js'
 import userRoute from './Routes/userRoute.js'
 import productRoute from './Routes/productRoute.js'
 import itemRoute from './Routes/itemRoute.js'
 
+import cors from 'cors'
+
 const app = express()
-app.use(cors())
+app.use(cors({
+  allowedHeaders: ["Content-Type", "token"]
+}))
+
+
 app.use(express.json())
 const PORT = 3000
 

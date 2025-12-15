@@ -24,4 +24,10 @@ const categoryItems = async (req, res) => {
     }
 }
 
-export { getItems, categoryItems }
+
+const check = async (req, res)=>{
+    console.log("requse recive")
+    res.json({message: "middlewere woek", name: req.body.userName})
+}
+
+export { getItems, categoryItems, check }

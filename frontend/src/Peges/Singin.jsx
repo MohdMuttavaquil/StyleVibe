@@ -1,11 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { FaTimes } from 'react-icons/fa'
 import { Link, useNavigate } from 'react-router-dom'
 import { singinApi, loginApi } from '../Api/user.api'
+import { AppContext } from '../Context/StoreContext'
 
 const Singin = () => {
 
     const navigate = useNavigate()
+
+    const { setToken } = useContext(AppContext)
 
     const [data, setData] = useState({
         email: "",
@@ -19,13 +22,11 @@ const Singin = () => {
         const { name, value } = e.target
         setData((prev) => ({ ...prev, [name]: value }))
     }
-    const role = (e) => {
-        setData({ admain: e.target.checked })
-    }
 
-    const settoken = (res) => {
-        localStorage.setItem('token', res.token)
-        localStorage.getItem('role', res.role)
+    const setvalue = (res) => {
+        sessionStorage.setItem('token', res.token)
+        sessionStorage.setItem('role', res.role)
+        setToken(res.token)
         navigate("/")
     }
 
@@ -36,11 +37,11 @@ const Singin = () => {
         if (singin) {
             const res = await singinApi(data)
             console.log(res)
-            res.success ? settoken(res) : alert(res.message)
+            res.success ? setvalue(res) : alert(res.message)
         } else {
             const res = await loginApi(data)
             console.log(res)
-            res.success ? settoken(res) : alert(res.message)
+            res.success ? setvalue(res) : alert(res.message)
         }
 
     }

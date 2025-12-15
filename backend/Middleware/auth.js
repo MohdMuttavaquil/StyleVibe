@@ -1,9 +1,10 @@
 import jwt from 'jsonwebtoken'
 
-const authMiddleware = async (req, res, next )=>{
+const authMiddleware = async (req, res, next) => {
+    
     const { token } = req.headers
     if (!token) {
-        return res.json({success: false, message: "No authorised"})
+        return res.json({ success: false, message: "No authorised" })
     }
 
     try {
@@ -11,14 +12,16 @@ const authMiddleware = async (req, res, next )=>{
             req.body = {}
         }
 
-        const token_decode =  jwt.verify(token, process.env.JWT_SECRET)
-        req.body.userId = token_decode.id
-        req.body.userName = token_decode.name
+        const token_decode = jwt.verify(token, process.env.JWT_SECRET)
+        req.user = {
+            userId: token_decode.id,
+            userName: token_decode.name
+        }
 
         next()
     } catch (error) {
-     console.log(error)   
-      return res.json({success: false, message: "Somr error"})
+        console.log(error)
+        return res.json({ success: false, message: "Somr error" })
     }
 }
 

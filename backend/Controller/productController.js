@@ -4,7 +4,9 @@ import productModel from '../Model/productSchema.js'
 
 const addProduct = async (req, res) => {
 
-  const { data } = req.body
+  const jsondata = req.body.data
+  const data = JSON.parse(jsondata)
+
   try {
 
     // Opload Image on cloudinary
@@ -41,18 +43,18 @@ const addProduct = async (req, res) => {
     }));
 
     // Create Product in Database
-   const newProduct = new productModel({
-    name: data.name,
-    desc: data.desc,
-    category: data.category,
-    mrpPrice: data.mrpPrice,
-    sellPrice: data.sellPrice,
-    quantity: data.quantity,
-    admainName: req.body.userName,
-    images: imageUrls
-   })
-    
-   await newProduct.save()
+
+    const newProduct = new productModel({
+      name: data.name,
+      desc: data.desc,
+      category: data.category,
+      price: data.price,
+      quantity: data.quantity,
+      admainName: req.user.userName,
+      images: imageUrls
+    })
+
+    await newProduct.save()
 
     return res.json({ success: true, message: "Product uploaded successfully" });
 

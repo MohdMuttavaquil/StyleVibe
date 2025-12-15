@@ -13,11 +13,7 @@ const productSchema = new mongoose.Schema({
         type: String,
         require: true,
     },
-    mrpPrice: {
-        type: Number,
-        require: true
-    },
-    salePrice: {
+    price: {
         type: Number,
         require: true
     },
@@ -35,7 +31,7 @@ const productSchema = new mongoose.Schema({
     }
 })
 
-productSchema.index({ category: 1 })
+productSchema.index({ category: 1, admainName: 1 })
 
 const productModel = mongoose.model.Products || mongoose.model("Products", productSchema)
 
