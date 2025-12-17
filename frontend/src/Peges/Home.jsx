@@ -38,9 +38,9 @@ const Home = () => {
       <div className='my-10 sm:w-[80%] mx-2 sm:mx-auto '>
         <p className='my-5 text-2xl font-semibold'>Tranding In India</p>
 
-        <div className='flex w-full justify-evenly flex-wrap items-center h-[90vh]'>
+        <div className='flex w-full justify-evenly flex-wrap'>
 
-          {cetogry.map((i, index) => <div onClick={()=> render()} key={index} className='rounded-2xl bg-[#f5f2f0] text-gray-700 h-[40vh] sm:w-[30%] w-[45%] cursor-pointer'>
+          {cetogry.map((i, index) => <div onClick={()=> render()} key={index} className='rounded-2xl bg-[#f5f2f0] text-gray-700 h-[40vh] sm:w-[30%] w-[45%] cursor-pointer sm:my-6 my-3'>
             <img src={i.url} className='h-[32vh] w-full rounded-2xl'></img>
             <p className='text-lg font-semibold my-2 px-2'>{i.name}</p>
           </div>)}
@@ -49,9 +49,9 @@ const Home = () => {
 
         <p className='my-5 text-2xl font-semibold'>For You</p>
 
-        <div className='flex w-full justify-evenly flex-wrap items-center h-[90vh]'>
+        <div className='flex w-full justify-evenly flex-wrap'>
 
-          {cetogry.map((i, index) => <div onClick={()=> render()} key={index} className='rounded-2xl bg-[#f5f2f0] text-gray-700 h-[40vh] sm:w-[30%] w-[45%] cursor-pointer'>
+          {cetogry.map((i, index) => <div onClick={()=> render()} key={index} className='rounded-2xl bg-[#f5f2f0] text-gray-700 h-[40vh] sm:w-[30%] w-[45%] cursor-pointer sm:my-6 my-3'>
             <img src={i.url} className='h-[32vh] w-full rounded-2xl'></img>
             <p className='text-lg font-semibold my-2 px-2'>{i.name}</p>
           </div>)}

@@ -24,8 +24,8 @@ const Singin = () => {
     }
 
     const setvalue = (res) => {
-        sessionStorage.setItem('token', res.token)
-        sessionStorage.setItem('role', res.role)
+        localStorage.setItem('token', res.token)
+        localStorage.setItem('role', res.role)
         setToken(res.token)
         navigate("/")
     }

@@ -21,10 +21,11 @@ const AddProducts = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    console.log(data, images)
     const formData = new FormData()
     images.map((img) => formData.append("images", img))
     formData.append("data", JSON.stringify(data))
-
+    console.log(token)
     const res = await fetch('http://localhost:3000/api/product/add', {
       method: "POST",
       headers: { token },
@@ -49,7 +50,8 @@ const AddProducts = () => {
 
         <label>
           <p>Products Images</p>
-          <input type='file' accept='image/*' name='image' onChange={(e) => setImages([...e.target.files])} multiple className='input w-full' required />
+          <input type='file' accept='image/*' multiple name='image' 
+          onChange={(e) => setImages((prev) => [...prev, ...Array.from(e.target.files) ] ) } className='input w-full' required />
         </label>
 
         <label>
@@ -71,24 +73,20 @@ const AddProducts = () => {
 
         <p>Products category</p>
         <select name='category' value={data.category} onChange={handleChange} className='outline-none'>
+          <option value=''>Select Category</option>
           <option value='mens were'>Mens were</option>
           <option value='womens were'>Women were</option>
           <option value='kids were'>Kids were</option>
           <option value='shose'>Shose</option>
           <option value='beauity products'>Beauity Products</option>
           <option value='Jewelary'>Jewelary</option>
-          <option value='watch'>Watch</option>
+          <option value='mens Sccessories'>Mens Sccessories</option>
         </select>
 
         <input type='submit' className='px-3 py-1 bg-[#f97316] text-white rounded-lg cursor-pointer my-2 font-semibold' value={"Uplode"} />
 
       </form>
 
-      <div className='flex flex-wrap justify-evenly'>
-        {images.map((i, index) =>
-          <img key={index} src={i.preview} className='sm:w-[30%] my-4 w-full h-[50vh] sm:h-[30vh]' />
-        )}
-      </div>
     </div>
   )
 }

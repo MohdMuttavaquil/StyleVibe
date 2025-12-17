@@ -36,7 +36,7 @@ const singIn = async (req, res) => {
 
         await newUser.save()
         const role = newUser.role
-        const token = createToken(newUser._id, name)
+        const token = createToken(newUser._id, newUser.name)
 
         res.json({ success: true, token, role })
     } catch (error) {

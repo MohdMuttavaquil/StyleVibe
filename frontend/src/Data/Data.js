@@ -24,16 +24,15 @@ const cetogry = [
     url: "./makeUp.avif"
    },
 
-   // {
-   //    name: "Jewelary",
-   //    url: "./jewelary.avif"
-   // },
-
    {
-    name: "Watch",
-    url: "./watch.avif"
+      name: "Jewelary",
+      url: "./jewalary.avif"
    },
 
+  {
+    name: "Mens Sccessories",
+    url: "./mensSccessories.avif"
+   },
    
 ] 
 

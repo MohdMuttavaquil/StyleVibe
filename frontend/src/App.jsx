@@ -14,7 +14,7 @@ import AOrder from './Abmain/Pages/AOrder'
 
 function App() {
 
-  const role = sessionStorage.getItem('role') 
+  const role = localStorage.getItem('role') 
   
   return (
     <>
