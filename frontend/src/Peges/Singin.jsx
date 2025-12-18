@@ -12,7 +12,7 @@ const Singin = () => {
 
     const [data, setData] = useState({
         email: "",
-        userName: "",
+        name: "",
         password: "",
         admain: false
     })
@@ -24,8 +24,8 @@ const Singin = () => {
     }
 
     const setvalue = (res) => {
-        localStorage.setItem('token', res.token)
-        localStorage.setItem('role', res.role)
+        sessionStorage.setItem('token', res.token)
+        sessionStorage.setItem('role', res.role)
         setToken(res.token)
         navigate("/")
     }
@@ -65,7 +65,7 @@ const Singin = () => {
 
                 <label className={`${singin ? "" : "hidden"}`}>
                     <p>User Name</p>
-                    <input type='text' placeholder='Enter user Name' name='userName' onChange={handleChange} value={data.userName} className='input w-full' />
+                    <input type='text' placeholder='Enter user Name' name='name' onChange={handleChange} value={data.name} className='input w-full' />
                 </label>
 
                 <label>
