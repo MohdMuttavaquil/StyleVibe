@@ -1,30 +1,28 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useContext } from 'react'
 import { cetogry } from '../Data/Data'
 import { Link, useNavigate } from 'react-router-dom'
-import { allItemsApi, trendingApi } from '../Api/user.api'
 import { AppContext } from '../Context/StoreContext'
 
 const Home = () => {
 
   const navigate = useNavigate()
-  const { setCategory, allItems, trendingItems, setTrendingItems, setAllItems, setName, setDesc, setImages, setAdmainName, setPrice } = useContext(AppContext)
+  const { setCategory, allItems, trendingItems, setName, setDesc, setImages, setAdmainName, setPrice } = useContext(AppContext)
 
- 
 
   const render = (data) => {
-    console.log("send to detail", data)
     setName(data.name)
     setAdmainName(data.admainName)
     setDesc(data.desc)
     setPrice(data.price)
     setImages(data.images)
+    setCategory(data.category)
     navigate('/detail')
   }
   return (
     <>
 
       {/* Hero image */}
-      <div className='heroImage relative h-[60vh] mx-2 sm:h-[75vh] my-10 sm:w-[90%] sm:mt-24 mt-16 sm:mx-auto rounded-2xl '>
+      <div className='heroImage relative h-[60vh] mx-2 sm:h-[75vh] my-10 sm:w-[90%] sm:mx-auto rounded-2xl '>
 
         <div className="absolute inset-0 bg-black/40 rounded-2xl"></div>
 
@@ -53,9 +51,9 @@ const Home = () => {
 
         <div className='flex w-full justify-evenly flex-wrap'>
 
-          {trendingItems && trendingItems.map((i, index) => <div onClick={() => render(i)} key={index} className='rounded-2xl bg-[#f5f2f0] text-gray-700 h-[40vh] sm:w-[30%] w-[45%] cursor-pointer sm:my-6 my-3'>
+          {trendingItems && trendingItems.map((i, index) => <div onClick={() => render(i)} key={index} className='rounded-2xl bg-[#f5f2f0] text-gray-700 h-[45vh] sm:w-[30%] w-[45%] cursor-pointer sm:my-6 my-3'>
             <img src={i.images[0].url} className='h-[30vh] w-full rounded-2xl'></img>
-            <p className='text-lg font-semibold my-2 px-2'>{i.name}</p>
+            <p className='text-lg font-semibold my-2 px-2 mt-4'>{i.name}</p>
           </div>)}
 
         </div>
@@ -64,9 +62,9 @@ const Home = () => {
 
         <div className='flex w-full justify-evenly flex-wrap'>
 
-          {allItems && allItems.map((i, index) => <div onClick={() => render(i)} key={index} className='rounded-2xl bg-[#f5f2f0] text-gray-700 h-[40vh] sm:w-[30%] w-[45%] cursor-pointer sm:my-6 my-3'>
+          {allItems && allItems.map((i, index) => <div onClick={() => render(i)} key={index} className='rounded-2xl bg-[#f5f2f0] text-gray-700 h-[45vh] sm:w-[30%] w-[45%] cursor-pointer sm:my-6 my-3'>
             <img src={i.images[0].url} className='h-[30vh] w-full rounded-2xl'></img>
-            <p className='text-lg font-semibold my-2 px-2'>{i.name}</p>
+            <p className='text-lg font-semibold my-2 px-2 mt-4'>{i.name}</p>
           </div>)}
 
         </div>

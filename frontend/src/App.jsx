@@ -14,8 +14,8 @@ import AOrder from './Abmain/Pages/AOrder'
 
 function App() {
 
-  const role = sessionStorage.getItem('role') 
-  
+  const role = sessionStorage.getItem('role')
+
   return (
     <>
 
@@ -34,18 +34,21 @@ function App() {
         <div>
           <Navbar />
 
-          <Routes>
-            <Route path='/' element={<Home />}></Route>
-            <Route path='/singin' element={<Singin />}></Route>
-            <Route path='/cart' element={<Cart />}></Route>
-            <Route path='/detail' element={<Detail />}></Route>
-            <Route path='/search' element={<Products />}></Route>
-          </Routes>
+          <div className='sm:mt-24 mt-16 '>
+
+            <Routes>
+              <Route path='/' element={<Home />}></Route>
+              <Route path='/singin' element={<Singin />}></Route>
+              <Route path='/cart' element={<Cart />}></Route>
+              <Route path='/detail' element={<Detail />}></Route>
+              <Route path='/search' element={<Products />}></Route>
+            </Routes>
+          </div>
 
         </div>}
 
       <Footer />
-    
+
     </>
   )
 }

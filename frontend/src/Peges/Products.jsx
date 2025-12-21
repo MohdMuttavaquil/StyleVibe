@@ -1,35 +1,20 @@
 import React, { useState, useContext, useEffect } from 'react'
-import { cetogry } from '../Data/Data'
 import { FaShoppingCart } from 'react-icons/fa'
 import { AppContext } from '../Context/StoreContext'
-import { categoryItmeApi } from '../Api/user.api'
-import { Link } from 'react-router-dom'
+import { itemsApi } from '../utlis/helper'
 
 const Products = () => {
 
     const [items, setItems] = useState([])
     const { category } = useContext(AppContext)
 
-    const itemsApi = async () => {
-        console.log(category)
-        const value = category.toLowerCase()
-        const data = { category: value }
-        const res = await categoryItmeApi(data)
-        setItems(res)
-        
-      /*  console.log(datt)
-        const res = await fetch('http://localhost:3000/api/items/category', {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json"
-            }, body: JSON.stringify(datt)
-        })
-        const data = await res.json()
-        console.log(data)*/
+    const result = async ()=>{
+      const res = await itemsApi(category)
+      setItems(res)
     }
 
     useEffect(() => {
-        itemsApi()
+      result()
     }, [])
 
     return (

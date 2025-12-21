@@ -12,9 +12,8 @@ const getItems = async (req, res) => {
 }
 
 const categoryItems = async (req, res) => {
-    console.log(req.body)
+    
     const { category } = req.body
-    console.log(category)
     try {
         const items = await productModel.find({ category: category })
         res.json({ success: true, items })

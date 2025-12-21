@@ -10,11 +10,9 @@ const divbar = () => {
     const [sideBar, setSideBar] = useState(false)
     const navigate = useNavigate()
     const { token } = useContext(AppContext)
-    console.log(token)
-
+   
     const handleChenge = (e) => {
         setData(e.target.value)
-        console.log(data)
     }
 
     const search = () => {

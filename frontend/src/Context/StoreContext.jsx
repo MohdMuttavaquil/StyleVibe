@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { createContext, useState } from "react";
+import { allItemsApi, trendingApi } from '../Api/user.api'
 
 export const AppContext = createContext()
 
@@ -7,7 +8,7 @@ export const AppProvider = ({ children }) => {
 
     const [token, setToken] = useState("")
     const [role, setRole] = useState("")
-    const [category, setcategory] = useState("")
+    const [category, setCategory] = useState("")
     const [trendingItems, setTrendingItems] = useState([])
     const [allItems, setAllItems] = useState([])
 
@@ -49,7 +50,7 @@ export const AppProvider = ({ children }) => {
     }, [role])
 
     return (
-        <AppContext.Provider value={{ token, setToken, role, setcategory, category, name, setName, desc, setDesc, price, setPrice, admainName, setAdmainName, images, setImages, allItems, setAllItems, trendingItems, setTrendingItems }}>
+        <AppContext.Provider value={{ token, setToken, role, setCategory, category, name, setName, desc, setDesc, price, setPrice, admainName, setAdmainName, images, setImages, allItems, setAllItems, trendingItems, setTrendingItems }}>
             {children}
         </AppContext.Provider>
     )
