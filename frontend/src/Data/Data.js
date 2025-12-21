@@ -15,7 +15,7 @@ const cetogry = [
    },
 
    {
-    name: "Shoes",
+    name: "Shose",
     url: "./foramlShose.avif"
    },
 

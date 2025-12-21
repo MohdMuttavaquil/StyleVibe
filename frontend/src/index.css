@@ -3,3 +3,7 @@
 .input {
     @apply  py-1 my-1 outline-none border-b-2 border-b-amber-500;
 }
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

@@ -12,11 +12,11 @@ const getItems = async (req, res) => {
 }
 
 const categoryItems = async (req, res) => {
-
+    console.log(req.body)
     const { category } = req.body
     console.log(category)
     try {
-        const items = productModel.find({ category: category })
+        const items = await productModel.find({ category: category })
         res.json({ success: true, items })
     } catch (error) {
         console.log(error)
@@ -24,5 +24,33 @@ const categoryItems = async (req, res) => {
     }
 }
 
+const trendingItems = async (req, res) => {
 
-export { getItems, categoryItems }
+    let a = ['mens were', 'womens were', 'kids were', 'shose', 'jewelary', 'mens accessories']
+    let items = []
+
+    try {
+        for (const element of a) {
+            const item = await productModel.findOne({ category: element })
+            items.push(item)
+        }
+        
+        res.json({ success: true, items })
+    } catch (error) {
+        console.log(error)
+        res.json({ success: true, message: "some error" })
+    }
+}
+
+const itemById = async (req, res)=>{
+
+    try {
+        const item = await productModel.findById({id: req.param.id})
+        res.json({success: true, item})
+    } catch (error) {
+        console.log(error)
+        res.json({ success: true, message: "some error" })
+    }
+}
+
+export { getItems, categoryItems, trendingItems, itemById }

@@ -78,8 +78,8 @@ const AddProducts = () => {
           <option value='kids were'>Kids were</option>
           <option value='shose'>Shose</option>
           <option value='beauity products'>Beauity Products</option>
-          <option value='Jewelary'>Jewelary</option>
-          <option value='mens Sccessories'>Mens Sccessories</option>
+          <option value='jewelary'>Jewelary</option>
+          <option value='mens accessories'>Mens Accessories</option>
         </select>
 
         <input type='submit' className='px-3 py-1 bg-[#f97316] text-white rounded-lg cursor-pointer my-2 font-semibold' value={"Uplode"} />

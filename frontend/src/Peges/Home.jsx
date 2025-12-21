@@ -1,12 +1,23 @@
-import React from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { cetogry } from '../Data/Data'
 import { Link, useNavigate } from 'react-router-dom'
+import { allItemsApi, trendingApi } from '../Api/user.api'
+import { AppContext } from '../Context/StoreContext'
 
 const Home = () => {
 
   const navigate = useNavigate()
-  const render = ()=>{
-    console.log("send to detail")
+  const { setCategory, allItems, trendingItems, setTrendingItems, setAllItems, setName, setDesc, setImages, setAdmainName, setPrice } = useContext(AppContext)
+
+ 
+
+  const render = (data) => {
+    console.log("send to detail", data)
+    setName(data.name)
+    setAdmainName(data.admainName)
+    setDesc(data.desc)
+    setPrice(data.price)
+    setImages(data.images)
     navigate('/detail')
   }
   return (
@@ -27,9 +38,11 @@ const Home = () => {
       {/* Product Cetogry */}
       <div className="flex flex-nowrap overflow-x-auto gap-4 sm:w-[80%] sm:mx-auto mx-2 py-3 cetogry">
 
-        {cetogry.map((i, index) => <div key={index}>
-          <img src={i.url} className='min-h-40 min-w-40 max-h-40 max-w-40 rounded-full hover:px-2 hover:py-1 cursor-pointer' ></img>
-          <p className='text-center font-semibold text-lg mt-2'>{i.name}</p>
+        {cetogry.map((i, index) => <div key={index} onClick={() => setCategory(i.name)}>
+          <Link to='/search'>
+            <img src={i.url} className='min-h-40 min-w-40 max-h-40 max-w-40 rounded-full hover:px-2 hover:py-1 cursor-pointer' ></img>
+            <p className='text-center font-semibold text-lg mt-2'>{i.name}</p>
+          </Link>
         </div>)}
 
       </div>
@@ -40,8 +53,8 @@ const Home = () => {
 
         <div className='flex w-full justify-evenly flex-wrap'>
 
-          {cetogry.map((i, index) => <div onClick={()=> render()} key={index} className='rounded-2xl bg-[#f5f2f0] text-gray-700 h-[40vh] sm:w-[30%] w-[45%] cursor-pointer sm:my-6 my-3'>
-            <img src={i.url} className='h-[32vh] w-full rounded-2xl'></img>
+          {trendingItems && trendingItems.map((i, index) => <div onClick={() => render(i)} key={index} className='rounded-2xl bg-[#f5f2f0] text-gray-700 h-[40vh] sm:w-[30%] w-[45%] cursor-pointer sm:my-6 my-3'>
+            <img src={i.images[0].url} className='h-[30vh] w-full rounded-2xl'></img>
             <p className='text-lg font-semibold my-2 px-2'>{i.name}</p>
           </div>)}
 
@@ -51,8 +64,8 @@ const Home = () => {
 
         <div className='flex w-full justify-evenly flex-wrap'>
 
-          {cetogry.map((i, index) => <div onClick={()=> render()} key={index} className='rounded-2xl bg-[#f5f2f0] text-gray-700 h-[40vh] sm:w-[30%] w-[45%] cursor-pointer sm:my-6 my-3'>
-            <img src={i.url} className='h-[32vh] w-full rounded-2xl'></img>
+          {allItems && allItems.map((i, index) => <div onClick={() => render(i)} key={index} className='rounded-2xl bg-[#f5f2f0] text-gray-700 h-[40vh] sm:w-[30%] w-[45%] cursor-pointer sm:my-6 my-3'>
+            <img src={i.images[0].url} className='h-[30vh] w-full rounded-2xl'></img>
             <p className='text-lg font-semibold my-2 px-2'>{i.name}</p>
           </div>)}
 
