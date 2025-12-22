@@ -11,6 +11,7 @@ import ANavbar from './Abmain/Component/ANavbar'
 import AHome from './Abmain/Pages/AHome'
 import AddProducts from './Abmain/Pages/AddProducts'
 import AOrder from './Abmain/Pages/AOrder'
+import Order from './Peges/Order'
 
 function App() {
 
@@ -42,6 +43,7 @@ function App() {
               <Route path='/cart' element={<Cart />}></Route>
               <Route path='/detail' element={<Detail />}></Route>
               <Route path='/search' element={<Products />}></Route>
+              <Route path='/order' element={<Order />}></Route>
             </Routes>
           </div>
 

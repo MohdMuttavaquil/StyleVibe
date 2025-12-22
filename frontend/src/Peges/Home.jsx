@@ -8,8 +8,8 @@ const Home = () => {
   const navigate = useNavigate()
   const { setCategory, allItems, trendingItems, setName, setDesc, setImages, setAdmainName, setPrice } = useContext(AppContext)
 
-
-  const render = (data) => {
+  // set item detail 
+  const itemDetail = (data) => {
     setName(data.name)
     setAdmainName(data.admainName)
     setDesc(data.desc)
@@ -51,7 +51,7 @@ const Home = () => {
 
         <div className='flex w-full justify-evenly flex-wrap'>
 
-          {trendingItems && trendingItems.map((i, index) => <div onClick={() => render(i)} key={index} className='rounded-2xl bg-[#f5f2f0] text-gray-700 h-[45vh] sm:w-[30%] w-[45%] cursor-pointer sm:my-6 my-3'>
+          {trendingItems && trendingItems.map((i, index) => <div onClick={() => itemDetail(i)} key={index} className='rounded-2xl bg-[#f5f2f0] text-gray-700 h-[45vh] sm:w-[30%] w-[45%] cursor-pointer sm:my-6 my-3'>
             <img src={i.images[0].url} className='h-[30vh] w-full rounded-2xl'></img>
             <p className='text-lg font-semibold my-2 px-2 mt-4'>{i.name}</p>
           </div>)}
@@ -62,7 +62,7 @@ const Home = () => {
 
         <div className='flex w-full justify-evenly flex-wrap'>
 
-          {allItems && allItems.map((i, index) => <div onClick={() => render(i)} key={index} className='rounded-2xl bg-[#f5f2f0] text-gray-700 h-[45vh] sm:w-[30%] w-[45%] cursor-pointer sm:my-6 my-3'>
+          {allItems && allItems.map((i, index) => <div onClick={() => itemDetail(i)} key={index} className='rounded-2xl bg-[#f5f2f0] text-gray-700 h-[45vh] sm:w-[30%] w-[45%] cursor-pointer sm:my-6 my-3'>
             <img src={i.images[0].url} className='h-[30vh] w-full rounded-2xl'></img>
             <p className='text-lg font-semibold my-2 px-2 mt-4'>{i.name}</p>
           </div>)}

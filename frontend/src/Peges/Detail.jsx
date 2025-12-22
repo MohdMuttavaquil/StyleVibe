@@ -3,10 +3,12 @@ import { useContext, useState, useEffect } from 'react';
 import { FaShoppingCart } from "react-icons/fa";
 import { AppContext } from '../Context/StoreContext';
 import { itemsApi } from '../utlis/helper'
+import { Link, useNavigate } from 'react-router-dom';
 
 const Detail = () => {
 
-    const { name, desc, price, images, category } = useContext(AppContext)
+    const { name, desc, price, images, category, setName, setDesc, setImages, setAdmainName, setPrice, setCategory } = useContext(AppContext)
+    const navigate = useNavigate()
     const [items, setItems] = useState([])
 
     const result = async () => {
@@ -18,6 +20,16 @@ const Detail = () => {
         result()
     }, [])
 
+    // set item detail 
+    const itemDetail = (data) => {
+        setName(data.name)
+        setAdmainName(data.admainName)
+        setDesc(data.desc)
+        setPrice(data.price)
+        setImages(data.images)
+        setCategory(data.category)
+        navigate('/detail')
+    }
 
     return (
         <div className='sm:w-[80%] sm:mx-auto mx-2 sm:my-16 min-h-screen'>
@@ -32,14 +44,16 @@ const Detail = () => {
                     <p className='text-2xl font-semibold'>{name}</p>
                     <img src='./rating.jpg' className='h-6 w-20'></img>
                     <p className='bg-[#2196f3] text-white px-3 py-1 rounded-xl w-fit font-semibold mt-4'>India’s Top Picks</p>
-                    <p className='text-xl font-semibold mt-4' >{desc}</p>
-                    <p className='text-2xl font-semibold my-1 sm:my-4'>₹ {price}</p>
+                    <p className='text-xl mt-4 w-[80%]' >{desc}</p>
+                    <p className='text-2xl font-semibold my-1 sm:my-4'>₹{price}</p>
 
-                    <div className='flex gap-4'>
+                    <div className='flex gap-4 sm:mt-5'>
                         <button className='px-4 py-1 bg-amber-500 text-white rounded-2xl cursor-pointer flex gap-2 items-center'>Add To Cart
                             <FaShoppingCart className='h-5 w-5 ' />
                         </button>
+                        <Link to='/order'>
                         <button className='px-4 py-1 bg-amber-500 text-white rounded-2xl cursor-pointer flex gap-2'>Bye Now</button>
+                        </Link>
                     </div>
                 </div>
             </div>
@@ -49,7 +63,7 @@ const Detail = () => {
             <p className='text-2xl font-semibold sm:mt-20'>Suggestion for you</p>
             <div className="flex flex-nowrap overflow-x-auto gap-4 mx-2 py-3 no-scrollbar">
 
-                {items && items.map((i, index) => <div onClick={() => render(i)} key={index} className='rounded-2xl bg-[#f5f2f0] text-gray-700 min-h-[45vh] max-h-[45vh] sm:min-w-[30%] sm:max-w-[30%] w-[45%] cursor-pointer sm:my-6 my-3'>
+                {items && items.map((i, index) => <div onClick={() => itemDetail(i)} key={index} className='rounded-2xl bg-[#f5f2f0] text-gray-700 min-h-[45vh] max-h-[45vh] sm:min-w-[30%] sm:max-w-[30%] w-[45%] cursor-pointer sm:my-6 my-3'>
                     <img src={i.images[1].url} className='h-[30vh] w-full rounded-2xl'></img>
                     <p className='text-lg font-semibold my-2 px-2 mt-4'>{i.name}</p>
                 </div>)}

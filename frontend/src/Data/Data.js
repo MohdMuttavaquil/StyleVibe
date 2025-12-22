@@ -5,7 +5,7 @@ const cetogry = [
    },
 
    {
-    name: "Womens wewre",
+    name: "Womens were",
     url:  "./womenWere.avif"
    },
 

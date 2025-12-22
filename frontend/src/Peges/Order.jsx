@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import { AppContext } from '../Context/StoreContext'
 
 const Order = () => {
 
+    const { price } = useContext(AppContext)
     const [data, setData] = useState({
         fristName: "",
         lastName: "",
@@ -18,8 +20,8 @@ const Order = () => {
         setData((prev) => ({ ...prev, [name]: value }))
     }
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
+    const submit = () => {
+        
         console.log(data, code)
 
         setData({
@@ -28,7 +30,8 @@ const Order = () => {
             phoneNo: "",
             street: "",
             city: "",
-            zipCode: ""
+            zipCode: "",
+            email: ""
         })
     }
 
@@ -36,9 +39,9 @@ const Order = () => {
     return (
         <div className='sm:w-[80%] sm:mx-auto mx-2 min-h-screen'>
 
-            <div className='flex sm:flex-row flex-col sm:my-24 my-8 sm:justify-evenly'>
+            <div className='flex sm:flex-row flex-col sm:my-24 my-8 sm:justify-evenly sm:min-h-[70vh] items-center'>
 
-                <form onSubmit={handleSubmit} className='sm:w-[40%] text-lg text-gray-800'>
+                <form className='sm:w-[40%] text-lg text-gray-800'>
 
                     <div className='w-full flex gap-2'>
                         <input type='text' name='fristName' value={data.fristName} onChange={handlechange} placeholder='Frist Name' className='w-[50%] input' required />
@@ -55,16 +58,15 @@ const Order = () => {
 
                     <input type='email' name='email' value={data.email} onChange={handlechange} placeholder='Email' className='w-full input' />
 
-                    <input type='submit' value="Save" className='w-full py-1 bg-green-700 text-white rounded-lg cursor-pointer my-2 font-semibold' />
                 </form>
 
-                <div className='sm:w-[30%] flex flex-col gap-2 text-lg font-semibold text-gray-800'>
+                <div className='sm:w-[30%] flex flex-col gap-2 text-lg font-semibold text-gray-800 mt-10 sm:mt-0'>
 
                     <p className='text-center text-xl font-semibold mb-2'>Amount</p>
 
                     <div className='flex justify-between'>
                         <p>Price</p>
-                        <p>399</p>
+                        <p>{price}</p>
                     </div>
                     <div className='flex justify-between'>
                         <p>Dlivery Charge</p>
@@ -74,14 +76,18 @@ const Order = () => {
                         <p>Plateform Fee</p>
                         <p>2.0</p>
                     </div>
+                      <div className='flex justify-between'>
+                        <p>Totel </p>
+                        <p>{price + 40 +2}</p>
+                    </div>
                     <div className='flex sm:flex-row flex-col justify-between'>
                         <p>Apply Coupne</p>
                         <input type='text' name='code' value={code} onChange={(e) => setCode(e.target.value)} className='input sm:w-[50%]' />
                     </div>
 
                     <div>
-                        <button className='w-full py-1 bg-green-700 text-white rounded-lg cursor-pointer my-2'>Pay Now</button>
-                        <button className='w-full py-1 bg-green-700 text-white rounded-lg cursor-pointer my-2'>Cash on Delivery</button>
+                        <button onClick={()=> payment()} className='w-full py-1 bg-green-700 text-white rounded-lg cursor-pointer my-2'>Pay Now</button>
+                        <button onClick={()=> submit()} className='w-full py-1 bg-green-700 text-white rounded-lg cursor-pointer my-2'>Cash on Delivery</button>
                     </div>
 
                 </div>
