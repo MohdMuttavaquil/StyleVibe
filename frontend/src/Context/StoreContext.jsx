@@ -18,14 +18,15 @@ export const AppProvider = ({ children }) => {
     const [price, setPrice] = useState("")
     const [admainName, setAdmainName] = useState("")
     const [images, setImages] = useState([])
+    const [ sellerName, setSellerName ] = useState("")
 
 
+    // Fatch items from database
      const itemsApi = async () => {
 
     if (trendingItems.length == 0) {
       const trending = await trendingApi()
       setTrendingItems(trending)
-      console.log("db call")
     }
     if (allItems.length == 0) {
       const all = await allItemsApi()
@@ -39,6 +40,8 @@ export const AppProvider = ({ children }) => {
     console.log("dbcall")
   }, [])
 
+
+  // for checking token and role
     useEffect(() => {
         const tokenValue = sessionStorage.getItem('token')
         setToken(tokenValue)
@@ -50,7 +53,7 @@ export const AppProvider = ({ children }) => {
     }, [role])
 
     return (
-        <AppContext.Provider value={{ token, setToken, role, setCategory, category, name, setName, desc, setDesc, price, setPrice, admainName, setAdmainName, images, setImages, allItems, setAllItems, trendingItems, setTrendingItems }}>
+        <AppContext.Provider value={{ token, setToken, role, setCategory, category, name, setName, desc, setDesc, price, setPrice, admainName, setAdmainName, images, setImages, allItems, setAllItems, trendingItems, setTrendingItems, sellerName, setSellerName }}>
             {children}
         </AppContext.Provider>
     )

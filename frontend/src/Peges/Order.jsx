@@ -3,7 +3,11 @@ import { AppContext } from '../Context/StoreContext'
 
 const Order = () => {
 
-    const { price } = useContext(AppContext)
+    const { price, name, sellerName, token } = useContext(AppContext)
+    const total = price+40+2
+
+    const [cashOn, setCashOn] = useState(false)
+    const [payment, setPayment] = useState('Online')
     const [data, setData] = useState({
         fristName: "",
         lastName: "",
@@ -20,9 +24,23 @@ const Order = () => {
         setData((prev) => ({ ...prev, [name]: value }))
     }
 
-    const submit = () => {
-        
-        console.log(data, code)
+    // Order 
+    const cash = async () => {
+        setCashOn(true)
+        setPayment('Cash On dliverey')
+        order()
+    }
+
+    const order = async () => {
+
+        const value = { name: `${data.fristName} ${data.lastName}`, productName: name, address: `Street: ${data.street} City: ${data.city} Zip Code: ${data.zipCode}`, price: total, phoneNo: data.phoneNo, sellerName: sellerName, payment: payment }
+       
+        const res = await fetch('http://localhost:3000/api/order', {method: "POST",
+            headers: {"Content-Type": "application/json", token: token},
+            body: JSON.stringify(value)
+        })
+        const result = await res.json()
+        console.log(result)
 
         setData({
             fristName: "",
@@ -64,6 +82,9 @@ const Order = () => {
 
                     <p className='text-center text-xl font-semibold mb-2'>Amount</p>
 
+                    <div className='flex justify-between text-xl mb-4'>
+                        <p>{name}</p>
+                    </div>
                     <div className='flex justify-between'>
                         <p>Price</p>
                         <p>{price}</p>
@@ -76,9 +97,9 @@ const Order = () => {
                         <p>Plateform Fee</p>
                         <p>2.0</p>
                     </div>
-                      <div className='flex justify-between'>
+                    <div className='flex justify-between'>
                         <p>Totel </p>
-                        <p>{price + 40 +2}</p>
+                        <p>{total}</p>
                     </div>
                     <div className='flex sm:flex-row flex-col justify-between'>
                         <p>Apply Coupne</p>
@@ -86,8 +107,8 @@ const Order = () => {
                     </div>
 
                     <div>
-                        <button onClick={()=> payment()} className='w-full py-1 bg-green-700 text-white rounded-lg cursor-pointer my-2'>Pay Now</button>
-                        <button onClick={()=> submit()} className='w-full py-1 bg-green-700 text-white rounded-lg cursor-pointer my-2'>Cash on Delivery</button>
+                        <button onClick={() => order()} className='w-full py-1 bg-green-700 text-white rounded-lg cursor-pointer my-2'>Pay Now</button>
+                        <button onClick={() => cash()} className='w-full py-1 bg-green-700 text-white rounded-lg cursor-pointer my-2'>Cash on Delivery</button>
                     </div>
 
                 </div>

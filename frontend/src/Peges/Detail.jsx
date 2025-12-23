@@ -7,7 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const Detail = () => {
 
-    const { name, desc, price, images, category, setName, setDesc, setImages, setAdmainName, setPrice, setCategory } = useContext(AppContext)
+    const { name, desc, price, images, category, setName, setDesc, setImages, setAdmainName, setPrice, setCategory, setSellerName } = useContext(AppContext)
     const navigate = useNavigate()
     const [items, setItems] = useState([])
 
@@ -28,6 +28,7 @@ const Detail = () => {
         setPrice(data.price)
         setImages(data.images)
         setCategory(data.category)
+        setSellerName(data.admainName)
         navigate('/detail')
     }
 

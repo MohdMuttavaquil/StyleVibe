@@ -4,8 +4,8 @@ import dbConnaction from './Config/dbConfig.js'
 import userRoute from './Routes/userRoute.js'
 import productRoute from './Routes/productRoute.js'
 import itemRoute from './Routes/itemRoute.js'
-
 import cors from 'cors'
+import orderRoute from './Routes/orderRoute.js'
 
 const app = express()
 app.use(cors({
@@ -23,6 +23,7 @@ dbConnaction()
 app.use('/api/user', userRoute)
 app.use('/api/product', productRoute)
 app.use('/api/items', itemRoute)
+app.use('/api/order', orderRoute)
 
 app.get('/', (req, res)=>{
    res.json("Servier is running")

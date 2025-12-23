@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const orderSchema = new mongoose.Schema({
 
-    ProductName: {
+    productName: {
         type: String,
         require: true
     },
