@@ -4,9 +4,9 @@ import { AppContext } from '../Context/StoreContext'
 const Order = () => {
 
     const { price, name, sellerName, token } = useContext(AppContext)
-    const total = price+40+2
+    const total = price + 40 + 2
+    const url = "http://localhost:3000/api"
 
-    const [cashOn, setCashOn] = useState(false)
     const [payment, setPayment] = useState('Online')
     const [data, setData] = useState({
         fristName: "",
@@ -24,24 +24,83 @@ const Order = () => {
         setData((prev) => ({ ...prev, [name]: value }))
     }
 
-    // Order 
+    // Cash on delivery order 
     const cash = async () => {
-        setCashOn(true)
         setPayment('Cash On dliverey')
-        order()
+        orderApi()
+        clear()
     }
 
-    const order = async () => {
-
+    const orderApi = async () => {
         const value = { name: `${data.fristName} ${data.lastName}`, productName: name, address: `Street: ${data.street} City: ${data.city} Zip Code: ${data.zipCode}`, price: total, phoneNo: data.phoneNo, sellerName: sellerName, payment: payment }
-       
-        const res = await fetch('http://localhost:3000/api/order', {method: "POST",
-            headers: {"Content-Type": "application/json", token: token},
+
+        const res = await fetch(`${url}/order`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json", token: token },
             body: JSON.stringify(value)
         })
         const result = await res.json()
-        console.log(result)
+   
+    }
 
+    // Online Payment Function 
+    const onlinepay = async (order) => {
+        
+        const options = {
+            key: 'rzp_test_QXiPiAaXY4WeKN',
+            amount: order.amount,
+            currency: order.currency,
+            name: "DMIC",
+            description: 'Test Transaction',
+            order_id: order.id,
+            handler: async function (response) {
+               
+                const result = await fetch(`${url}/order/verifypay`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        order_id: response.razorpay_order_id,
+                        payment_id: response.razorpay_payment_id,
+                        signature: response.razorpay_signature,
+                    })
+                })
+                const res = await result.json()
+
+                if (res.success) {
+                    orderApi()
+                    clear()
+                } else {
+                    alert("Payment verification failed!");
+                }
+            },
+            prefill: {
+                name: 'Test User',
+                email: 'test@example.com',
+                contact: '9999999999',
+            },
+            theme: {
+                color: '#812972',
+            },
+        };
+
+        const rzp = new window.Razorpay(options);
+        rzp.open();
+
+    }
+
+    const online = async () => {
+
+        const res = await fetch(`${url}/order/onlinepay`, {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ amount: total })
+        })
+        const result = await res.json()
+        onlinepay(result)
+    }
+
+    // Clear input filed
+    const clear = async () => {
         setData({
             fristName: "",
             lastName: "",
@@ -107,7 +166,7 @@ const Order = () => {
                     </div>
 
                     <div>
-                        <button onClick={() => order()} className='w-full py-1 bg-green-700 text-white rounded-lg cursor-pointer my-2'>Pay Now</button>
+                        <button onClick={() => online()} className='w-full py-1 bg-green-700 text-white rounded-lg cursor-pointer my-2'>Pay Now</button>
                         <button onClick={() => cash()} className='w-full py-1 bg-green-700 text-white rounded-lg cursor-pointer my-2'>Cash on Delivery</button>
                     </div>
 
