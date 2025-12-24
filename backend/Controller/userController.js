@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt'
 import validator from "validator"
 
 const createToken = (id, name) => {
-    return Jwt.sign({ id: id, name: name }, process.env.JWT_SECRET, 
+    return Jwt.sign({ id: id, name: name }, process.env.JWT_SECRET,
         { expiresIn: "1d" }
     )
 
@@ -70,4 +70,35 @@ const login = async (req, res) => {
     }
 }
 
-export { singIn, login } 
+
+// Add item in user cart
+const addInCart = async (req, res) => {
+
+    const { itemId } = req.body
+    const id = req.user.userId
+ 
+    try {
+        const user = await userModel.findByIdAndUpdate(id, { $push: { cart: itemId } }, { new: true })
+        const userCart = user.cart
+        res.json({ success: true, userCart })
+    } catch (error) {
+        console.log(error)
+        res.json({ success: false, message: "some error" })
+    }
+}
+
+const removeInCart = async (req, res) => {
+    const { itemId } = req.body
+    const id = req.user.userId
+
+    try {
+       const user = await userModel.findByIdAndUpdate(id, { $pull: { cart: itemId } }, { new: true })
+        const userCart = user.cart
+        res.json({ success: true, userCart })
+    } catch (error) {
+        console.log(error)
+        res.json({ success: false, message: "some error" })
+    }
+}
+
+export { singIn, login, addInCart, removeInCart } 
