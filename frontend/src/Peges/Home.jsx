@@ -6,7 +6,7 @@ import { AppContext } from '../Context/StoreContext'
 const Home = () => {
 
   const navigate = useNavigate()
-  const { setCategory, allItems, trendingItems, setName, setDesc, setImages, setAdmainName, setPrice, setSellerName } = useContext(AppContext)
+  const { setCategory, allItems, trendingItems, setName, setDesc, setImages, setAdmainName, setPrice, setSellerName, setItemId } = useContext(AppContext)
 
   // set item detail 
   const itemDetail = (data) => {
@@ -17,6 +17,7 @@ const Home = () => {
     setImages(data.images)
     setCategory(data.category)
     setSellerName(data.admainName)
+    setItemId(data._id)
     navigate('/detail')
   }
   return (

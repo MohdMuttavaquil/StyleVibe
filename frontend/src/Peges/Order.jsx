@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { AppContext } from '../Context/StoreContext'
+import { onlinepay, orderApi } from '../utlis/helper'
 
 const Order = () => {
 
@@ -7,7 +8,6 @@ const Order = () => {
     const total = price + 40 + 2
     const url = "http://localhost:3000/api"
 
-    const [payment, setPayment] = useState('Online')
     const [data, setData] = useState({
         fristName: "",
         lastName: "",
@@ -24,81 +24,45 @@ const Order = () => {
         setData((prev) => ({ ...prev, [name]: value }))
     }
 
+    // Order Detail
+      const orderDetail = ()=>{
+      
+         const value = { name: `${data.fristName} ${data.lastName}`, productName: name, address: `Street: ${data.street} City: ${data.city} Zip Code: ${data.zipCode}`, price: total, phoneNo: data.phoneNo, sellerName: sellerName }
+         return value
+    }
+
     // Cash on delivery order 
     const cash = async () => {
-        setPayment('Cash On dliverey')
-        orderApi()
+          if (!token) {
+           return alert('please login ')
+        }
+        const paymentMode = 'Cash on dliverey'
+        let value = orderDetail()
+       value = { ...value, payment: paymentMode }
+        orderApi(value)
         clear()
     }
-
-    const orderApi = async () => {
-        const value = { name: `${data.fristName} ${data.lastName}`, productName: name, address: `Street: ${data.street} City: ${data.city} Zip Code: ${data.zipCode}`, price: total, phoneNo: data.phoneNo, sellerName: sellerName, payment: payment }
-
-        const res = await fetch(`${url}/order`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json", token: token },
-            body: JSON.stringify(value)
-        })
-        const result = await res.json()
-   
-    }
-
-    // Online Payment Function 
-    const onlinepay = async (order) => {
-        
-        const options = {
-            key: 'rzp_test_QXiPiAaXY4WeKN',
-            amount: order.amount,
-            currency: order.currency,
-            name: "DMIC",
-            description: 'Test Transaction',
-            order_id: order.id,
-            handler: async function (response) {
-               
-                const result = await fetch(`${url}/order/verifypay`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        order_id: response.razorpay_order_id,
-                        payment_id: response.razorpay_payment_id,
-                        signature: response.razorpay_signature,
-                    })
-                })
-                const res = await result.json()
-
-                if (res.success) {
-                    orderApi()
-                    clear()
-                } else {
-                    alert("Payment verification failed!");
-                }
-            },
-            prefill: {
-                name: 'Test User',
-                email: 'test@example.com',
-                contact: '9999999999',
-            },
-            theme: {
-                color: '#812972',
-            },
-        };
-
-        const rzp = new window.Razorpay(options);
-        rzp.open();
-
-    }
-
+ 
+    // online payment
     const online = async () => {
-
+          if (!token) {
+           return alert('please login ')
+        }
+           const paymentMode = 'Online'
+        let value = orderDetail()
+       value = { ...value, payment: paymentMode }
+       
         const res = await fetch(`${url}/order/onlinepay`, {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ amount: total })
         })
         const result = await res.json()
-        onlinepay(result)
+        onlinepay(result, value)
+        clear()
     }
 
+  
     // Clear input filed
     const clear = async () => {
         setData({
@@ -111,7 +75,6 @@ const Order = () => {
             email: ""
         })
     }
-
 
     return (
         <div className='sm:w-[80%] sm:mx-auto mx-2 min-h-screen'>

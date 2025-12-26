@@ -1,4 +1,5 @@
 import axiosInstance from "./axiosInstance";
+const token = sessionStorage.getItem('token')
 
 const singinApi = async (data)=>{
   const res = await axiosInstance.post('/user/singin', data)
@@ -25,4 +26,13 @@ const categoryItmeApi = async(category) =>{
    return res.data.success ? res.data.items : alert('some erro')
 }
 
-export { singinApi, loginApi, trendingApi, allItemsApi, categoryItmeApi }
+const itemById = async(id)=>{
+  const res = await axiosInstance.post('/items/item', {id:id})
+    return res.data.success ? res.data.item : alert('some erro')
+}
+
+const userCartApi = async()=>{
+  const res = await axiosInstance.get('/user/cart', {headers: {token: token}})
+  return res.data
+}
+export { singinApi, loginApi, trendingApi, allItemsApi, categoryItmeApi, itemById, userCartApi }

@@ -16,7 +16,7 @@ const orderSchema = new mongoose.Schema({
     },
     payment: {
         type: String,
-        enum: ["Online", "Cash On dliverey", "failed"],
+        enum: ["Online", "Cash on dliverey", "failed"],
         require: true
     },
     price: {

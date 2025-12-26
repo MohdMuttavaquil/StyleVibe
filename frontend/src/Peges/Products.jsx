@@ -8,7 +8,7 @@ const Products = () => {
 
     const [items, setItems] = useState([])
     const navigate = useNavigate()
-    const { category, setName, setDesc, setImages, setAdmainName, setPrice, setCategory } = useContext(AppContext)
+    const { category, setName, setDesc, setImages, setAdmainName, setPrice, setCategory, setItemId } = useContext(AppContext)
 
     const result = async ()=>{
       const res = await itemsApi(category)
@@ -27,6 +27,7 @@ const Products = () => {
         setPrice(data.price)
         setImages(data.images)
         setCategory(data.category)
+        setItemId(data._id)
         navigate('/detail')
     }
 
@@ -42,9 +43,7 @@ const Products = () => {
                 <div className='sm:my-10 px-3'>
                     <p className='text-xl font-semibold'>{i.name}</p>
                     <p className='text-2xl font-semibold my-1 sm:my-4'>{i.price}</p>
-                    <button className='px-4 py-1 bg-amber-500 text-white rounded-2xl cursor-pointer flex gap-2 items-center sm:mt-10 '>Add To Cart
-                        <FaShoppingCart className='h-5 w-5 ' />
-                    </button>
+                   
                 </div>
 
             </div>)}

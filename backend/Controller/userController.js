@@ -36,9 +36,10 @@ const singIn = async (req, res) => {
 
         await newUser.save()
         const role = newUser.role
+        const userCart = newUser.cart
         const token = createToken(newUser._id, newUser.name)
 
-        res.json({ success: true, token, role })
+        res.json({ success: true, token, role, userCart })
     } catch (error) {
         console.log(error)
         res.json({ success: false, message: "some error" })
@@ -62,7 +63,8 @@ const login = async (req, res) => {
         }
         const token = createToken(existUser._id, existUser.name)
         const role = existUser.role
-        res.json({ success: true, token, role })
+        const userCart = existUser.cart
+        res.json({ success: true, token, role, userCart })
 
     } catch (error) {
         console.log(error)
@@ -70,6 +72,18 @@ const login = async (req, res) => {
     }
 }
 
+const userCart = async(req, res)=>{
+    const id = req.user.userId
+
+  try {
+    const user = await userModel.findById(id)
+    const cart = user.cart
+    res.json(cart)
+  } catch (error) {
+     console.log(error)
+    res.json({ success: false, message: "some error" })
+  }
+}
 
 // Add item in user cart
 const addInCart = async (req, res) => {
@@ -79,8 +93,7 @@ const addInCart = async (req, res) => {
  
     try {
         const user = await userModel.findByIdAndUpdate(id, { $push: { cart: itemId } }, { new: true })
-        const userCart = user.cart
-        res.json({ success: true, userCart })
+        res.json({ success: true, message: "Item added succesfully" })
     } catch (error) {
         console.log(error)
         res.json({ success: false, message: "some error" })
@@ -101,4 +114,4 @@ const removeInCart = async (req, res) => {
     }
 }
 
-export { singIn, login, addInCart, removeInCart } 
+export { singIn, login, addInCart, removeInCart, userCart } 

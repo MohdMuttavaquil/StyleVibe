@@ -4,10 +4,11 @@ import { FaShoppingCart } from "react-icons/fa";
 import { AppContext } from '../Context/StoreContext';
 import { itemsApi } from '../utlis/helper'
 import { Link, useNavigate } from 'react-router-dom';
+const url = "http://localhost:3000/api"
 
 const Detail = () => {
 
-    const { name, desc, price, images, category, setName, setDesc, setImages, setAdmainName, setPrice, setCategory, setSellerName } = useContext(AppContext)
+    const { name, desc, price, images, category, setName, setDesc, setImages, setAdmainName, setPrice, setCategory, setSellerName, setItemId, itemId, token } = useContext(AppContext)
     const navigate = useNavigate()
     const [items, setItems] = useState([])
 
@@ -29,9 +30,20 @@ const Detail = () => {
         setImages(data.images)
         setCategory(data.category)
         setSellerName(data.admainName)
+        setItemId(data._id)
         navigate('/detail')
     }
 
+   // Add item in cart after login
+   const addToCart = async()=>{
+       const res = await fetch(`${url}/user/addincart`, { method: "POST",
+          headers: { "Content-Type": "application/json", token: token }, 
+          body: JSON.stringify({ itemId:itemId }) }
+       )
+       const result = await res.json()
+       console.log(result)
+   }
+    
     return (
         <div className='sm:w-[80%] sm:mx-auto mx-2 sm:my-16 min-h-screen'>
 
@@ -49,7 +61,7 @@ const Detail = () => {
                     <p className='text-2xl font-semibold my-1 sm:my-4'>₹{price}</p>
 
                     <div className='flex gap-4 sm:mt-5'>
-                        <button className='px-4 py-1 bg-amber-500 text-white rounded-2xl cursor-pointer flex gap-2 items-center'>Add To Cart
+                        <button onClick={()=> addToCart()} className='px-4 py-1 bg-amber-500 text-white rounded-2xl cursor-pointer flex gap-2 items-center'>Add To Cart
                             <FaShoppingCart className='h-5 w-5 ' />
                         </button>
                         <Link to='/order'>

@@ -12,7 +12,7 @@ const getItems = async (req, res) => {
 }
 
 const categoryItems = async (req, res) => {
-    
+
     const { category } = req.body
     try {
         const items = await productModel.find({ category: category })
@@ -33,7 +33,7 @@ const trendingItems = async (req, res) => {
             const item = await productModel.findOne({ category: element })
             items.push(item)
         }
-        
+
         res.json({ success: true, items })
     } catch (error) {
         console.log(error)
@@ -41,11 +41,12 @@ const trendingItems = async (req, res) => {
     }
 }
 
-const itemById = async (req, res)=>{
-
+const itemById = async (req, res) => {
+    const { id } = req.body
+    console.log(req.body)
     try {
-        const item = await productModel.findById({id: req.param.id})
-        res.json({success: true, item})
+        const item = await productModel.findById(id)
+        res.json({ success: true, item })
     } catch (error) {
         console.log(error)
         res.json({ success: true, message: "some error" })

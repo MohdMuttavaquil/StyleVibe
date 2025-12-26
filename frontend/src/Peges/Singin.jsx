@@ -8,7 +8,7 @@ const Singin = () => {
 
     const navigate = useNavigate()
 
-    const { setToken } = useContext(AppContext)
+    const { setToken, setUserCart } = useContext(AppContext)
 
     const [data, setData] = useState({
         email: "",
@@ -32,7 +32,6 @@ const Singin = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log(data)
 
         if (singin) {
             const res = await singinApi(data)

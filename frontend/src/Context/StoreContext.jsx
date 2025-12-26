@@ -6,8 +6,11 @@ export const AppContext = createContext()
 
 export const AppProvider = ({ children }) => {
 
+  // Set user detail
     const [token, setToken] = useState("")
     const [role, setRole] = useState("")
+
+    // Set home page and category items
     const [category, setCategory] = useState("")
     const [trendingItems, setTrendingItems] = useState([])
     const [allItems, setAllItems] = useState([])
@@ -19,7 +22,7 @@ export const AppProvider = ({ children }) => {
     const [admainName, setAdmainName] = useState("")
     const [images, setImages] = useState([])
     const [ sellerName, setSellerName ] = useState("")
-
+    const [ itemId, setItemId ] = useState("")
 
     // Fatch items from database
      const itemsApi = async () => {
@@ -53,7 +56,7 @@ export const AppProvider = ({ children }) => {
     }, [role])
 
     return (
-        <AppContext.Provider value={{ token, setToken, role, setCategory, category, name, setName, desc, setDesc, price, setPrice, admainName, setAdmainName, images, setImages, allItems, setAllItems, trendingItems, setTrendingItems, sellerName, setSellerName }}>
+        <AppContext.Provider value={{ token, setToken, role, setCategory, category, name, setName, desc, setDesc, price, setPrice, admainName, setAdmainName, images, setImages, allItems, setAllItems, trendingItems, setTrendingItems, sellerName, setSellerName, itemId, setItemId }}>
             {children}
         </AppContext.Provider>
     )
