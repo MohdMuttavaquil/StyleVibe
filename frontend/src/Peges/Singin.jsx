@@ -8,7 +8,7 @@ const Singin = () => {
 
     const navigate = useNavigate()
 
-    const { setToken, setUserCart } = useContext(AppContext)
+    const { setToken } = useContext(AppContext)
 
     const [data, setData] = useState({
         email: "",
@@ -46,7 +46,7 @@ const Singin = () => {
     }
 
     return (
-        <div className='h-screen bg-black/30 flex justify-center items-center overflow-hidden'>
+        <div className='h-screen mt-0 bg-black/30 flex justify-center items-center overflow-hidden'>
 
             <form onSubmit={handleSubmit} className='sm:w-[30%] w-[90%] mx-auto rounded-2xl bg-[#f5f2f0] text-gray-800 text-xl flex flex-col gap-2 px-4 py-6'>
 

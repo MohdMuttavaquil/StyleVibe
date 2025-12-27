@@ -4,9 +4,8 @@ import { onlinepay, orderApi } from '../utlis/helper'
 
 const Order = () => {
 
-    const { price, name, sellerName, token } = useContext(AppContext)
+    const { price, name, sellerName, token, url } = useContext(AppContext)
     const total = price + 40 + 2
-    const url = "http://localhost:3000/api"
 
     const [data, setData] = useState({
         fristName: "",

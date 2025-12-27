@@ -5,12 +5,10 @@ import { itemById, userCartApi } from '../Api/user.api'
 
 const Cart = () => {
 
-    const { token } = useContext(AppContext)
+    const { token,url } = useContext(AppContext)
     const [cartItems, setCartItems] = useState([])
-    const url = "http://localhost:3000/api"
 
     const setItems = async (list) => {    
-        console.log(list) 
         for (const item of list) {
             const res = await itemById(item);
             setCartItems(prev => [...prev, res]);
@@ -20,7 +18,6 @@ const Cart = () => {
     const cart = async()=>{
         const list = await userCartApi()
        setItems(list)
-       console.log('api re call')
     }
 
     useEffect(() => {
@@ -33,7 +30,6 @@ const Cart = () => {
           body: JSON.stringify({ itemId:itemId }) }
        )
        const result = await res.json()
-       console.log(result)
        setCartItems([])
        setItems(result.userCart)
     }

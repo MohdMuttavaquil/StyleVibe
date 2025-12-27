@@ -2,11 +2,11 @@ import productModel from "../Model/productSchema.js";
 
 const getItems = async (req, res) => {
 
-    try {
-        const items = await productModel.find()
-        res.json({ success: true, items })
+  try {
+        const items = await productModel.find().select({ name:1, images: {$slice: 1}})
+        res.json({success: true, items})
     } catch (error) {
-        console.log(error)
+         console.log(error)
         res.json({ success: true, message: "some error" })
     }
 }
@@ -15,7 +15,9 @@ const categoryItems = async (req, res) => {
 
     const { category } = req.body
     try {
-        const items = await productModel.find({ category: category })
+        const items = await productModel.find({ category: category }).select({
+            name:1, price:1, images: {$slice: 2}
+        })
         res.json({ success: true, items })
     } catch (error) {
         console.log(error)
@@ -43,7 +45,7 @@ const trendingItems = async (req, res) => {
 
 const itemById = async (req, res) => {
     const { id } = req.body
-    console.log(req.body)
+ 
     try {
         const item = await productModel.findById(id)
         res.json({ success: true, item })
@@ -52,5 +54,6 @@ const itemById = async (req, res) => {
         res.json({ success: true, message: "some error" })
     }
 }
+
 
 export { getItems, categoryItems, trendingItems, itemById }

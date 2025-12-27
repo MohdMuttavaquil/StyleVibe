@@ -1,24 +1,22 @@
 import React, { useContext } from 'react'
 import { cetogry } from '../Data/Data'
+import { useQuery } from '@tanstack/react-query'
 import { Link, useNavigate } from 'react-router-dom'
 import { AppContext } from '../Context/StoreContext'
+import { allItemsApi, itemById, trendingApi } from '../Api/user.api'
 
 const Home = () => {
 
   const navigate = useNavigate()
-  const { setCategory, allItems, trendingItems, setName, setDesc, setImages, setAdmainName, setPrice, setSellerName, setItemId } = useContext(AppContext)
+  const { setCategory } = useContext(AppContext)
+
+  const { data: trendingItems } = useQuery({queryKey: ['trendingItems'], queryFn: trendingApi})
+  const { data: allItems } = useQuery({queryKey:['allItems'], queryFn: allItemsApi})
 
   // set item detail 
-  const itemDetail = (data) => {
-    setName(data.name)
-    setAdmainName(data.admainName)
-    setDesc(data.desc)
-    setPrice(data.price)
-    setImages(data.images)
-    setCategory(data.category)
-    setSellerName(data.admainName)
-    setItemId(data._id)
-    navigate('/detail')
+  const itemDetail = async(id) => {
+   const res = await itemById(id)
+    navigate('/detail', {state: res})
   }
   return (
     <>
@@ -53,7 +51,7 @@ const Home = () => {
 
         <div className='flex w-full justify-evenly flex-wrap'>
 
-          {trendingItems && trendingItems.map((i, index) => <div onClick={() => itemDetail(i)} key={index} className='rounded-2xl bg-[#f5f2f0] text-gray-700 h-[45vh] sm:w-[30%] w-[45%] cursor-pointer sm:my-6 my-3'>
+          {trendingItems && trendingItems.map((i, index) => <div onClick={() => itemDetail(i._id)} key={index} className='rounded-2xl bg-[#f5f2f0] text-gray-700 h-[45vh] sm:w-[30%] w-[45%] cursor-pointer sm:my-6 my-3'>
             <img src={i.images[0].url} className='h-[30vh] w-full rounded-2xl'></img>
             <p className='text-lg font-semibold my-2 px-2 mt-4'>{i.name}</p>
           </div>)}
@@ -64,7 +62,7 @@ const Home = () => {
 
         <div className='flex w-full justify-evenly flex-wrap'>
 
-          {allItems && allItems.map((i, index) => <div onClick={() => itemDetail(i)} key={index} className='rounded-2xl bg-[#f5f2f0] text-gray-700 h-[45vh] sm:w-[30%] w-[45%] cursor-pointer sm:my-6 my-3'>
+          {allItems && allItems.map((i, index) => <div onClick={() => itemDetail(i._id)} key={index} className='rounded-2xl bg-[#f5f2f0] text-gray-700 h-[45vh] sm:w-[30%] w-[45%] cursor-pointer sm:my-6 my-3'>
             <img src={i.images[0].url} className='h-[30vh] w-full rounded-2xl'></img>
             <p className='text-lg font-semibold my-2 px-2 mt-4'>{i.name}</p>
           </div>)}
