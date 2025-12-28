@@ -10,8 +10,11 @@ const Home = () => {
   const navigate = useNavigate()
   const { setCategory } = useContext(AppContext)
 
-  const { data: trendingItems } = useQuery({queryKey: ['trendingItems'], queryFn: trendingApi})
-  const { data: allItems } = useQuery({queryKey:['allItems'], queryFn: allItemsApi})
+  const { data: trendingItems } = useQuery(
+    {queryKey: ['trendingItems'], queryFn: trendingApi, staleTime: Infinity })
+
+  const { data: allItems } = useQuery(
+    {queryKey:['allItems'], queryFn: allItemsApi, staleTime: Infinity })
 
   // set item detail 
   const itemDetail = async(id) => {

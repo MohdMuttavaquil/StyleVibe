@@ -33,6 +33,6 @@ const itemById = async(id)=>{
 
 const userCartApi = async()=>{
   const res = await axiosInstance.get('/user/cart', {headers: {token: token}})
-  return res.data
+  return res.data.cart
 }
 export { singinApi, loginApi, trendingApi, allItemsApi, categoryItmeApi, itemById, userCartApi }

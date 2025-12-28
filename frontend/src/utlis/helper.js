@@ -1,4 +1,6 @@
 import { categoryItmeApi } from "../Api//user.api"
+const url = "http://localhost:3000/api"
+const token = sessionStorage.getItem('token')
 
 // Fatching items by their category
 const itemsApi = async (category) => {
@@ -17,7 +19,7 @@ const itemsApi = async (category) => {
             body: JSON.stringify(value)
         })
         const result = await res.json()
-        console.log(result)
+        alert(result.message)
     }
 
  // Online Payment Function 

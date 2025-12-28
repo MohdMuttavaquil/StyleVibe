@@ -2,10 +2,11 @@ import React, { useContext, useEffect, useState } from 'react'
 import { FaTrash } from 'react-icons/fa'
 import { AppContext } from '../Context/StoreContext'
 import { itemById, userCartApi } from '../Api/user.api'
+import { Link } from 'react-router-dom'
 
 const Cart = () => {
 
-    const { token,url } = useContext(AppContext)
+    const { token, url } = useContext(AppContext)
     const [cartItems, setCartItems] = useState([])
 
     const setItems = async (list) => {    
@@ -16,8 +17,8 @@ const Cart = () => {
     }
 
     const cart = async()=>{
-        const list = await userCartApi()
-       setItems(list)
+       const list = await userCartApi()
+       setItems(list)    
     }
 
     useEffect(() => {
@@ -57,7 +58,7 @@ const Cart = () => {
             </div> :
                 <div className=' min-h-[50vh] flex flex-col gap-2 justify-center items-center'>
                     <p className='font-semibold text-2xl'>Please login first</p>
-                    <button className='px-3 py-1 rounded cursor-pointer border bg-blue-100'>login</button>
+                    <Link to='/singin' className='px-3 py-1 rounded cursor-pointer border bg-blue-100'>login</Link>
                 </div>}
 
         </>

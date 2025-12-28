@@ -1,10 +1,12 @@
 import React, { useContext, useState } from 'react'
 import { AppContext } from '../Context/StoreContext'
 import { onlinepay, orderApi } from '../utlis/helper'
+import { useNavigate } from 'react-router-dom'
 
 const Order = () => {
 
     const { price, name, sellerName, token, url } = useContext(AppContext)
+    const navigate = useNavigate()
     const total = price + 40 + 2
 
     const [data, setData] = useState({
@@ -38,8 +40,9 @@ const Order = () => {
         const paymentMode = 'Cash on dliverey'
         let value = orderDetail()
        value = { ...value, payment: paymentMode }
-        orderApi(value)
-        clear()
+       orderApi(value)
+       clear()
+       navigate('/')
     }
  
     // online payment
@@ -59,6 +62,7 @@ const Order = () => {
         const result = await res.json()
         onlinepay(result, value)
         clear()
+         navigate('/')
     }
 
   

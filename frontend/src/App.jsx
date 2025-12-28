@@ -12,6 +12,7 @@ import AHome from './Abmain/Pages/AHome'
 import AddProducts from './Abmain/Pages/AddProducts'
 import AOrder from './Abmain/Pages/AOrder'
 import Order from './Peges/Order'
+import ScrollToTop from './utlis/scrollToTop'
 
 function App() {
 
@@ -23,6 +24,8 @@ function App() {
       {role === "admain" ? <div>
         <ANavbar />
         <div className='sm:my-24 my-20 sm:w-[80%] sm:mx-auto mx-2'>
+          <ScrollToTop />
+
           <Routes>
             <Route path='/' element={<AHome />}></Route>
             <Route path='/addproduct' element={<AddProducts />}></Route>
@@ -36,6 +39,8 @@ function App() {
           <Navbar />
 
           <div className='sm:mt-24 mt-16 '>
+
+            <ScrollToTop />
 
             <Routes>
               <Route path='/' element={<Home />}></Route>

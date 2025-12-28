@@ -72,13 +72,14 @@ const login = async (req, res) => {
     }
 }
 
+// user cart
 const userCart = async(req, res)=>{
     const id = req.user.userId
 
   try {
     const user = await userModel.findById(id)
     const cart = user.cart
-    res.json(cart)
+    res.json({success: true, cart})
   } catch (error) {
      console.log(error)
     res.json({ success: false, message: "some error" })
