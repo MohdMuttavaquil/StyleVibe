@@ -10,7 +10,7 @@ const addProduct = async (req, res) => {
   try {
 
     // Opload Image on cloudinary
-     if (!req.files || req.files.length === 0) {
+    if (!req.files || req.files.length === 0) {
       return res.json({ success: false, message: "Please upload images" });
     }
 
@@ -40,7 +40,7 @@ const addProduct = async (req, res) => {
     const imageUrls = results.map((result) => ({
       url: result.secure_url,
       publicId: result.public_id,
-    })); 
+    }));
 
     // Create Product in Database
 
@@ -54,7 +54,7 @@ const addProduct = async (req, res) => {
       images: imageUrls
     })
 
-    await newProduct.save() 
+    await newProduct.save()
 
     return res.json({ success: true, message: "Product uploaded successfully" });
 
@@ -64,4 +64,18 @@ const addProduct = async (req, res) => {
   }
 };
 
-export { addProduct }
+const allProducts = async (req, res) => {
+  const name = req.user.userName
+
+  try {
+    const products = await productModel.find({ admainName: name }).select({
+      name: 1, price: 1, images: { $slice: 1 }, quantity: 1, desc: 1})
+    res.json({ success: true, products })
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: "Some error occurred" });
+  }
+
+}
+
+export { addProduct, allProducts }

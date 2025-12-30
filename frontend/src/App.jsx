@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom'
-import { useState } from 'react'
+import { useContext } from 'react'
 import Navbar from './Component/Navbar'
 import Home from './Peges/Home'
 import Footer from './Component/Footer'
@@ -13,10 +13,11 @@ import AddProducts from './Abmain/Pages/AddProducts'
 import AOrder from './Abmain/Pages/AOrder'
 import Order from './Peges/Order'
 import ScrollToTop from './utlis/scrollToTop'
+import { AppContext } from './Context/StoreContext'
 
 function App() {
 
-  const role = sessionStorage.getItem('role')
+  const { role } = useContext(AppContext)
 
   return (
     <>
@@ -30,6 +31,8 @@ function App() {
             <Route path='/' element={<AHome />}></Route>
             <Route path='/addproduct' element={<AddProducts />}></Route>
             <Route path='/order' element={<AOrder />}></Route>
+            <Route path='/singin' element={<Singin />}></Route>
+            <Route path='/detail' element={<Detail />}></Route>
           </Routes>
         </div>
 

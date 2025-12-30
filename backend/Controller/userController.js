@@ -36,10 +36,8 @@ const singIn = async (req, res) => {
 
         await newUser.save()
         const role = newUser.role
-        const userCart = newUser.cart
         const token = createToken(newUser._id, newUser.name)
-
-        res.json({ success: true, token, role, userCart })
+        res.json({ success: true, token, role })
     } catch (error) {
         console.log(error)
         res.json({ success: false, message: "some error" })
@@ -63,8 +61,7 @@ const login = async (req, res) => {
         }
         const token = createToken(existUser._id, existUser.name)
         const role = existUser.role
-        const userCart = existUser.cart
-        res.json({ success: true, token, role, userCart })
+        res.json({ success: true, token, role })
 
     } catch (error) {
         console.log(error)

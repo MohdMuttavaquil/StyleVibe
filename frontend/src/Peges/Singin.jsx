@@ -8,7 +8,7 @@ const Singin = () => {
 
     const navigate = useNavigate()
 
-    const { setToken } = useContext(AppContext)
+    const { setToken, setRole } = useContext(AppContext)
 
     const [data, setData] = useState({
         email: "",
@@ -27,6 +27,7 @@ const Singin = () => {
         sessionStorage.setItem('token', res.token)
         sessionStorage.setItem('role', res.role)
         setToken(res.token)
+        setRole(res.role)
         navigate("/")
     }
 

@@ -9,12 +9,13 @@ export const AppProvider = ({ children }) => {
     const [token, setToken] = useState("")
     const [role, setRole] = useState("")
     const [category, setCategory] = useState("")
+    const [userName, setUserName] = useState("")
 
     // Item detail for detail page
     const [name, setName] = useState("")
     const [price, setPrice] = useState("")
     const [ sellerName, setSellerName ] = useState("")
-
+    
   // for checking token and role
     useEffect(() => {
         const tokenValue = sessionStorage.getItem('token')
@@ -27,7 +28,7 @@ export const AppProvider = ({ children }) => {
     }, [role])
 
     return (
-        <AppContext.Provider value={{ token, setToken, role, setCategory, category, name, setName, price, setPrice, sellerName, setSellerName, url }}>
+        <AppContext.Provider value={{ token, setToken, role, setCategory, category, name, setName, price, setPrice, sellerName, setSellerName, url, setRole, userName, setUserName }}>
             {children}
         </AppContext.Provider>
     )

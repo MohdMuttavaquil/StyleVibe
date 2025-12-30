@@ -20,11 +20,16 @@ const AddProducts = () => {
   }
 
   const handleSubmit = async (e) => {
+   
     e.preventDefault()
+     if (!token) {
+      return alert('please login')
+    }
+
     const formData = new FormData()
     images.map((img) => formData.append("images", img))
     formData.append("data", JSON.stringify(data))
-
+   
     const res = await fetch('http://localhost:3000/api/product/add', {
       method: "POST",
       headers: { token },
