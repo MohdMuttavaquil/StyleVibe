@@ -8,9 +8,9 @@ const Footer = () => {
 
             <div className='my-4 sm:w-[50%]'>
 
-                <p className='text-2xl logo font-semibold'>CartZo</p>
+                <p className='text-2xl logo font-semibold'>StyleVibe</p>
                 <div>
-                    CartZo is a modern e-commerce store offering stylish men's and women's clothing, trendy shoes, and quality beauty products. We provide affordable fashion, fast delivery, and a smooth shopping experience to help customers look and feel their best.
+                    StyleVibe is a modern e-commerce store offering stylish men's and women's clothing, trendy shoes, and quality beauty products. We provide affordable fashion, fast delivery, and a smooth shopping experience to help customers look and feel their best.
                 </div>
             </div>
 
@@ -22,7 +22,7 @@ const Footer = () => {
 
         </div>
 
-        <p className='w-[80%] mx-auto text-center pb-4'>© 2025 CartZo. All rights reserved. Unauthorized use or duplication of content is strictly prohibited</p>
+        <p className='w-[80%] mx-auto text-center pb-4'>© 2025 StyleVibe. All rights reserved. Unauthorized use or duplication of content is strictly prohibited</p>
 
     </div>
   )

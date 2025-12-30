@@ -3,24 +3,27 @@ import { FaSearch, FaShoppingCart, FaUser } from "react-icons/fa";
 import '../App.css'
 import { Link, useNavigate } from 'react-router-dom';
 import { AppContext } from '../Context/StoreContext';
+import { itemsApi } from '../utlis/helper';
+import { fixMistake } from '../utlis/search'
 
 const divbar = () => {
 
     const [data, setData] = useState("")
+    const naviagte = useNavigate()
     const [sideBar, setSideBar] = useState(false)
-    const navigate = useNavigate()
-    const { token } = useContext(AppContext)
-   
+    const { token, setCategory } = useContext(AppContext)
+
     const handleChenge = (e) => {
         setData(e.target.value)
     }
 
-    const search = () => {
-        console.log("send to product")
-        navigate("/search")
+    const search = async () => {
+        const result = fixMistake(data)
+        setCategory(result)
+        naviagte('/search')
     }
 
-    const singOut = ()=>{
+    const singOut = () => {
         sessionStorage.clear()
         setSideBar(false)
     }
@@ -33,7 +36,7 @@ const divbar = () => {
                 <div className='flex sm:h-20 h-16 sm:[80%] sm:mx-auto mx-1 justify-around items-center'>
 
                     <div className='logo sm:text-2xl font-semibold text-[#1f2937]'>
-                        <Link to='/'>CartZo</Link>
+                        <Link to='/'>StyleVibe</Link>
                     </div>
 
                     <div className='flex items-center gap-1 sm:w-[30%] ml-1'>

@@ -30,7 +30,7 @@ const cetogry = [
    },
 
   {
-    name: "Mens Sccessories",
+    name: "Mens Accessories",
     url: "./mensSccessories.avif"
    },
    
