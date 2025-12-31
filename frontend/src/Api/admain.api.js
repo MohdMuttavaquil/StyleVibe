@@ -6,4 +6,14 @@ const allProducts = async ()=>{
     return res.data.products
 }
 
-export { allProducts }
+const allOrder = async ()=>{
+    const res = await axiosInstance.get('/order/admainorder', {headers: {token: token}} )
+    return res.data.order
+}
+
+const confirmOrder = async(id)=>{
+    const res = await axiosInstance.post('/order/confirm', { id:id })
+    return res.data.message
+}
+
+export { allProducts, allOrder, confirmOrder }

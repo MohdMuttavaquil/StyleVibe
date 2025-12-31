@@ -1,6 +1,7 @@
 import orderModel from "../Model/orderSchema.js";
 import Razorpay from "razorpay"
 import crypto from "crypto";
+import userModel from "../Model/userSchema.js";
 
 const razorpay = new Razorpay({
     key_id: process.env.RAZORPAY_KEY_ID,
@@ -53,7 +54,8 @@ const verifyPay = async (req, res) => {
 
 const order = async (req, res) => {
     const { address, price, phoneNo, productName, payment, name, sellerName } = req.body
-
+    const id = req.user.userId
+   
     try {
         const newOrder = new orderModel({
             productName: productName,
@@ -62,11 +64,12 @@ const order = async (req, res) => {
             phoneNo: phoneNo,
             payment: payment,
             sellerName: sellerName,
-            buyerName: name
+            buyerName: name,
+            userId: id
         })
 
         await newOrder.save()
-  
+        
         res.json({ success: true, message: "Thanks for order" })
     } catch (error) {
         console.log(error)

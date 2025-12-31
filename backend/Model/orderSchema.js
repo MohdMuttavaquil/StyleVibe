@@ -31,6 +31,10 @@ const orderSchema = new mongoose.Schema({
         type: String,
         require: true
     },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        require: true
+    },
     status: {
         type: String,
         enum: ["Processing", "shipping", "Delivered", "Return"],
@@ -45,7 +49,7 @@ const orderSchema = new mongoose.Schema({
 
 })
 
-orderSchema.index({buyerName: 1, sellerName: 1})
+orderSchema.index({userId: 1, sellerName: 1})
 
 const orderModel = mongoose.model.Orders || mongoose.model("Orders", orderSchema)
 
