@@ -1,23 +1,35 @@
 import React, { useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { allOrder, confirmOrder } from '../../Api/admain.api'
+import { allOrder, cancelOrder, confirmOrder, deliverdOrder } from '../../Api/admain.api'
 
 const AOrder = () => {
 
-  const [orders, setOrders ] = useState([])
-  const [ click, setClick ] = useState(true)
-  const fetcgData = async ()=>{
+  const [orders, setOrders] = useState([])
+
+  const fetchData = async () => {
     const res = await allOrder()
     setOrders(res)
   }
-  useEffect(()=>{
-    fetcgData()
+  useEffect(() => {
+    fetchData()
   }, [])
-  
+
   const confirm = async (id, name) => {
     const result = await confirmOrder(id, name)
-    setClick(false)
     alert(result)
+    fetchData()
+  }
+
+  const deliverd = async (id) => {
+    const result = await deliverdOrder(id)
+    alert(result)
+    fetchData()
+  }
+
+  const cancel = async (id) => {
+    const result = await cancelOrder(id)
+    alert(result)
+    fetchData()
   }
 
   return (
@@ -33,11 +45,24 @@ const AOrder = () => {
             <p className='text-xl font-semibold'>Product Name : <span className='text-lg'>{i.productName}</span></p>
             <p className='text-2xl font-semibold my-1 '>₹{i.price}</p>
             <p className='text-xl font-semibold'>Payment Mode: {i.payment}</p>
-            <p className='text-xl font-semibold'>Order Status: <span className='text-lg'>{click ? i.status : 'Shipping' }</span></p>
-           
-            <div className={`${i.status === 'Processing' ? "flex": "hidden"}`}>
-               <button onClick={() => confirm(i._id, i.productName)} className={`px-3 py-1 text-white font-semibold cursor-pointer my-2 rounded-xl ${click ? "bg-blue-500 hover:bg-blue-600 " : "bg-green-600"}` }>Ship Order</button>
+
+            <div className='flex gap-4'>
+
+              <div className={`${i.status === 'Processing' ? "flex" : "hidden"}`}>
+                <button onClick={() => confirm(i._id, i.productName)} className={`button bg-blue-500 hover:bg-blue-600`}>Ship Order</button>
+              </div>
+
+              <div className={`${i.status === 'Processing' ? "hidden" : "flex"}`}>
+                {i.status === 'shipping' ? (<button onClick={() => deliverd(i._id)} className={`button bg-[#f97316]`}>Deliver Order</button>) :
+                  (<button className={`button ${i.status === "Cancel" ? "bg-red-600": "bg-green-600"} `}>{i.status} </button>)}
+              </div>
+
+              <div>
+                <button onClick={() => cancel(i._id)} className={`${i.status === "Cancel" || i.status === "Delivered" ? "hidden" : "button bg-red-600"} `}>Cancel Oeder </button>
+              </div>
+
             </div>
+
           </div>
 
           <div className='sm:my-10 px-3'>

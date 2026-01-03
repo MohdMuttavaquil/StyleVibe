@@ -23,7 +23,7 @@ function App() {
     <>
 
       {role === "admain" ? <div>
-        <ANavbar />
+       {token ?  <ANavbar />: <Navbar />}
         <ScrollToTop />
 
         <div className='sm:mt-24 mt-16 '>

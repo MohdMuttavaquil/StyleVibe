@@ -16,4 +16,16 @@ const confirmOrder = async(id, name)=>{
     return res.data.message
 }
 
-export { allProducts, allOrder, confirmOrder }
+
+const deliverdOrder = async(id)=>{
+    const res = await axiosInstance.post('/order/delivered', {id:id})
+    return res.data.message
+}
+
+const cancelOrder = async(id)=>{
+    const res = await axiosInstance.post('/order/cancel', {id:id})
+    return res.data.message
+}
+
+
+export { allProducts, allOrder, confirmOrder, deliverdOrder, cancelOrder }

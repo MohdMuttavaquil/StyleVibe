@@ -7,3 +7,7 @@
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+.button {
+  @apply px-3 py-1 text-white font-semibold cursor-pointer my-2 rounded-xl
+}
