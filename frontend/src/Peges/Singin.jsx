@@ -28,7 +28,12 @@ const Singin = () => {
         sessionStorage.setItem('role', res.role)
         setToken(res.token)
         setRole(res.role)
-        navigate("/")
+        if (res.role === 'admain') {
+            navigate('/admain')
+        } else {
+            navigate("/")
+        }
+
     }
 
     const handleSubmit = async (e) => {

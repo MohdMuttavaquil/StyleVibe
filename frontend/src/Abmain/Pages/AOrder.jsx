@@ -1,18 +1,20 @@
-import React, { useEffect, useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import React, { useContext, useEffect, useState } from 'react'
 import { allOrder, cancelOrder, confirmOrder, deliverdOrder } from '../../Api/admain.api'
+import { AppContext } from '../../Context/StoreContext'
 
 const AOrder = () => {
 
-  const [orders, setOrders] = useState([])
+  const { token } = useContext(AppContext)
 
+  const [ orders, setOrders ] = useState([])
   const fetchData = async () => {
-    const res = await allOrder()
-    setOrders(res)
+    const res = await allOrder(token)
+    setOrders (res)
   }
   useEffect(() => {
     fetchData()
   }, [])
+
 
   const confirm = async (id, name) => {
     const result = await confirmOrder(id, name)
@@ -40,12 +42,14 @@ const AOrder = () => {
 
         {orders && orders.map((i, index) => <div key={index} className='bg-[#f5f2f0] text-gray-700 rounded-2xl sm:h-[40vh] w-full sm:my-2 my-6 flex sm:flex-row flex-col pb-5 sm:pb-0'>
 
+          {/* Products detail */}
           <div className='sm:my-10 px-3'>
             <p className='text-2xl font-semibold my-1 '>Product Information</p>
             <p className='text-xl font-semibold'>Product Name : <span className='text-lg'>{i.productName}</span></p>
             <p className='text-2xl font-semibold my-1 '>₹{i.price}</p>
             <p className='text-xl font-semibold'>Payment Mode: {i.payment}</p>
 
+            {/* Confirm button */}
             <div className='flex gap-4'>
 
               <div className={`${i.status === 'Processing' ? "flex" : "hidden"}`}>
@@ -54,7 +58,7 @@ const AOrder = () => {
 
               <div className={`${i.status === 'Processing' ? "hidden" : "flex"}`}>
                 {i.status === 'shipping' ? (<button onClick={() => deliverd(i._id)} className={`button bg-[#f97316]`}>Deliver Order</button>) :
-                  (<button className={`button ${i.status === "Cancel" ? "bg-red-600": "bg-green-600"} `}>{i.status} </button>)}
+                  (<button className={`button ${i.status === "Cancel" ? "bg-red-600" : "bg-green-600"} `}>{i.status} </button>)}
               </div>
 
               <div>
@@ -65,6 +69,7 @@ const AOrder = () => {
 
           </div>
 
+          {/* buyer Info*/}
           <div className='sm:my-10 px-3'>
             <p className='text-2xl font-semibold my-1 '>Buyer Information</p>
             <p className='text-xl font-semibold'>Name: <span className='text-lg'>{i.buyerName}</span></p>

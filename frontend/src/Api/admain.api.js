@@ -1,12 +1,11 @@
-import axiosInstance from "./axiosInstance";
-const token = sessionStorage.getItem('token')
+import axiosInstance from "./axiosInstance"
 
-const allProducts = async ()=>{
+const allProducts = async (token)=>{
     const res = await axiosInstance.get('/product/getproducts',  {headers: {token: token}})
     return res.data.products
 }
 
-const allOrder = async ()=>{
+const allOrder = async (token)=>{
     const res = await axiosInstance.get('/order/admainorder', {headers: {token: token}} )
     return res.data.order
 }

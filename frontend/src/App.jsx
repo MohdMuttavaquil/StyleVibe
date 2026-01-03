@@ -17,43 +17,33 @@ import { AppContext } from './Context/StoreContext'
 
 function App() {
 
-  const { role, token } = useContext(AppContext)
+  const { role } = useContext(AppContext)
 
   return (
     <>
+      {role === 'admain' ? <ANavbar /> : <Navbar />}
 
-      {role === "admain" ? <div>
-       {token ?  <ANavbar />: <Navbar />}
+      <div className='sm:mt-24 mt-16 '>
+
         <ScrollToTop />
 
-        <div className='sm:mt-24 mt-16 '>
-          <Routes>
-            <Route path='/' element={token ? <AHome /> : <Home />}></Route>
-            <Route path='/addproduct' element={token ? <AddProducts />: <Home />}></Route>
-            <Route path='/order' element={token ? <AOrder />: <Home />}></Route>
-            <Route path='/singin' element={<Singin />}></Route>
-          </Routes>
-        </div>
-      </div> :
+        <Routes>
 
-        <div>
-          <Navbar />
+          {/* User Routes */}
+          <Route path='/' element={<Home />}></Route>
+          <Route path='/singin' element={<Singin />}></Route>
+          <Route path='/cart' element={<Cart />}></Route>
+          <Route path='/detail' element={<Detail />}></Route>
+          <Route path='/search' element={<Products />}></Route>
+          <Route path='/order' element={<Order />}></Route>
 
-          <div className='sm:mt-24 mt-16 '>
+          {/* Admain Routes */}
+          <Route path='/admain' element={<AHome />}></Route>
+          <Route path='/admain/order' element={<AOrder />}></Route>
+          <Route path='/admain/addproduct' element={<AddProducts />}></Route>
 
-            <ScrollToTop />
-
-            <Routes>
-              <Route path='/' element={<Home />}></Route>
-              <Route path='/singin' element={<Singin />}></Route>
-              <Route path='/cart' element={<Cart />}></Route>
-              <Route path='/detail' element={<Detail />}></Route>
-              <Route path='/search' element={<Products />}></Route>
-              <Route path='/order' element={<Order />}></Route>
-            </Routes>
-          </div>
-
-        </div>}
+        </Routes>
+      </div>
 
       <Footer />
 

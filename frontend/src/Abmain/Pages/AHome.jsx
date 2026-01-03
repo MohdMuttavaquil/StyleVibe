@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import React, { useEffect, useState, useContext } from 'react'
+import { AppContext } from '../../Context/StoreContext'
 import { allProducts } from '../../Api/admain.api'
 
 const AHome = () => {
+  const { token } = useContext(AppContext)
 
   const [products, setProducts] = useState([])
   const fetchData = async () => {
-    const res = await allProducts()
+    const res = await allProducts(token)
     setProducts(res)
   }
   useEffect(() => {
