@@ -1,18 +1,27 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { allOrder, confirmOrder } from '../../Api/admain.api'
 
 const AOrder = () => {
 
-  const { data: orders } = useQuery({ queryKey: ['orders'], queryFn: allOrder, staleTime: Infinity })
-
-  const confirm = async (id) => {
-    const result = await confirmOrder(id)
+  const [orders, setOrders ] = useState([])
+  const [ click, setClick ] = useState(true)
+  const fetcgData = async ()=>{
+    const res = await allOrder()
+    setOrders(res)
+  }
+  useEffect(()=>{
+    fetcgData()
+  }, [])
+  
+  const confirm = async (id, name) => {
+    const result = await confirmOrder(id, name)
+    setClick(false)
     alert(result)
   }
 
   return (
-    <div className='min-h-screen'>
+    <div className='min-h-screen sm:w-[80%] sm:mx-auto mx-2'>
 
 
       <div className='w-full mx-auto'>
@@ -24,10 +33,10 @@ const AOrder = () => {
             <p className='text-xl font-semibold'>Product Name : <span className='text-lg'>{i.productName}</span></p>
             <p className='text-2xl font-semibold my-1 '>₹{i.price}</p>
             <p className='text-xl font-semibold'>Payment Mode: {i.payment}</p>
-            <p className='text-xl font-semibold'>Order Status: <span className='text-lg'>{i.status}</span></p>
+            <p className='text-xl font-semibold'>Order Status: <span className='text-lg'>{click ? i.status : 'Shipping' }</span></p>
            
             <div className={`${i.status === 'Processing' ? "flex": "hidden"}`}>
-               <button onClick={() => confirm(i._id)} className='px-3 py-1 bg-blue-500 hover:bg-blue-600 cursor-pointer my-2 rounded-xl'>Ship Order</button>
+               <button onClick={() => confirm(i._id, i.productName)} className={`px-3 py-1 text-white font-semibold cursor-pointer my-2 rounded-xl ${click ? "bg-blue-500 hover:bg-blue-600 " : "bg-green-600"}` }>Ship Order</button>
             </div>
           </div>
 

@@ -11,8 +11,8 @@ const allOrder = async ()=>{
     return res.data.order
 }
 
-const confirmOrder = async(id)=>{
-    const res = await axiosInstance.post('/order/confirm', { id:id })
+const confirmOrder = async(id, name)=>{
+    const res = await axiosInstance.post('/order/confirm', {id:id, name})
     return res.data.message
 }
 

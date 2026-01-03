@@ -40,7 +40,7 @@ const Order = () => {
         const paymentMode = 'Cash on dliverey'
         let value = orderDetail()
        value = { ...value, payment: paymentMode }
-       orderApi(value)
+       orderApi(value, token)
        clear()
        navigate('/')
     }
@@ -60,7 +60,7 @@ const Order = () => {
             body: JSON.stringify({ amount: total })
         })
         const result = await res.json()
-        onlinepay(result, value)
+        onlinepay(result, value, token)
         clear()
          navigate('/')
     }

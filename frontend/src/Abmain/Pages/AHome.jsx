@@ -1,18 +1,24 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { allProducts } from '../../Api/admain.api'
 
 const AHome = () => {
 
-  const { data: products } = useQuery(
-    { queryKey: ['products'], queryFn: allProducts, staleTime: Infinity })
-  
+  const [products, setProducts] = useState([])
+  const fetchData = async () => {
+    const res = await allProducts()
+    setProducts(res)
+  }
+  useEffect(() => {
+    fetchData()
+  }, [])
+
   return (
-    <div className='min-h-screen'>
+    <div className='min-h-screen sm:w-[80%] sm:mx-auto mx-2'>
 
       <div className='w-full mx-auto'>
 
-        {products && products.map((i, index) => <div key={index}  className='bg-[#f5f2f0] text-gray-700 rounded-2xl sm:h-[40vh] w-full sm:my-2 my-6 flex sm:flex-row flex-col pb-5 sm:pb-0'>
+        {products && products.map((i, index) => <div key={index} className='bg-[#f5f2f0] text-gray-700 rounded-2xl sm:h-[40vh] w-full sm:my-2 my-6 flex sm:flex-row flex-col pb-5 sm:pb-0'>
 
           <img src={i.images[0].url} className='sm:h-[40vh] sm:min-w-[40%] sm:max-w-[40%]  rounded-2xl cursor-pointer'></img>
 

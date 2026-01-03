@@ -1,4 +1,5 @@
 import orderModel from "../Model/orderSchema.js";
+import productModel from "../Model/productSchema.js";
 
 const userOrder = async (req, res)=>{
     const id = req.user.userId
@@ -26,9 +27,11 @@ const admainOrder = async (req ,res)=>{
 
 const confirmOrder = async (req, res)=>{
     const  id  = req.body.id
-
+    const name = req.body.name
+console.log(name)
     try {
-        const order = await orderModel.findByIdAndUpdate(id, {status: "shipping"}, {new: true})
+        await orderModel.findByIdAndUpdate(id, {status: "shipping"}, {new: true})
+        await productModel.findOneAndUpdate({name: name}, { $inc: {quantity: - 1} }, {new: true})
         res.json({success: true, message: "Status update"})
     } catch (error) {
          console.log(error)

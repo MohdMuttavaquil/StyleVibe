@@ -1,6 +1,5 @@
 import { categoryItmeApi } from "../Api//user.api"
 const url = "http://localhost:3000/api"
-const token = sessionStorage.getItem('token')
 
 // Fatching items by their category
 const itemsApi = async (category) => {
@@ -12,7 +11,7 @@ const itemsApi = async (category) => {
 }
 
 // order api function 
-const orderApi = async (value) => {
+const orderApi = async (value, token) => {
 
     const res = await fetch(`${url}/order`, {
         method: "POST",
@@ -24,7 +23,7 @@ const orderApi = async (value) => {
 }
 
 // Online Payment Function 
-const onlinepay = async (order, value) => {
+const onlinepay = async (order, value, token) => {
 
     const options = {
         key: 'rzp_test_QXiPiAaXY4WeKN',
@@ -47,7 +46,7 @@ const onlinepay = async (order, value) => {
             const res = await result.json()
 
             if (res.success) {
-                orderApi(value)
+                orderApi(value, token)
             } else {
                 alert("Payment verification failed!");
             }

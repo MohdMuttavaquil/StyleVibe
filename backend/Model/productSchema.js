@@ -31,7 +31,7 @@ const productSchema = new mongoose.Schema({
     }
 })
 
-productSchema.index({ category: 1, admainName: 1 })
+productSchema.index({ category: 1, admainName: 1, name: 1 })
 
 const productModel = mongoose.model.Products || mongoose.model("Products", productSchema)
 

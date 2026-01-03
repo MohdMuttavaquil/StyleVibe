@@ -17,25 +17,23 @@ import { AppContext } from './Context/StoreContext'
 
 function App() {
 
-  const { role } = useContext(AppContext)
+  const { role, token } = useContext(AppContext)
 
   return (
     <>
 
       {role === "admain" ? <div>
         <ANavbar />
-        <div className='sm:my-24 my-20 sm:w-[80%] sm:mx-auto mx-2'>
-          <ScrollToTop />
+        <ScrollToTop />
 
+        <div className='sm:mt-24 mt-16 '>
           <Routes>
-            <Route path='/' element={<AHome />}></Route>
-            <Route path='/addproduct' element={<AddProducts />}></Route>
-            <Route path='/order' element={<AOrder />}></Route>
+            <Route path='/' element={token ? <AHome /> : <Home />}></Route>
+            <Route path='/addproduct' element={token ? <AddProducts />: <Home />}></Route>
+            <Route path='/order' element={token ? <AOrder />: <Home />}></Route>
             <Route path='/singin' element={<Singin />}></Route>
-            <Route path='/detail' element={<Detail />}></Route>
           </Routes>
         </div>
-
       </div> :
 
         <div>
