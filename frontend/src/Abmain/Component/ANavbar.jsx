@@ -2,22 +2,13 @@ import React, { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { FaUser } from 'react-icons/fa'
 import { AppContext } from '../../Context/StoreContext'
+import UserProfile from '../../Component/UserProfile'
 
 const ANavbar = () => {
 
     const [sideBar, setSideBar] = useState(false)
-    const { setRole, token, setToken } = useContext(AppContext)
-    const naviagte = useNavigate()
-
-    const singOut = () => {
-        sessionStorage.clear();
-        setSideBar(false)
-        naviagte('/')
-        setRole('')
-        setToken('')
-    };
-
-
+    const { token } = useContext(AppContext)
+   
     return (
         <div>
             <nav className='bg-[#f5f2f0] w-full fixed top-0'>
@@ -41,9 +32,8 @@ const ANavbar = () => {
             </nav>
 
             {/* For Side bar */}
-            <div className={`${sideBar ? "right-0 fixed z-50 bg-white text-gray-700" : "hidden"}`}>
-
-                <button onClick={() => singOut()} className='text-red-700 text-xl cursor-pointer bg-[#f5f2f0]px-3 py-1 ronuded-xl'>Sing Out</button>
+            <div className={`${sideBar ? "right-0 fixed z-50 text-gray-700 sm:w-[30%] w-[75%] py-10 mx-auto bg-[#f5f2f0] rounded-2xl" : "hidden"}`}>
+              <UserProfile setSideBar={setSideBar} />
             </div>
 
 

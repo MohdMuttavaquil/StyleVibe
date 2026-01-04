@@ -14,6 +14,7 @@ import AOrder from './Abmain/Pages/AOrder'
 import Order from './Peges/Order'
 import ScrollToTop from './utlis/scrollToTop'
 import { AppContext } from './Context/StoreContext'
+import OrderIngo from './Peges/OrderIngo'
 
 function App() {
 
@@ -36,6 +37,7 @@ function App() {
           <Route path='/detail' element={<Detail />}></Route>
           <Route path='/search' element={<Products />}></Route>
           <Route path='/order' element={<Order />}></Route>
+          <Route path='/order/info' element={<OrderIngo />}></Route>
 
           {/* Admain Routes */}
           <Route path='/admain' element={<AHome />}></Route>

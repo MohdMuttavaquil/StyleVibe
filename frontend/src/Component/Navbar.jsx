@@ -11,7 +11,7 @@ const divbar = () => {
     const [data, setData] = useState("")
     const naviagte = useNavigate()
     const [sideBar, setSideBar] = useState(false)
-    const { token, setCategory, setToken } = useContext(AppContext)
+    const { token, setCategory } = useContext(AppContext)
 
     const handleChenge = (e) => {
         setData(e.target.value)
@@ -24,11 +24,7 @@ const divbar = () => {
         setData('')
     }
 
-    const singOut = () => {
-        sessionStorage.clear()
-        setSideBar(false)
-        setToken('')
-    }
+   
 
     return (
         <>
@@ -62,8 +58,8 @@ const divbar = () => {
             </nav>
 
           {/* For Side bar */}
-            <div className={`${sideBar ? "right-0 fixed z-50 text-gray-700 sm:w-[30%] w-[75%] py-10 sm:py-20 mx-auto bg-white" : "hidden"}`}>
-              <UserProfile />
+            <div className={`${sideBar ? "right-0 fixed z-50 text-gray-700 sm:w-[30%] w-[75%] py-10 mx-auto bg-[#f5f2f0] rounded-2xl" : "hidden"}`}>
+              <UserProfile setSideBar={setSideBar} />
             </div>
 
         </>

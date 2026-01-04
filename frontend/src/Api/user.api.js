@@ -35,4 +35,10 @@ const userCartApi = async()=>{
   const res = await axiosInstance.get('/user/cart', {headers: {token: token}})
   return res.data.cart
 }
-export { singinApi, loginApi, trendingApi, allItemsApi, categoryItmeApi, itemById, userCartApi }
+
+const allOrder = async (token)=>{
+    const res = await axiosInstance.get('/order/userorder', {headers: {token: token}} )
+    return res.data.order
+}
+
+export { singinApi, loginApi, trendingApi, allItemsApi, categoryItmeApi, itemById, userCartApi, allOrder }

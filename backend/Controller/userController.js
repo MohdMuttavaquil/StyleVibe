@@ -74,7 +74,7 @@ const userInfo = async (req, res)=>{
    const id = req.user.userId
    
     try {
-        const user = await userModel.findById(id).select('name email')
+        const user = await userModel.findById(id).select('name email role')
         res.json({success: true, user})
     } catch (error) {
         console.log(error)
