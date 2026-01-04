@@ -4,6 +4,7 @@ import '../App.css'
 import { Link, useNavigate } from 'react-router-dom'
 import { AppContext } from '../Context/StoreContext'
 import { fixMistake } from '../utlis/search'
+import UserProfile from './UserProfile';
 
 const divbar = () => {
 
@@ -61,9 +62,8 @@ const divbar = () => {
             </nav>
 
           {/* For Side bar */}
-            <div className={`${sideBar ? "right-0 fixed z-50 bg-white text-gray-700" : "hidden"}`}>
-
-                <button onClick={() => singOut()} className='text-red-700 text-xl cursor-pointer bg-[#f5f2f0]px-3 py-1 ronuded-xl'>Sing Out</button>
+            <div className={`${sideBar ? "right-0 fixed z-50 text-gray-700 sm:w-[30%] w-[75%] py-10 sm:py-20 mx-auto bg-white" : "hidden"}`}>
+              <UserProfile />
             </div>
 
         </>

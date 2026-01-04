@@ -69,6 +69,19 @@ const login = async (req, res) => {
     }
 }
 
+const userInfo = async (req, res)=>{
+     
+   const id = req.user.userId
+   
+    try {
+        const user = await userModel.findById(id).select('name email')
+        res.json({success: true, user})
+    } catch (error) {
+        console.log(error)
+        res.json({ success: false, message: "some error" })
+    }
+}
+
 // user cart
 const userCart = async(req, res)=>{
     const id = req.user.userId
@@ -112,4 +125,4 @@ const removeInCart = async (req, res) => {
     }
 }
 
-export { singIn, login, addInCart, removeInCart, userCart } 
+export { singIn, login, addInCart, removeInCart, userCart, userInfo } 
