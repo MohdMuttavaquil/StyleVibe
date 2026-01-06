@@ -12,6 +12,7 @@ const Detail = () => {
     const navigate = useNavigate()
     const { state } = useLocation()
     const [items, setItems] = useState([])
+    const quantity = state.quantity
 
     const result = async () => {
         const res = await itemsApi(state.category)
@@ -36,7 +37,7 @@ const Detail = () => {
         if (!token) {
             return alert("please login first")
         }
-        const res = await fetch(`${url}/user/addincart`, {
+        const res = await fetch(`${url}/cart/addincart`, {
             method: "POST",
             headers: { "Content-Type": "application/json", token: token },
             body: JSON.stringify({ itemId: itemId })
@@ -58,7 +59,8 @@ const Detail = () => {
                 <div className='sm:w-[45%] sm:mx-auto mx-2 sm:mt-20'>
                     <p className='text-2xl font-semibold'>{state.name}</p>
                     <img src='./rating.jpg' className='h-6 w-20'></img>
-                    <p className='bg-[#2196f3] text-white px-3 py-1 rounded-xl w-fit font-semibold mt-4'>India’s Top Picks</p>
+                    <p className='bg-[#2196f3] text-white px-3 py-1 rounded-xl w-fit font-semibold mt-4'>
+                        {quantity > 9 ? 'India’s Top Picks' : `Hurry only ${quantity} left`}</p>
                     <p className='text-xl mt-4 w-[80%]' >{state.desc}</p>
                     <p className='text-2xl font-semibold my-4'>₹{state.price}</p>
 
@@ -78,7 +80,7 @@ const Detail = () => {
             <p className='text-2xl font-semibold mt-20'>Suggestion for you</p>
             <div onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="flex flex-wrap sm:justify-evenly gap-2 w-full sm:mx-auto mx-2 py-3">
 
-                {items && items.map((i, index) => <div onClick={() => itemDetail(i._id)} key={index} className='rounded-2xl bg-[#f5f2f0] text-gray-700 min-h-[45vh] max-h-[45vh] sm:w-[40%] w-[46%] cursor-pointer sm:my-6 my-3'>
+                {items && items.map((i, index) => <div onClick={() => itemDetail(i._id)} key={index} className=' box-shadow rounded-2xl bg-[#f5f2f0] text-gray-700 min-h-[45vh] max-h-[45vh] sm:w-[40%] w-[46%] cursor-pointer sm:my-6 my-3'>
                     <img src={i.images[1].url} className='h-[30vh] w-full rounded-2xl'></img>
                     <p className='sm:text-lg sm:font-semibold px-2 mt-4'>{i.name}</p>
                     <p className='text-xl font-semibold px-2'>₹{i.price}</p>

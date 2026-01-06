@@ -11,3 +11,7 @@
 .button {
   @apply px-3 py-1 text-white font-semibold cursor-pointer my-2 rounded-xl
 }
+
+.box-shadow{
+     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}

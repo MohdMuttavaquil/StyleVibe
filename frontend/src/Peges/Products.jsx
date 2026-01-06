@@ -30,7 +30,7 @@ const Products = () => {
 
             <div className='md:w-[70%] xl:w-[60%]'>
 
-                {items && items.map((i, index) => <div key={index} onClick={() => itemDetail(i._id)} className='bg-[#f5f2f0] text-gray-700 rounded-2xl sm:h-[40vh] w-full sm:my-2 my-6 flex sm:flex-row flex-col pb-5 sm:pb-0'>
+                {items && items.map((i, index) => <div key={index} onClick={() => itemDetail(i._id)} className='box-shadow bg-[#f5f2f0] text-gray-700 rounded-2xl sm:h-[40vh] w-full sm:my-2 my-6 flex sm:flex-row flex-col pb-5 sm:pb-0'>
 
                     <img src={i.images[0].url} className='sm:h-[40vh] sm:min-w-[50%] sm:max-w-[50%]  rounded-2xl cursor-pointer'></img>
 

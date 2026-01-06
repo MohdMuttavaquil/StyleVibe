@@ -3,7 +3,7 @@ import productModel from "../Model/productSchema.js";
 const getItems = async (req, res) => {
 
   try {
-        const items = await productModel.find().select({ name:1, images: {$slice: 1}})
+        const items = await productModel.find().select({ name:1, images: {$slice: 1}}).limit(12)
         res.json({success: true, items})
     } catch (error) {
          console.log(error)
@@ -27,12 +27,12 @@ const categoryItems = async (req, res) => {
 
 const trendingItems = async (req, res) => {
 
-    let a = ['mens were', 'womens were', 'kids were', 'shose', 'jewelary', 'mens accessories']
+    let a = [ '6942aa84aa245a8186cdda75', '6942ab81aa245a8186cdda77', '6942ae21131bb91e065472eb', '6942af34131bb91e065472ef', '6942b1d9131bb91e065472fa', '6942b30f131bb91e065472fc' ]
     let items = []
 
     try {
         for (const element of a) {
-            const item = await productModel.findOne({ category: element })
+            const item = await productModel.findById(element)
             items.push(item)
         }
 
