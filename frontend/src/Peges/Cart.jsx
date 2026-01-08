@@ -3,6 +3,7 @@ import { FaTrash } from 'react-icons/fa'
 import { AppContext } from '../Context/StoreContext'
 import { itemById, userCartApi } from '../Api/user.api'
 import { Link, useNavigate } from 'react-router-dom'
+import { showRemoveToast } from '../utlis/toast'
 
 const Cart = () => {
 
@@ -44,6 +45,7 @@ const Cart = () => {
         const result = await res.json()
         setCartItems([])
         setItems(result.userCart)
+        showRemoveToast("Item Removed")
     }
 
     return (

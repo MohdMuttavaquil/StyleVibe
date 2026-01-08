@@ -1,18 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { AppContext } from '../Context/StoreContext'
 import { Link, useNavigate } from 'react-router-dom'
+import { userData } from '../Api/user.api'
 
 const UserProfile = ({ setSideBar }) => {
 
-    const { token, url, setToken, setRole } = useContext(AppContext)
+    const { token, setToken, setRole } = useContext(AppContext)
     const [userInfo, setUserInfo] = useState()
     const navigate = useNavigate()
 
     const fetchData = async () => {
-        const res = await fetch(`${url}/user/info`, { method: 'GET', headers: { token } })
-        const result = await res.json()
-        console.log(result)
-        const data = result.user
+       const data = await userData(token)
         setUserInfo(prev => ({ ...prev, ...data }))
     }
 

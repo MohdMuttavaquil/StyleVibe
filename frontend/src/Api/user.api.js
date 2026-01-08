@@ -41,6 +41,9 @@ const allOrder = async (token)=>{
     return res.data.order
 }
 
+const userData = async (token)=>{
+    const res = await axiosInstance.get('/user/info', {headers: {token: token}} )
+    return res.data.user
+}
 
-
-export { singinApi, loginApi, trendingApi, allItemsApi, categoryItmeApi, itemById, userCartApi, allOrder }
+export { singinApi, loginApi, trendingApi, allItemsApi, categoryItmeApi, itemById, userCartApi, allOrder, userData }

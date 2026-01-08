@@ -15,6 +15,7 @@ import Order from './Peges/Order'
 import ScrollToTop from './utlis/scrollToTop'
 import { AppContext } from './Context/StoreContext'
 import OrderIngo from './Peges/OrderIngo'
+import { ToastContainer } from 'react-toastify'
 
 function App() {
 
@@ -48,6 +49,7 @@ function App() {
       </div>
 
       <Footer />
+      <ToastContainer />
 
     </>
   )

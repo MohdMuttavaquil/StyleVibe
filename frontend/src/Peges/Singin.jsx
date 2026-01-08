@@ -3,6 +3,7 @@ import { FaTimes } from 'react-icons/fa'
 import { Link, useNavigate } from 'react-router-dom'
 import { singinApi, loginApi } from '../Api/user.api'
 import { AppContext } from '../Context/StoreContext'
+import { toast } from '../utlis/helper'
 
 const Singin = () => {
 
@@ -28,6 +29,7 @@ const Singin = () => {
         sessionStorage.setItem('role', res.role)
         setToken(res.token)
         setRole(res.role)
+        
         if (res.role === 'admain') {
             navigate('/admain')
         } else {
@@ -41,12 +43,12 @@ const Singin = () => {
 
         if (singin) {
             const res = await singinApi(data)
-            console.log(res)
-            res.success ? setvalue(res) : alert(res.message)
+            toast(res)
+            res.success && setvalue(res)  
         } else {
             const res = await loginApi(data)
-            console.log(res)
-            res.success ? setvalue(res) : alert(res.message)
+              toast(res)
+            res.success && setvalue(res) 
         }
 
     }

@@ -1,4 +1,5 @@
 import { categoryItmeApi } from "../Api//user.api"
+import { showErrorToast, showSuccessToast } from './toast'
 const url = "http://localhost:3000/api"
 
 // Fatching items by their category
@@ -19,7 +20,7 @@ const orderApi = async (value, token) => {
         body: JSON.stringify(value)
     })
     const result = await res.json()
-    alert(result.message)
+    showSuccessToast(result.message)
 }
 
 // Online Payment Function 
@@ -48,7 +49,7 @@ const onlinepay = async (order, value, token) => {
             if (res.success) {
                 orderApi(value, token)
             } else {
-                alert("Payment verification failed!");
+                showErrorToast("Payment verification failed!");
             }
         },
         prefill: {
@@ -66,4 +67,15 @@ const onlinepay = async (order, value, token) => {
 
 }
 
-export { itemsApi, onlinepay, orderApi }
+
+// Toast
+const toast = (res)=>{
+    if (res.success) {
+        showSuccessToast(res.message)
+    } else {
+        showErrorToast(res.message)
+    }
+}
+
+
+export { itemsApi, onlinepay, orderApi, toast }

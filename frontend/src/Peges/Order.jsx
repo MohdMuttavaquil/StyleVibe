@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import { AppContext } from '../Context/StoreContext'
 import { onlinepay, orderApi } from '../utlis/helper'
 import { useNavigate } from 'react-router-dom'
+import { showAlertToast } from '../utlis/toast'
 
 const Order = () => {
 
@@ -35,7 +36,7 @@ const Order = () => {
     // Cash on delivery order 
     const cash = async () => {
           if (!token) {
-           return alert('please login ')
+           return showAlertToast('Login required!')
         }
         const paymentMode = 'Cash on dliverey'
         let value = orderDetail()
@@ -48,7 +49,7 @@ const Order = () => {
     // online payment
     const online = async () => {
           if (!token) {
-           return alert('please login ')
+           return showAlertToast('Login required!')
         }
            const paymentMode = 'Online'
         let value = orderDetail()

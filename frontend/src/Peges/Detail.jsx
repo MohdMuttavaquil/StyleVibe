@@ -2,9 +2,10 @@ import React from 'react'
 import { useContext, useState, useEffect } from 'react';
 import { FaShoppingCart } from "react-icons/fa";
 import { AppContext } from '../Context/StoreContext';
-import { itemsApi } from '../utlis/helper'
+import { itemsApi, toast } from '../utlis/helper'
 import { itemById } from '../Api/user.api';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { showAlertToast } from '../utlis/toast';
 
 const Detail = () => {
 
@@ -35,7 +36,7 @@ const Detail = () => {
     // Add item in cart after login
     const addToCart = async (itemId) => {
         if (!token) {
-            return alert("please login first")
+            return showAlertToast('Login required!')
         }
         const res = await fetch(`${url}/cart/addincart`, {
             method: "POST",
@@ -44,7 +45,7 @@ const Detail = () => {
         }
         )
         const result = await res.json()
-        console.log(result)
+        toast(result)
     }
 
     return (
