@@ -58,7 +58,7 @@ const divbar = () => {
             </nav>
 
           {/* For Side bar */}
-            <div className={`${sideBar ? "right-0 fixed z-50 text-gray-700 sm:w-[30%] w-[75%] py-10 mx-auto bg-[#f5f2f0] rounded-2xl" : "hidden"}`}>
+            <div className={`${sideBar ? "right-0 fixed z-50 text-gray-700 sm:w-[30%] w-[75%] pt-2 pb-10 mx-auto bg-[#f5f2f0] rounded-2xl" : "hidden"}`}>
               <UserProfile setSideBar={setSideBar} />
             </div>
 
