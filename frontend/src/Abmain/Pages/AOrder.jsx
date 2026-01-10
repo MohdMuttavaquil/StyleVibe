@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { allOrder, cancelOrder, confirmOrder, deliverdOrder } from '../../Api/admain.api'
 import { AppContext } from '../../Context/StoreContext'
+import { toast } from '../../utlis/helper'
 
 const AOrder = () => {
 
@@ -18,19 +19,19 @@ const AOrder = () => {
 
   const confirm = async (id, name) => {
     const result = await confirmOrder(id, name)
-    alert(result)
+    toast(result)
     fetchData()
   }
 
   const deliverd = async (id) => {
     const result = await deliverdOrder(id)
-    alert(result)
+    toast(result)
     fetchData()
   }
 
   const cancel = async (id) => {
     const result = await cancelOrder(id)
-    alert(result)
+    toast(result)
     fetchData()
   }
 

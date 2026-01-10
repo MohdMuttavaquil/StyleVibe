@@ -32,7 +32,7 @@ const confirmOrder = async (req, res) => {
     try {
         await orderModel.findByIdAndUpdate(id, { status: "shipping" }, { new: true })
         await productModel.findOneAndUpdate({ name: name }, { $inc: { quantity: - 1 } }, { new: true })
-        res.json({ success: true, message: "Status update" })
+        res.json({ success: true, message: "Order Shipped" })
     } catch (error) {
         console.log(error)
         res.json({ success: false, message: "some error" })
@@ -56,7 +56,7 @@ const cancelOrder = async (req, res) => {
 
     try {
         await orderModel.findByIdAndUpdate(id, { status: "Cancel" }, { new: true })
-        res.json({ success: true, message: "Order Canceled" })
+        res.json({ success: false, message: "Order Canceled" })
     } catch (error) {
         console.log(error)
         res.json({ success: false, message: "some error" })

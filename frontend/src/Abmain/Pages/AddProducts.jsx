@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react'
 import { AppContext } from '../../Context/StoreContext'
+import { toast } from '../../utlis/helper'
 
 const AddProducts = () => {
 
@@ -19,17 +20,18 @@ const AddProducts = () => {
     setData((prev) => ({ ...prev, [name]: value }))
   }
 
+  const clear = ()=>{
+    setData({name: "", desc: "", price: "", category: "", quantity: ""})
+    setImages([])
+  }
+
   const handleSubmit = async (e) => {
-   
     e.preventDefault()
-     if (!token) {
-      return alert('please login')
-    }
 
     const formData = new FormData()
     images.map((img) => formData.append("images", img))
     formData.append("data", JSON.stringify(data))
-   
+
     const res = await fetch('http://localhost:3000/api/product/add', {
       method: "POST",
       headers: { token },
@@ -37,7 +39,8 @@ const AddProducts = () => {
     })
 
     const responce = await res.json()
-    console.log(responce)
+    toast(responce)
+    clear()
   }
 
   return (
@@ -54,8 +57,8 @@ const AddProducts = () => {
 
         <label>
           <p>Products Images</p>
-          <input type='file' accept='image/*' multiple name='image' 
-          onChange={(e) => setImages((prev) => [...prev, ...Array.from(e.target.files) ] ) } className='input w-full' required />
+          <input type='file' accept='image/*' multiple name='image'
+            onChange={(e) => setImages((prev) => [...prev, ...Array.from(e.target.files)])} className='input w-full' required />
         </label>
 
         <label>

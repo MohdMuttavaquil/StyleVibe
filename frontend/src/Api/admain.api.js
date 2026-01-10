@@ -12,18 +12,18 @@ const allOrder = async (token)=>{
 
 const confirmOrder = async(id, name)=>{
     const res = await axiosInstance.post('/order/confirm', {id:id, name})
-    return res.data.message
+    return res.data
 }
 
 
 const deliverdOrder = async(id)=>{
     const res = await axiosInstance.post('/order/delivered', {id:id})
-    return res.data.message
+    return res.data
 }
 
 const cancelOrder = async(id)=>{
     const res = await axiosInstance.post('/order/cancel', {id:id})
-    return res.data.message
+    return res.data
 }
 
 
