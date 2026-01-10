@@ -5,7 +5,7 @@ const userOrder = async (req, res) => {
     const id = req.user.userId
 
     try {
-        const order = await orderModel.find({ userId: id }).select('productName price payment status')
+        const order = await orderModel.find({ userId: id }).select('productName price payment status').sort({ _id: -1 })
         res.json({ success: true, order })
     } catch (error) {
         console.log(error)
@@ -17,7 +17,7 @@ const admainOrder = async (req, res) => {
     const name = req.user.userName
 
     try {
-        const order = await orderModel.find({ sellerName: name }).select('productName price payment status address phoneNo buyerName')
+        const order = await orderModel.find({ sellerName: name }).select('productName price payment status address phoneNo buyerName').sort({ _id: -1 })
         res.json({ success: true, order })
     } catch (error) {
         console.log(error)

@@ -27,7 +27,7 @@ const categoryItmeApi = async(category) =>{
 }
 
 const itemById = async(id)=>{
-  const res = await axiosInstance.post('/items/item', {id:id})
+  const res = await axiosInstance.post('/items', {id:id})
     return res.data.success ? res.data.item : alert('some erro')
 }
 
@@ -46,4 +46,9 @@ const userData = async (token)=>{
     return res.data.user
 }
 
-export { singinApi, loginApi, trendingApi, allItemsApi, categoryItmeApi, itemById, userCartApi, allOrder, userData }
+const suggestion = async (category)=>{
+  const res = await axiosInstance.post('/items/suggestion', { category: category } )
+  return res.data.items
+}
+
+export { singinApi, loginApi, trendingApi, allItemsApi, categoryItmeApi, itemById, userCartApi, allOrder, userData, suggestion }

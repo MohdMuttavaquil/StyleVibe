@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Link, useNavigate } from 'react-router-dom'
 import { AppContext } from '../Context/StoreContext'
 import { allItemsApi, itemById, trendingApi } from '../Api/user.api'
+import  ProductsBox  from '../Component/ProductsBox'
 
 const Home = () => {
 
@@ -48,7 +49,7 @@ const Home = () => {
 
       </div>
 
-      {/*products */}
+      {/*products Trending products */}
       <div className='my-10 sm:w-[80%] mx-2 sm:mx-auto '>
         <p className='my-5 text-2xl font-semibold'>Tranding In India</p>
 
@@ -61,6 +62,7 @@ const Home = () => {
 
         </div>
 
+       {/* Suggest products */}
         <p className='my-5 text-2xl font-semibold'>For You</p>
 
         <div className='flex w-full justify-evenly flex-wrap'>
@@ -71,6 +73,9 @@ const Home = () => {
           </div>)}
 
         </div>
+
+        { /* Products with category */ }
+        <ProductsBox />
 
       </div>
 
