@@ -7,32 +7,33 @@ const AOrder = () => {
 
   const { token } = useContext(AppContext)
 
-  const [ orders, setOrders ] = useState([])
+  const [orders, setOrders] = useState([])
   const fetchData = async () => {
     const res = await allOrder(token)
-    setOrders (res)
+    setOrders(res)
   }
   useEffect(() => {
     fetchData()
   }, [])
 
+  const update = (result) => {
+    toast(result)
+    fetchData()
+  }
 
   const confirm = async (id, name) => {
     const result = await confirmOrder(id, name)
-    toast(result)
-    fetchData()
+    update(result)
   }
 
   const deliverd = async (id) => {
     const result = await deliverdOrder(id)
-    toast(result)
-    fetchData()
+    update(result)
   }
 
   const cancel = async (id) => {
     const result = await cancelOrder(id)
-    toast(result)
-    fetchData()
+    update(result)
   }
 
   return (

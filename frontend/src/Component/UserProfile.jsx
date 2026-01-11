@@ -37,7 +37,7 @@ const UserProfile = ({ setSideBar }) => {
             <p className='text-xl font-semibold px-2 my-2 '>Username: <span className='text-lg'>{userInfo?.name}</span></p>
             <p className='text-xl font-semibold px-2 my-2'>Email: <span className='text-lg'>{userInfo?.email}</span></p>
 
-              <div className='flex sm:hidden mx-2 px-2 my-2 bg-[#374151] button gap-2 w-fit items-center'>
+              <div className={`${userInfo?.role === 'admain' ? "hidden" : ""} flex sm:hidden mx-2 px-2 my-2 bg-[#374151] button gap-2 w-fit items-center`}>
                 <p className='text-lg font-semibold'>User Cart</p>
                 <Link to='/cart'>
                     <FaShoppingCart className='h-5 w-5 text-white' />

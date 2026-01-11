@@ -30,7 +30,7 @@ const onlinepay = async (order, value, token) => {
         key: 'rzp_test_QXiPiAaXY4WeKN',
         amount: order.amount,
         currency: order.currency,
-        name: "DMIC",
+        name: "Style Vibe",
         description: 'Test Transaction',
         order_id: order.id,
         handler: async function (response) {

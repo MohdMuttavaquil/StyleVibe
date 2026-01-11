@@ -56,7 +56,7 @@ const cancelOrder = async (req, res) => {
 
     try {
         await orderModel.findByIdAndUpdate(id, { status: "Cancel" }, { new: true })
-        res.json({ success: false, message: "Order Canceled" })
+        res.json({ success: true, message: "Order Cancelled" })
     } catch (error) {
         console.log(error)
         res.json({ success: false, message: "some error" })

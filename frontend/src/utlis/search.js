@@ -2,10 +2,10 @@ import Fuse from 'fuse.js'
 
 // Find best Categori for items 
 const categoryKeywords = {
-    "mens were": ["jeans", "shirt", "tshirt", "menwear"],
+    "mens were": ["jeans", "shirt", "tshirt", "menwear", "jackets"],
     "womens were": ["Saree", "Lehenga", "Top", "womens were"],
     "Jewelary": ["ring", "necklace"],
-    "shose": ["sports shoes", "casual shoes"],
+    "shose": ["sports shoes", "casual shoes", "Boot"],
     "mens Accessories": ["watch", "perfume", "belt"],
     "Beauity Products": ["lipstick", "foundation", "cream", "makeup"],
     "kids wear": ["kids", "boy", "girl", "children"]

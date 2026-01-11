@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { AppContext } from '../Context/StoreContext'
 import { allOrder } from '../Api/user.api'
 import { cancelOrder } from '../Api/admain.api'
+import { toast } from '../utlis/helper'
 
 const OrderIngo = () => {
 
@@ -19,7 +20,7 @@ const OrderIngo = () => {
 
     const cancel = async (id) => {
     const result = await cancelOrder(id)
-    alert(result)
+    toast(result)
     fetchData()
   }
 

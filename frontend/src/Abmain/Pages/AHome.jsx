@@ -1,18 +1,18 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useContext } from 'react'
 import { AppContext } from '../../Context/StoreContext'
 import { allProducts } from '../../Api/admain.api'
+import { useQuery } from '@tanstack/react-query'
 
 const AHome = () => {
   const { token } = useContext(AppContext)
 
-  const [products, setProducts] = useState([])
   const fetchData = async () => {
     const res = await allProducts(token)
-    setProducts(res)
+    return res
   }
-  useEffect(() => {
-    fetchData()
-  }, [])
+
+  const { data: products } = useQuery({
+     queryKey: ['products'], queryFn: fetchData, enabled: !!token, staleTime: Infinity })
 
   return (
     <div className='min-h-screen sm:w-[80%] sm:mx-auto mx-2'>
