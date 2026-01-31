@@ -17,6 +17,10 @@ const productSchema = new mongoose.Schema({
         type: Number,
         require: true
     },
+    MRPPrice:{
+        type: Number,
+        require: true
+    },
     quantity: {
         type: Number,
         require: true
@@ -28,6 +32,21 @@ const productSchema = new mongoose.Schema({
     images: {
         type: Array,
         require: true
+    },
+    
+    size: {
+        small: {
+            type: Boolean
+        },
+        midume:  {
+            type: Boolean
+        },
+        larg:  {
+            type: Boolean
+        },
+        extraLarg:  {
+            type: Boolean
+        }
     }
 })
 

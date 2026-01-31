@@ -16,6 +16,7 @@ import ScrollToTop from './utlis/scrollToTop'
 import { AppContext } from './Context/StoreContext'
 import OrderIngo from './Peges/OrderIngo'
 import { ToastContainer } from 'react-toastify'
+import EditProduct from './Abmain/Pages/EditProduct'
 
 function App() {
 
@@ -43,7 +44,8 @@ function App() {
           {/* Admain Routes */}
           <Route path='/admain' element={<AHome />}></Route>
           <Route path='/admain/order' element={<AOrder />}></Route>
-          <Route path='/admain/addproduct' element={<AddProducts />}></Route>
+          <Route path='/admain/product/add' element={<AddProducts />}></Route>
+          <Route path='/admain/product/edit' element={<EditProduct />}></Route>
 
         </Routes>
       </div>

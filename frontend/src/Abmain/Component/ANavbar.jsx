@@ -22,7 +22,7 @@ const ANavbar = () => {
                     <ul className='flex items-center sm:gap-6 gap-2'>
                         <Link to='/admain'> <li className='cursor-pointer hover:font-semibold sm:flex hidden'>Home</li> </Link>
                         <Link to='/admain/order'> <li className='cursor-pointer hover:font-semibold'>Order</li> </Link>
-                        <Link to='/admain/addproduct'> <li className='cursor-pointer hover:font-semibold'>Add Products</li> </Link>
+                        <Link to='/admain/product/add'> <li className='cursor-pointer hover:font-semibold'>Add Products</li> </Link>
 
                         <li>  {token === null ? <Link to='/singin' className='sm:px-3 py-1 px-2  bg-blue-500 hover:bg-blue-600 text-white rounded-lg cursor-pointer'>Login</Link> :
                             <FaUser onClick={() => setSideBar(!sideBar)} className='cursor-pointer sm:h-8 sm:w-8 h-6 w-6' />}</li>

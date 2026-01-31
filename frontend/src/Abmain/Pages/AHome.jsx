@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { AppContext } from '../../Context/StoreContext'
 import { allProducts } from '../../Api/admain.api'
 import { useQuery } from '@tanstack/react-query'
+import { Link } from 'react-router-dom'
 
 const AHome = () => {
   const { token } = useContext(AppContext)
@@ -28,6 +29,8 @@ const AHome = () => {
             <p className='text-2xl font-semibold my-1 '>₹{i.price}</p>
             <p className='text-lg font-semibold my-1'>Product Quantity {i.quantity}</p>
             <p>{i.desc}</p>
+
+               <Link to='/admain/product/edit'>Edit Product</Link>
           </div>
 
         </div>)}
