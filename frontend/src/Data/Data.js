@@ -36,4 +36,11 @@ const cetogry = [
    
 ] 
 
-export { cetogry }
+
+const productSize = [
+   { pents: ['28', '30', '32', '34'] },
+   { cloths: ['S', 'M', 'L', 'XL'] },
+   { shose: ['6', '7', '8', '9']}
+]
+
+export { cetogry, productSize }

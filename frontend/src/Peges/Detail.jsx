@@ -6,6 +6,7 @@ import { itemsApi, toast } from '../utlis/helper'
 import { itemById } from '../Api/user.api';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { showAlertToast } from '../utlis/toast';
+import { productSize } from '../Data/Data';
 
 const Detail = () => {
 
@@ -13,7 +14,32 @@ const Detail = () => {
     const navigate = useNavigate()
     const { state } = useLocation()
     const [items, setItems] = useState([])
+    let size = {}
+
     const quantity = state.quantity
+    const discount = Math.floor(((state.MRPPrice - state.price) / state.MRPPrice) * 100);
+
+    // Set Products Size 
+    const setSize = () => {
+        let name = state.name.toLowerCase()
+        let sizePar
+
+        if (name.includes('pantes')) {
+            sizePar = productSize[0]
+        }
+        else if (name.includes('shoes')) {
+            sizePar = productSize[2]
+        }
+        else {
+            sizePar = productSize[1]
+        }
+
+         size = {
+            ...sizePar,
+            ...state.size
+        }
+       
+    }
 
     const result = async () => {
         const res = await itemsApi(state.category)
@@ -25,6 +51,7 @@ const Detail = () => {
 
     useEffect(() => {
         result()
+        setSize()
     }, [])
 
     // set item detail 
@@ -48,6 +75,7 @@ const Detail = () => {
         toast(result)
     }
 
+
     return (
         <div className='sm:w-[80%] sm:mx-auto mx-2 sm:my-16 min-h-screen'>
 
@@ -58,12 +86,24 @@ const Detail = () => {
                 </div>
 
                 <div className='sm:w-[45%] sm:mx-auto mx-2 sm:mt-20'>
+
                     <p className='text-2xl font-semibold'>{state.name}</p>
                     <img src='./rating.jpg' className='h-6 w-20'></img>
-                    <p className='bg-[#2196f3] text-white px-3 py-1 rounded-xl w-fit font-semibold mt-4'>
-                        {quantity > 9 ? 'India’s Top Picks' : `Hurry only ${quantity} left`}</p>
+
+                    <p className='bg-[#2196f3] text-white px-3 py-1 rounded-xl w-fit font-semibold mt-4'>{quantity > 9 ? 'India’s Top Picks' : `Hurry only ${quantity} left`}</p>
+
                     <p className='text-xl mt-4 w-[80%]' >{state.desc}</p>
-                    <p className='text-2xl font-semibold my-4'>₹{state.price}</p>
+
+                    <div className='flex gap-2 my-5'>
+                        <p className='text-2xl font-semibold opacity-75 line-through'>₹{state.MRPPrice}</p>
+                        <p className='text-2xl font-semibold'>{state.price}</p>
+                        <p className={`${discount <= 1 ? "hidden" : ""} bg-[#2196f3] text-white px-3 font-semibold py-1 text-center rounded-xl`}>{discount}% off</p>
+                    </div>
+
+                    <div className='flex my-5 gap-2'>
+
+                    </div>
+
 
                     <div className='flex gap-4 mt-5'>
                         <button onClick={() => addToCart(state._id)} className='px-4 py-1 bg-amber-500 text-white rounded-2xl cursor-pointer flex gap-2 items-center'>Add To Cart

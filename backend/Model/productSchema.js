@@ -48,6 +48,7 @@ const productSchema = new mongoose.Schema({
             type: Boolean
         }
     }
+    
 })
 
 productSchema.index({ category: 1, admainName: 1, name: 1 })
