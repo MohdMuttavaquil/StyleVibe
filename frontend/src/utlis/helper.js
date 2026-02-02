@@ -2,6 +2,12 @@ import { categoryItmeApi } from "../Api//user.api"
 import { showErrorToast, showSuccessToast } from './toast'
 const url = "http://localhost:3000/api"
 
+const productSize = [
+   ['28', '30', '32', '34'],
+   ['S', 'M', 'L', 'XL'],
+   ['6', '7', '8', '9']
+]
+
 // Fatching items by their category
 const itemsApi = async (category) => {
 
@@ -77,5 +83,30 @@ const toast = (res)=>{
     }
 }
 
+// Set Products Size 
+ const setSize = (name, size) => {
 
-export { itemsApi, onlinepay, orderApi, toast }
+        let sizeDetail = []
+        let sizePar = []
+
+        if (name.includes('pantes')) {
+            sizePar = productSize[0]
+        }
+        else if (name.includes('shoes')) {
+            sizePar = productSize[2]
+        }
+        else {
+            sizePar = productSize[1]
+        }
+     console.log(productSize, sizePar)
+        if(!size) return
+
+        sizeDetail = (size.small) ? sizePar.splice(0, 1) : sizePar
+        sizeDetail = (size.midume) ? sizePar.splice(1, 1) : sizePar
+        sizeDetail = (size.larg) ? sizePar.splice(2, 1) : sizePar
+        sizeDetail = (size.extraLarg) ? sizePar.splice(3, 1) : sizePar
+       console.log(sizeDetail)
+        return sizeDetail 
+    }
+
+export { itemsApi, onlinepay, orderApi, toast, setSize }

@@ -27,7 +27,7 @@ const categoryItmeApi = async(category) =>{
 }
 
 const itemById = async(id)=>{
-  const res = await axiosInstance.post('/items', {id:id})
+  const res = await axiosInstance.get(`/items/${id}`)
     return res.data.success ? res.data.item : alert('some erro')
 }
 

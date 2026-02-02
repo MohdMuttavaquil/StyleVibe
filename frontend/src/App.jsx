@@ -36,7 +36,7 @@ function App() {
           <Route path='/' element={<Home />}></Route>
           <Route path='/singin' element={<Singin />}></Route>
           <Route path='/cart' element={<Cart />}></Route>
-          <Route path='/detail' element={<Detail />}></Route>
+          <Route path='/detail/:id' element={<Detail />}></Route>
           <Route path='/search' element={<Products />}></Route>
           <Route path='/order' element={<Order />}></Route>
           <Route path='/order/info' element={<OrderIngo />}></Route>

@@ -20,7 +20,7 @@ const Home = () => {
   // set item detail 
   const itemDetail = async(id) => {
    const res = await itemById(id)
-    navigate('/detail', {state: res})
+    navigate(`/detail/${id}`, {state: res})
   }
   return (
     <>

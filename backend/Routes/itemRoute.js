@@ -6,7 +6,7 @@ const itemRoute = express.Router()
 itemRoute.get('/allItems', getItems)
 itemRoute.post('/category', categoryItems)
 itemRoute.get('/trending', trendingItems)
-itemRoute.post('/', itemById)
+itemRoute.get('/:id', itemById)
 itemRoute.post('/suggestion', homeSuggestion)
 
 export default itemRoute

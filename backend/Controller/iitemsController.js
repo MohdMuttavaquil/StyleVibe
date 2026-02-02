@@ -44,8 +44,8 @@ const trendingItems = async (req, res) => {
 }
 
 const itemById = async (req, res) => {
-    const { id } = req.body
- 
+    const { id } =  req.params
+   
     try {
         const item = await productModel.findById(id)
         res.json({ success: true, item })

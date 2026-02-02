@@ -2,11 +2,11 @@ import React from 'react'
 import { useContext, useState, useEffect } from 'react';
 import { FaShoppingCart } from "react-icons/fa";
 import { AppContext } from '../Context/StoreContext';
-import { itemsApi, toast } from '../utlis/helper'
+import { itemsApi, setSize, toast } from '../utlis/helper'
 import { itemById } from '../Api/user.api';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { showAlertToast } from '../utlis/toast';
-import { productSize } from '../Data/Data';
+
 
 const Detail = () => {
 
@@ -14,33 +14,14 @@ const Detail = () => {
     const navigate = useNavigate()
     const { state } = useLocation()
     const [items, setItems] = useState([])
-    let size = {}
+    
+    let size = []
 
     const quantity = state.quantity
     const discount = Math.floor(((state.MRPPrice - state.price) / state.MRPPrice) * 100);
+   
 
-    // Set Products Size 
-    const setSize = () => {
-        let name = state.name.toLowerCase()
-        let sizePar
-
-        if (name.includes('pantes')) {
-            sizePar = productSize[0]
-        }
-        else if (name.includes('shoes')) {
-            sizePar = productSize[2]
-        }
-        else {
-            sizePar = productSize[1]
-        }
-
-         size = {
-            ...sizePar,
-            ...state.size
-        }
-       
-    }
-
+    // Set Items Details
     const result = async () => {
         const res = await itemsApi(state.category)
         setItems(res)
@@ -51,13 +32,14 @@ const Detail = () => {
 
     useEffect(() => {
         result()
-        setSize()
-    }, [])
+        size = setSize(state.name, state.size)
+        console.log(size)
+    }, [state])
 
     // set item detail 
     const itemDetail = async (id) => {
         const res = await itemById(id)
-        navigate('/detail', { state: res })
+        navigate(`/detail/${id}`, { state: res })
     }
 
     // Add item in cart after login
@@ -101,7 +83,9 @@ const Detail = () => {
                     </div>
 
                     <div className='flex my-5 gap-2'>
-
+                        {size.map((i, index) => <p key={index}>
+                            {console.log(i)} name
+                        </p>)}
                     </div>
 
 
