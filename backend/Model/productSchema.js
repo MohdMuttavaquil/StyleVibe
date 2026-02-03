@@ -35,18 +35,8 @@ const productSchema = new mongoose.Schema({
     },
     
     size: {
-        small: {
-            type: Boolean
-        },
-        midume:  {
-            type: Boolean
-        },
-        larg:  {
-            type: Boolean
-        },
-        extraLarg:  {
-            type: Boolean
-        }
+      type: Array,
+      default: []
     }
     
 })
