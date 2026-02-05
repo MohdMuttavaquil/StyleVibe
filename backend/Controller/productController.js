@@ -8,53 +8,55 @@ const addProduct = async (req, res) => {
   const data = JSON.parse(jsondata)
 
   try {
-console.log(data)
-    // Opload Image on cloudinary
-    // if (!req.files || req.files.length === 0) {
-    //   return res.json({ success: false, message: "Please upload images" });
-    // }
 
-    // const uploadToCloudinary = (fileBuffer) => {
-    //   return new Promise((resolve, reject) => {
-    //     const uploadStream = cloudinary.uploader.upload_stream(
-    //       {
-    //         folder: "ecommerce",
-    //         resource_type: "image",
-    //       },
-    //       (error, result) => {
-    //         if (error) reject(error);
-    //         else resolve(result);
-    //       }
-    //     );
+   //Upload Image on cloudinary
+    if (!req.files || req.files.length === 0) {
+      return res.json({ success: false, message: "Please upload images" });
+    }
 
-    //     streamifier.createReadStream(fileBuffer).pipe(uploadStream);
-    //   });
-    // };
+    const uploadToCloudinary = (fileBuffer) => {
+      return new Promise((resolve, reject) => {
+        const uploadStream = cloudinary.uploader.upload_stream(
+          {
+            folder: "ecommerce",
+            resource_type: "image",
+          },
+          (error, result) => {
+            if (error) reject(error);
+            else resolve(result);
+          }
+        );
 
-    // const uploadPromises = req.files.map((file) =>
-    //   uploadToCloudinary(file.buffer)
-    // );
+        streamifier.createReadStream(fileBuffer).pipe(uploadStream);
+      });
+    };
 
-    // const results = await Promise.all(uploadPromises);
+    const uploadPromises = req.files.map((file) =>
+      uploadToCloudinary(file.buffer)
+    );
 
-    // const imageUrls = results.map((result) => ({
-    //   url: result.secure_url,
-    //   publicId: result.public_id,
-    // }));
+    const results = await Promise.all(uploadPromises);
 
-    // // Create Product in Database
+    const imageUrls = results.map((result) => ({
+      url: result.secure_url,
+      publicId: result.public_id,
+    }));
 
-    // const newProduct = new productModel({
-    //   name: data.name,
-    //   desc: data.desc,
-    //   category: data.category,
-    //   price: data.price,
-    //   quantity: data.quantity,
-    //   admainName: req.user.userName,
-    //   images: imageUrls
-    // })
+    // Create Product in Database
 
-    // await newProduct.save()
+    const newProduct = new productModel({
+      name: data.name,
+      desc: data.desc,
+      category: data.category,
+      MRPPrice: data.mrpPrice,
+      price: data.price,
+      quantity: data.quantity,
+      size: data.size,
+      admainName: req.user.userName,
+      images: imageUrls
+    })
+
+    await newProduct.save()
 
     return res.json({ success: true, message: "Product uploaded successfully" });
 
