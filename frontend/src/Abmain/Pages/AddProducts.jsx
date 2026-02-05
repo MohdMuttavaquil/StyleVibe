@@ -7,10 +7,14 @@ const AddProducts = () => {
   const [data, setData] = useState({
     name: "",
     desc: "",
+    mrpPrice: "",
     price: "",
     category: "",
-    quantity: ""
+    quantity: "",
+    size: []
   })
+
+  const [proSize, setProSize] = useState('')
 
   const { token } = useContext(AppContext)
   const [images, setImages] = useState([]);
@@ -20,17 +24,22 @@ const AddProducts = () => {
     setData((prev) => ({ ...prev, [name]: value }))
   }
 
-  const clear = ()=>{
-    setData({name: "", desc: "", price: "", category: "", quantity: ""})
+  const clear = () => {
+    setData({ name: "", desc: "", price: "", category: "", quantity: "", mrpPrice: "", size: [] })
     setImages([])
   }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
+  const addPro = () => {
+   setData((prev) => ({...prev, size: [...prev.size, proSize] }) )
+   setProSize('')
+  }
+
+  const handleSubmit = async () => {
 
     const formData = new FormData()
     images.map((img) => formData.append("images", img))
     formData.append("data", JSON.stringify(data))
+    
 
     const res = await fetch('http://localhost:3000/api/product/add', {
       method: "POST",
@@ -46,7 +55,7 @@ const AddProducts = () => {
   return (
     <div className='sm:w-[80%] sm:mx-auto text-gray-800 min-h-screen'>
 
-      <form onSubmit={handleSubmit} className='sm:w-[40%] flex-col flex gap-2 py-6 px-3 sm:mx-auto rounded-2xl bg-[#f5f2f0]'>
+      <div className='sm:w-[40%] flex-col flex gap-2 py-6 px-3 sm:mx-auto rounded-2xl bg-[#f5f2f0]'>
 
         <p className='text-2xl font-semibold text-center mb-2'>Add New Products</p>
 
@@ -68,13 +77,28 @@ const AddProducts = () => {
 
         <div className='flex gap-2'>
           <label className=' w-1/2'>
-            <p>Products Price</p>
+            <p>Sell Price</p>
             <input type='number' name='price' onChange={handleChange} value={data.price} placeholder='price' className='input' required />
           </label>
 
           <label className=' w-1/2'>
+            <p>MRP Price</p>
+            <input type='number' name='mrpPrice' onChange={handleChange} value={data.mrpPrice} placeholder='MRP Price' className='input' required />
+          </label>
+        </div>
+
+        <div className='flex gap-2'>
+          <div className=' w-1/2 flex items-center'>
+            <label className='w-[65%]'>
+              <p>Products Size</p>
+              <input type='text' name='proSize' onChange={(e) => setProSize(e.target.value)} value={proSize} placeholder='S' className='input' />
+            </label>
+            <button className='button h-fit bg-[#f97316]' onClick={() => addPro()}>Add</button>
+          </div>
+
+          <label className=' w-2/3'>
             <p>Products quantity</p>
-            <input type='number' name='quantity' onChange={handleChange} value={data.quantity} placeholder=' Quantity' className='input' required />
+            <input type='number' name='quantity' onChange={handleChange} value={data.quantity} placeholder='Quantity' className='input' required />
           </label>
         </div>
 
@@ -90,9 +114,9 @@ const AddProducts = () => {
           <option value='mens accessories'>Mens Accessories</option>
         </select>
 
-        <input type='submit' className='px-3 py-1 bg-[#f97316] text-white rounded-lg cursor-pointer my-2 font-semibold' value={"Uplode"} />
+        <button onClick={()=> handleSubmit()} className='px-3 py-1 bg-[#f97316] text-white rounded-lg cursor-pointer my-2 font-semibold' >Uplode</button>
 
-      </form>
+      </div>
 
     </div>
   )

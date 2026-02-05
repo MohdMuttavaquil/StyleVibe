@@ -35,7 +35,6 @@ const Detail = () => {
     useEffect(() => {
         result()
         setSize(state.size)
-        console.log(size)
     }, [state])
 
     // set item detail 
@@ -73,9 +72,9 @@ const Detail = () => {
 
                     <p className='text-2xl font-semibold'>{state.name}</p>
 
-                    <div className='flex items-center gap-1'>
+                    <div className='flex items-center gap-2'>
                         <p>{rating}</p>
-                        <img src='/rating.webp' className='h-4 w-4'></img>
+                        <img src='/rating.webp' className='h-5 w-5'></img>
                         <p>({people})</p>
                     </div>
 
@@ -85,7 +84,7 @@ const Detail = () => {
                     <p className='text-xl mt-4 w-[80%]' >{state.desc}</p>
 
                     <div className='my-5 flex gap-3'>
-                        {size && size.map((i, index) => <button key={index} onClick={() => setActive(i)} className={`${active === i ? "bg-gray-700 text-white" : ""} text-gray-800 text-lg border-2 px-2 cursor-pointer py-0.5 rounded-xl border-gray-500`}>{i}</button>)}
+                        {size && size.map((i, index) => <button key={index} onClick={() => setActive(i)} className={`${active === i ? "bg-gray-700 text-white" : ""} text-gray-800 text-lg border-2 px-2 cursor-pointer rounded-lg border-gray-500`}>{i}</button>)}
                     </div>
 
                     <div className='flex gap-2 my-5'>
