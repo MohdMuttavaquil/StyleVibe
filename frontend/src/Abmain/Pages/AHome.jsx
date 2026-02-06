@@ -2,10 +2,12 @@ import React, { useContext } from 'react'
 import { AppContext } from '../../Context/StoreContext'
 import { allProducts } from '../../Api/admain.api'
 import { useQuery } from '@tanstack/react-query'
-import { Link } from 'react-router-dom'
+import { itemById } from '../../Api/user.api'
+import { useNavigate } from 'react-router-dom'
 
 const AHome = () => {
   const { token } = useContext(AppContext)
+  const navigate = useNavigate()
 
   const fetchData = async () => {
     const res = await allProducts(token)
@@ -13,7 +15,13 @@ const AHome = () => {
   }
 
   const { data: products } = useQuery({
-     queryKey: ['products'], queryFn: fetchData, enabled: !!token, staleTime: Infinity })
+    queryKey: ['products'], queryFn: fetchData, enabled: !!token, staleTime: Infinity
+  })
+
+  const editPro = async (id) => {
+    const res = await itemById(id)
+    navigate('/admain/product/edit', { state: res })
+  }
 
   return (
     <div className='min-h-screen sm:w-[80%] sm:mx-auto mx-2'>
@@ -30,7 +38,7 @@ const AHome = () => {
             <p className='text-lg font-semibold my-1'>Product Quantity {i.quantity}</p>
             <p>{i.desc}</p>
 
-               <Link to='/admain/product/edit'>Edit Product</Link>
+            <button className='button bg-blue-400' onClick={() => editPro(i._id)} >Edit Product</button>
           </div>
 
         </div>)}

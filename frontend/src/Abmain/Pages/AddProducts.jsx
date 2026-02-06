@@ -30,8 +30,8 @@ const AddProducts = () => {
   }
 
   const addPro = () => {
-   setData((prev) => ({...prev, size: [...prev.size, proSize] }) )
-   setProSize('')
+    setData((prev) => ({ ...prev, size: [...prev.size, proSize] }))
+    setProSize('')
   }
 
   const handleSubmit = async () => {
@@ -39,7 +39,7 @@ const AddProducts = () => {
     const formData = new FormData()
     images.map((img) => formData.append("images", img))
     formData.append("data", JSON.stringify(data))
-    
+
 
     const res = await fetch('http://localhost:3000/api/product/add', {
       method: "POST",
@@ -114,7 +114,7 @@ const AddProducts = () => {
           <option value='mens accessories'>Mens Accessories</option>
         </select>
 
-        <button onClick={()=> handleSubmit()} className='px-3 py-1 bg-[#f97316] text-white rounded-lg cursor-pointer my-2 font-semibold' >Uplode</button>
+        <button onClick={() => handleSubmit()} className='px-3 py-1 bg-[#f97316] text-white rounded-lg cursor-pointer my-2 font-semibold' >Uplode</button>
 
       </div>
 
