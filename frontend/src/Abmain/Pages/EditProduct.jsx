@@ -6,16 +6,23 @@ const EditProduct = () => {
   const { state } = useLocation()
 
   const [proSize, setProSize] = useState('')
+  const [ rproSize, setRproSize] = useState('')
   const [data, setData] = useState({
     mrpPrice: "",
     price: "",
     quantity: "",
-    size: []
+    addSize: [],
+    removeSize: []
   })
 
   const addPro = () => {
-    setData((prev) => ({ ...prev, size: [...prev.size, proSize] }))
+    setData((prev) => ({ ...prev, addSize: [...prev.addSize, proSize] }))
     setProSize('')
+  }
+
+  const removePro = () => {
+    setData((prev) => ({ ...prev, removeSize: [...prev.removeSize, rproSize] }))
+    setRproSize('')
   }
 
   const handleChange = (e) => {
@@ -33,7 +40,7 @@ const EditProduct = () => {
   }
 
   return (
-    <div className='min-h-screen flex sm:flex-row flex-col justify-evenly sm:mx-auto sm:w-[80%] mx-2'>
+    <div className='min-h-screen flex sm:flex-row flex-col justify-evenly sm:justify-between sm:mx-auto sm:w-[80%] mx-2'>
 
       {/* Product info */}
       <div className='md:w-[48%] flex flex-col px-2 text-gray-800 sm:my-12 my-4'>
@@ -52,7 +59,7 @@ const EditProduct = () => {
       </div>
 
       {/* edit product detail */}
-      <div className='bg-[#f5f2f0] flex flex-col items-center py-10 px-4 rounded-xl h-fit sm:my-12 my-4'>
+      <div className='bg-[#f5f2f0] flex flex-col justify-center gap-2 py-10 px-4 rounded-xl h-fit sm:my-12 my-4'>
 
         <div className='flex gap-2'>
           <label className=' w-1/2'>
@@ -68,18 +75,27 @@ const EditProduct = () => {
 
         <div className='flex gap-2 sm:flex-row flex-col'>
           <div className='sm:w-1/2 flex items-center w-full' >
-            <label className='w-[65%]'>
-              <p>Products Size</p>
+            <label className='w-[50%]'>
+              <p>Add Size</p>
               <input type='text' name='proSize' onChange={(e) => setProSize(e.target.value)} value={proSize} placeholder='S' className='input' />
             </label>
             <button className='button h-fit bg-[#f97316]' onClick={() => addPro()}>Add</button>
           </div>
 
-          <label className='sm:w-2/3 w-full'>
-            <p>Products quantity</p>
-            <input type='number' name='quantity' onChange={handleChange} value={data.quantity} placeholder='Quantity' className='input' />
-          </label>
+          <div className='sm:w-1/2 flex items-center w-full' >
+            <label className='w-[50%]'>
+              <p>Remove Size</p>
+              <input type='text' name='proSize' onChange={(e) => setRproSize(e.target.value)} value={rproSize} placeholder='S' className='input' />
+            </label>
+            <button className='button h-fit bg-[#f97316]' onClick={() => removePro()}>Remove</button>
+          </div>
+
         </div>
+
+        <label className='sm:w-2/3 w-full'>
+          <p>Products quantity</p>
+          <input type='number' name='quantity' onChange={handleChange} value={data.quantity} placeholder='Quantity' className='input' />
+        </label>
 
         <button onClick={() => editPro()} className='px-3 py-1 bg-[#f97316] text-white rounded-lg cursor-pointer my-2 font-semibold' >Uplode</button>
 
