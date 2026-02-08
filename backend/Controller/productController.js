@@ -66,6 +66,7 @@ const addProduct = async (req, res) => {
   }
 };
 
+// Get all admain products
 const allProducts = async (req, res) => {
   const name = req.user.userName
 
@@ -80,4 +81,57 @@ const allProducts = async (req, res) => {
 
 }
 
-export { addProduct, allProducts }
+
+// Edit products info
+const editProduct = async (req,res) =>{
+
+  const data = req.body.data
+
+  try {
+    const product = await productModel.findById(data.id)
+
+    product.MRPPrice = data.mrpPrice ?? product.MRPPrice
+    product.price = data.price ?? product.price 
+    product.quantity = ( product.quantity + data.quantity ) ?? product.quantity
+
+    if (data.removeSize) {
+     data.addSize.map((i)=> {
+      const exist = product.size.includes(i)
+
+      if (exist) {
+        const index = product.size.indexOf(i)
+        product.size.splice(index, 1)
+      }
+     })
+    }
+
+    if (data.addSize) {
+      product.size = [...product.size, ...data.addSize]
+    }
+
+    res.json({success: true, message: "Product Updated"})
+  } catch (error) {
+     console.log(error);
+    res.json({ success: false, message: "Some error occurred" });
+  }
+}
+
+// Delete Product 
+const deleteProduct = async (req, res)=>{
+
+  const { id } = req.body
+
+  try {
+    const product = await findById(id)
+
+    product.images.map((i)=> {
+    const result = cloudinary.uploader.destroy(i.publicId)
+    console.log(result)
+    })
+
+  } catch (error) {
+     console.log(error);
+    res.json({ success: false, message: "Some error occurred" });
+  }
+}
+export { addProduct, allProducts, editProduct, deleteProduct }
