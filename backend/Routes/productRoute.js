@@ -7,7 +7,7 @@ const productRoute = express.Router()
 
 productRoute.post('/add', authMiddleware, uploder.array('images', 5), addProduct)
 productRoute.get('/getproducts', authMiddleware, allProducts)
-productRoute.post('/edit/product', authMiddleware, editProduct)
-productRoute.post('/delet/product', authMiddleware, deleteProduct)
+productRoute.post('/edit', authMiddleware, editProduct)
+productRoute.post('/delete', authMiddleware, deleteProduct)
 
 export default productRoute

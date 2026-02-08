@@ -9,7 +9,7 @@ const addProduct = async (req, res) => {
 
   try {
 
-   //Upload Image on cloudinary
+    //Upload Image on cloudinary
     if (!req.files || req.files.length === 0) {
       return res.json({ success: false, message: "Please upload images" });
     }
@@ -72,7 +72,8 @@ const allProducts = async (req, res) => {
 
   try {
     const products = await productModel.find({ admainName: name }).select({
-      name: 1, price: 1, images: { $slice: 1 }, quantity: 1, desc: 1})
+      name: 1, price: 1, images: { $slice: 1 }, quantity: 1, desc: 1
+    })
     res.json({ success: true, products })
   } catch (error) {
     console.log(error);
@@ -83,54 +84,63 @@ const allProducts = async (req, res) => {
 
 
 // Edit products info
-const editProduct = async (req,res) =>{
+const editProduct = async (req, res) => {
 
-  const data = req.body.data
+  const { data } = req.body
 
   try {
     const product = await productModel.findById(data.id)
+    if (data.mrpPrice) {
+      product.MRPPrice = data.mrpPrice
+    }
 
-    product.MRPPrice = data.mrpPrice ?? product.MRPPrice
-    product.price = data.price ?? product.price 
-    product.quantity = ( product.quantity + data.quantity ) ?? product.quantity
+    if (data.price) {
+      product.price = data.price
+    }
+
+    if (data.quantity) {
+      product.quantity = product.quantity + Number(data.quantity)
+    }
 
     if (data.removeSize) {
-     data.addSize.map((i)=> {
-      const exist = product.size.includes(i)
+      data.removeSize.map((i) => {
+        const exist = product.size.includes(i)
 
-      if (exist) {
-        const index = product.size.indexOf(i)
-        product.size.splice(index, 1)
-      }
-     })
+        if (exist) {
+          const index = product.size.indexOf(i)
+          product.size.splice(index, 1)
+        }
+      })
     }
 
     if (data.addSize) {
       product.size = [...product.size, ...data.addSize]
     }
+    await product.save()
 
-    res.json({success: true, message: "Product Updated"})
+    res.json({ success: true, message: "Product Updated" })
   } catch (error) {
-     console.log(error);
+    console.log(error);
     res.json({ success: false, message: "Some error occurred" });
   }
 }
 
 // Delete Product 
-const deleteProduct = async (req, res)=>{
+const deleteProduct = async (req, res) => {
 
   const { id } = req.body
 
   try {
-    const product = await findById(id)
+    const product = await productModel.findById(id)
 
-    product.images.map((i)=> {
-    const result = cloudinary.uploader.destroy(i.publicId)
-    console.log(result)
+    product.images.map((i) => {
+       cloudinary.uploader.destroy(i.publicId)
     })
+     await productModel.findByIdAndDelete(id)
 
+     res.json({ success: true, message: "Product Deleted"})
   } catch (error) {
-     console.log(error);
+    console.log(error);
     res.json({ success: false, message: "Some error occurred" });
   }
 }

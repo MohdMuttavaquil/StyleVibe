@@ -1,13 +1,18 @@
-import React, { useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import React, { useContext, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { AppContext } from '../../Context/StoreContext'
+import { toast } from '../../utlis/helper'
 
 const EditProduct = () => {
 
   const { state } = useLocation()
+  const navigate  = useNavigate()
+  const { url, token } = useContext(AppContext)
 
   const [proSize, setProSize] = useState('')
-  const [ rproSize, setRproSize] = useState('')
+  const [rproSize, setRproSize] = useState('')
   const [data, setData] = useState({
+    id: state._id,
     mrpPrice: "",
     price: "",
     quantity: "",
@@ -34,9 +39,18 @@ const EditProduct = () => {
     setData({ mrpPrice: "", price: "", quantity: "", size: [] })
   }
 
-  const editPro = () => {
-    console.log(data)
+  const editPro = async () => {
+    
+    const res = await fetch(`${url}/product/edit`,
+      {
+        method: 'POST',
+        headers: { "Content-Type": "application/json", token: token },
+        body: JSON.stringify({data: data})
+      })
+    const result = await res.json()
+    toast(result)
     clear()
+    navigate("/admain")
   }
 
   return (

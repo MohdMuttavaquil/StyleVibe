@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react'
 import { AppContext } from '../../Context/StoreContext'
 import { toast } from '../../utlis/helper'
+import { useNavigate } from 'react-router-dom'
 
 const AddProducts = () => {
 
@@ -17,6 +18,7 @@ const AddProducts = () => {
   const [proSize, setProSize] = useState('')
 
   const { token } = useContext(AppContext)
+  const navigate  = useNavigate()
   const [images, setImages] = useState([]);
 
   const handleChange = (e) => {
@@ -49,6 +51,7 @@ const AddProducts = () => {
 
     const responce = await res.json()
     toast(responce)
+    navigate('/admain')
     clear()
   }
 

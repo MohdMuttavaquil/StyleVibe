@@ -4,9 +4,10 @@ import { allProducts } from '../../Api/admain.api'
 import { useQuery } from '@tanstack/react-query'
 import { itemById } from '../../Api/user.api'
 import { useNavigate } from 'react-router-dom'
+import { toast } from '../../utlis/helper'
 
 const AHome = () => {
-  const { token } = useContext(AppContext)
+  const { token, url } = useContext(AppContext)
   const navigate = useNavigate()
 
   const fetchData = async () => {
@@ -23,6 +24,18 @@ const AHome = () => {
     navigate('/admain/product/edit', { state: res })
   }
 
+  const deletePro = async (id) => {
+
+    const res = await fetch(`${url}/product/delete`,
+      {
+        method: 'POST',
+        headers: { "Content-Type": "application/json", token: token },
+        body: JSON.stringify({ id: id })
+      })
+    const result = await res.json()
+    toast(result)
+  }
+
   return (
     <div className='min-h-screen sm:w-[80%] sm:mx-auto mx-2'>
 
@@ -36,9 +49,11 @@ const AHome = () => {
             <p className='text-xl font-semibold'>{i.name}</p>
             <p className='text-2xl font-semibold my-1 '>₹{i.price}</p>
             <p className='text-lg font-semibold my-1'>Product Quantity {i.quantity}</p>
-            <p>{i.desc}</p>
 
-            <button className='button bg-blue-400' onClick={() => editPro(i._id)} >Edit Product</button>
+            <div className='flex flex-col gap-2'>
+              <button className='button bg-blue-400 w-fit' onClick={() => editPro(i._id)} >Edit Product</button>
+              <button className='button bg-red-600 w-fit' onClick={() => deletePro(i._id)} >Delete Product</button>
+            </div>
           </div>
 
         </div>)}
