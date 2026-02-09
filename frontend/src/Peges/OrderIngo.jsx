@@ -32,14 +32,15 @@ const OrderIngo = () => {
 
                 {/* Products detail */}
                 <div className='sm:my-10 px-3'>
+                   
                     <p className='text-2xl font-semibold my-1 '>Product Information</p>
                     <p className='text-xl font-semibold'>Product Name : <span className='text-lg'>{i.productName}</span></p>
                     <p className='text-2xl font-semibold my-1 '>Price: ₹{i.price}</p>
                     <p className='text-xl font-semibold'>Payment Mode: {i.payment}</p>
                     <p className='text-xl font-semibold'>Order Status : <span className='text-lg'>{i.status}</span></p>
 
-                    <div>
-                        <button onClick={() => cancel(i._id)} className={`button bg-red-600 ${i.status === 'Delivered' || i.status === 'Cancel' ? "hidden" : ""}`}>Cancel Oeder </button>
+                    <div className='my-4'>
+                        <button onClick={() => cancel(i._id)} className={`button bg-red-600 ${i.status === 'Delivered' || i.status === 'Cancel' || i.status === "Return" ? "hidden" : ""}`}>Cancel Oeder </button>
 
                         <Link to='/order/return' state={{id: i._id, name: i.productName}} className={`button bg-orange-600 ${i.status === "Delivered" ? "" : "hidden"}`}> Return Item </Link>
                     </div>

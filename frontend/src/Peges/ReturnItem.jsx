@@ -1,24 +1,17 @@
-import React, { useContext, useState } from 'react'
-import { AppContext } from '../Context/StoreContext'
+import React, { useState } from 'react'
 import { useLocation } from 'react-router-dom'
-
+import { returnOrder } from '../Api/user.api'
+import { toast } from '../utlis/helper'
 
 const ReturnItem = () => {
 
     const { state } = useLocation()
-    const { token, url } = useContext(AppContext)
     const [data, setDate] = useState('')
 
     const handleSubmit = async (e) =>{
         e.preventDefault()
-
-        // const res = await fetch(`${url}/order/return`, {
-        //     method : 'POST',
-        //     headers: {"Content-Type": "application/json",  token: token },
-        //     body: JSON.stringify(state.id)
-        // })
-        // const responce = await res.json()
-        console.log(data)
+        const result = await returnOrder(state.id, data)
+        toast(result)
     }
 
     return (

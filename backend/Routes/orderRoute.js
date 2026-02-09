@@ -1,7 +1,7 @@
 import express from 'express'
 import authMiddleware from '../Middleware/auth.js'
 import { onlinePay, order, verifyPay } from '../Controller/orderController.js'
-import { admainOrder, cancelOrder, confirmOrder, deliveredOrder, userOrder } from '../Controller/orderInfoController.js'
+import { admainOrder, cancelOrder, confirmOrder, deliveredOrder, returnOrder, userOrder } from '../Controller/orderInfoController.js'
 
 const orderRoute = express.Router()
 
@@ -16,6 +16,7 @@ orderRoute.get('/admainorder', authMiddleware, admainOrder)
 orderRoute.post('/confirm', confirmOrder)
 orderRoute.post('/delivered', deliveredOrder)
 orderRoute.post('/cancel', cancelOrder)
+orderRoute.post('/return', returnOrder)
 
 
 export default orderRoute

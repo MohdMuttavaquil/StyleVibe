@@ -51,4 +51,9 @@ const suggestion = async (category)=>{
   return res.data.items
 }
 
-export { singinApi, loginApi, trendingApi, allItemsApi, categoryItmeApi, itemById, userCartApi, allOrder, userData, suggestion }
+const returnOrder = async (id, data) =>{
+  const res = await axiosInstance.post('/order/return', { id, data })
+  return res.data.success ? res.data.message : alert('some erro')
+}
+
+export { singinApi, loginApi, trendingApi, allItemsApi, categoryItmeApi, itemById, userCartApi, allOrder, userData, suggestion, returnOrder }

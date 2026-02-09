@@ -64,4 +64,18 @@ const cancelOrder = async (req, res) => {
 }
 
 
-export { userOrder, admainOrder, confirmOrder, deliveredOrder, cancelOrder }
+// REturn order
+const returnOrder =  async (req,res)=>{
+
+    const id = req.body.id
+    const data = req.body.data
+    try {
+        await orderModel.findByIdAndUpdate(id, {status: "Return", casueOfReturn: data})
+        res.json({success: true, message: "Return Request Send"})
+    } catch (error) {
+         console.log(error)
+        res.json({ success: false, message: "some error" })
+    }
+}
+
+export { userOrder, admainOrder, confirmOrder, deliveredOrder, cancelOrder, returnOrder }
