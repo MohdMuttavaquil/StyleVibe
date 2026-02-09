@@ -26,5 +26,9 @@ const cancelOrder = async(id)=>{
     return res.data
 }
 
+const getReturnOrder = async (token) =>{
+    const res = await axiosInstance.get('/order/get/return', {headers: {token: token} })
+    return res.data.order
+}
 
-export { allProducts, allOrder, confirmOrder, deliverdOrder, cancelOrder }
+export { allProducts, allOrder, confirmOrder, deliverdOrder, cancelOrder, getReturnOrder }

@@ -5,8 +5,8 @@ const axiosInstance = axios.create({
 })
 
 axios.interceptors.request.use((config)=>{
-    const token = localStorage.getItem('token')
-
+    const token = sessionStorage.getItem('token')
+console.log(token)
     if (token) {
         config.headers = token
     }

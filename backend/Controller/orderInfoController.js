@@ -78,4 +78,16 @@ const returnOrder =  async (req,res)=>{
     }
 }
 
-export { userOrder, admainOrder, confirmOrder, deliveredOrder, cancelOrder, returnOrder }
+const getReturnOrd = async (req, res) =>{
+
+    const name = req.user.userName
+    try {
+        const order = await orderModel.find({ sellerName: name, status: "Return"}).select('productName casueOfReturn buyerName price').sort({ _id: -1})
+        res.json( {success: true, order})
+    } catch (error) {
+        console.log(error)
+        res.json({ success: false, message: "some error" })
+    }
+}
+
+export { userOrder, admainOrder, confirmOrder, deliveredOrder, cancelOrder, returnOrder, getReturnOrd }

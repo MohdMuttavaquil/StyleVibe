@@ -49,7 +49,7 @@ const orderSchema = new mongoose.Schema({
 
 })
 
-orderSchema.index({userId: 1, sellerName: 1})
+orderSchema.index({userId: 1, sellerName: 1, status: 1})
 
 const orderModel = mongoose.model.Orders || mongoose.model("Orders", orderSchema)
 
