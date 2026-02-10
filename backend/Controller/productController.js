@@ -6,7 +6,7 @@ const addProduct = async (req, res) => {
 
   const jsondata = req.body.data
   const data = JSON.parse(jsondata)
-
+  
   try {
 
     //Upload Image on cloudinary

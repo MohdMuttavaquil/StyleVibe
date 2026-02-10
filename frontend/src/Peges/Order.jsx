@@ -3,10 +3,11 @@ import { AppContext } from '../Context/StoreContext'
 import { onlinepay, orderApi } from '../utlis/helper'
 import { useNavigate } from 'react-router-dom'
 import { showAlertToast } from '../utlis/toast'
+import { onlineApi } from '../Api/user.api'
 
 const Order = () => {
 
-    const { price, name, sellerName, token, url } = useContext(AppContext)
+    const { price, name, sellerName, token } = useContext(AppContext)
     const navigate = useNavigate()
     const total = price + 40 + 2
 
@@ -27,46 +28,42 @@ const Order = () => {
     }
 
     // Order Detail
-      const orderDetail = ()=>{
-      
-         const value = { name: `${data.fristName} ${data.lastName}`, productName: name, address: `Street: ${data.street} City: ${data.city} Zip Code: ${data.zipCode}`, price: total, phoneNo: data.phoneNo, sellerName: sellerName }
-         return value
+    const orderDetail = () => {
+
+        const value = { name: `${data.fristName} ${data.lastName}`, productName: name, address: `Street: ${data.street} City: ${data.city} Zip Code: ${data.zipCode}`, price: total, phoneNo: data.phoneNo, sellerName: sellerName }
+        return value
     }
 
     // Cash on delivery order 
     const cash = async () => {
-          if (!token) {
-           return showAlertToast('Login required!')
+        if (!token) {
+            return showAlertToast('Login required!')
         }
         const paymentMode = 'Cash on dliverey'
         let value = orderDetail()
-       value = { ...value, payment: paymentMode }
-       orderApi(value, token)
-       clear()
-       navigate('/')
-    }
- 
-    // online payment
-    const online = async () => {
-          if (!token) {
-           return showAlertToast('Login required!')
-        }
-           const paymentMode = 'Online'
-        let value = orderDetail()
-       value = { ...value, payment: paymentMode }
-       
-        const res = await fetch(`${url}/order/onlinepay`, {
-            method: 'POST',
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ amount: total })
-        })
-        const result = await res.json()
-        onlinepay(result, value, token)
+        value = { ...value, payment: paymentMode }
+        orderApi(value, token)
         clear()
-         navigate('/')
+        navigate('/')
     }
 
-  
+    // online payment
+    const online = async () => {
+        if (!token) {
+            return showAlertToast('Login required!')
+        }
+        const paymentMode = 'Online'
+        let value = orderDetail()
+        value = { ...value, payment: paymentMode }
+
+        const result = await onlineApi(total)
+        console.log(result)
+        onlinepay(result, value, token)
+        clear()
+        navigate('/')
+    }
+
+
     // Clear input filed
     const clear = async () => {
         setData({

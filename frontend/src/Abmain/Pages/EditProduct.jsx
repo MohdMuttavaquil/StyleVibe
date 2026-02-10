@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { AppContext } from '../../Context/StoreContext'
 import { toast } from '../../utlis/helper'
+import { editProductApi } from '../../Api/admain.api'
 
 const EditProduct = () => {
 
@@ -40,14 +41,7 @@ const EditProduct = () => {
   }
 
   const editPro = async () => {
-    
-    const res = await fetch(`${url}/product/edit`,
-      {
-        method: 'POST',
-        headers: { "Content-Type": "application/json", token: token },
-        body: JSON.stringify({data: data})
-      })
-    const result = await res.json()
+    const result = await editProductApi(data, token)
     toast(result)
     clear()
     navigate("/admain")

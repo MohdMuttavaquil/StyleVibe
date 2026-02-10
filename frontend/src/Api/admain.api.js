@@ -1,34 +1,44 @@
 import axiosInstance from "./axiosInstance"
 
-const allProducts = async (token)=>{
-    const res = await axiosInstance.get('/product/getproducts',  {headers: {token: token}})
+const allProducts = async (token) => {
+    const res = await axiosInstance.get('/product/getproducts', { headers: { token: token } })
     return res.data.products
 }
 
-const allOrder = async (token)=>{
-    const res = await axiosInstance.get('/order/admainorder', {headers: {token: token}} )
+const allOrder = async (token) => {
+    const res = await axiosInstance.get('/order/admainorder', { headers: { token: token } })
     return res.data.order
 }
 
-const confirmOrder = async(id, name)=>{
-    const res = await axiosInstance.post('/order/confirm', {id:id, name})
+const confirmOrder = async (id, name) => {
+    const res = await axiosInstance.post('/order/confirm', { id: id, name })
     return res.data
 }
 
 
-const deliverdOrder = async(id)=>{
-    const res = await axiosInstance.post('/order/delivered', {id:id})
+const deliverdOrder = async (id) => {
+    const res = await axiosInstance.post('/order/delivered', { id: id })
     return res.data
 }
 
-const cancelOrder = async(id)=>{
-    const res = await axiosInstance.post('/order/cancel', {id:id})
+const cancelOrder = async (id) => {
+    const res = await axiosInstance.post('/order/cancel', { id: id })
     return res.data
 }
 
-const getReturnOrder = async (token) =>{
-    const res = await axiosInstance.get('/order/get/return', {headers: {token: token} })
+const getReturnOrder = async (token) => {
+    const res = await axiosInstance.get('/order/get/return', { headers: { token: token } })
     return res.data.order
 }
 
-export { allProducts, allOrder, confirmOrder, deliverdOrder, cancelOrder, getReturnOrder }
+const deletProductApi = async (id, token) => {
+    const res = await axiosInstance.post('/product/delete', { id: id }, { headers: { token: token } })
+    return res.data
+}
+
+const editProductApi = async (data, token) => {
+    const res = await axiosInstance.post('/product/edit', { data: data }, { headers: { token: token } })
+    return res.data
+}
+
+export { allProducts, allOrder, confirmOrder, deliverdOrder, cancelOrder, getReturnOrder, deletProductApi, editProductApi }

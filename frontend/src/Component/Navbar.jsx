@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import { FaSearch, FaShoppingCart, FaUser } from "react-icons/fa";
 import '../App.css'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { AppContext } from '../Context/StoreContext'
 import { fixMistake } from '../utlis/search'
 import UserProfile from './UserProfile';
@@ -10,6 +10,7 @@ const divbar = () => {
 
     const [data, setData] = useState("")
     const naviagte = useNavigate()
+    const location = useLocation()
     const [sideBar, setSideBar] = useState(false)
     const { token, setCategory } = useContext(AppContext)
 
@@ -24,8 +25,6 @@ const divbar = () => {
         setData('')
     }
 
-   
-
     return (
         <>
 
@@ -37,7 +36,7 @@ const divbar = () => {
                         <Link to='/'>StyleVibe</Link>
                     </div>
 
-                    <div className='flex items-center gap-1 sm:w-[30%] ml-1'>
+                    <div className={`${location.pathname === '/search' ? "hidden" : ""} flex items-center gap-1 sm:w-[30%] ml-1`}>
                         <input type='text' placeholder='Search Products' value={data} onChange={handleChenge} className='outline-none border-b-2 border-amber-400 w-[80%] pt-1 text-gray-700 text-lg' />
                         <button onClick={() => search()} className='bg-[#f97316] rounded-lg px-2 py-2 cursor-pointer'><FaSearch className='sm:h-6 sm:w-6 h-4 w-4 text-white' /></button>
                     </div>

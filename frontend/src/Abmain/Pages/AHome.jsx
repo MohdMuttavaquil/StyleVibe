@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { AppContext } from '../../Context/StoreContext'
-import { allProducts } from '../../Api/admain.api'
+import { allProducts, deletProductApi } from '../../Api/admain.api'
 import { useQuery } from '@tanstack/react-query'
 import { itemById } from '../../Api/user.api'
 import { useNavigate } from 'react-router-dom'
@@ -25,14 +25,7 @@ const AHome = () => {
   }
 
   const deletePro = async (id) => {
-
-    const res = await fetch(`${url}/product/delete`,
-      {
-        method: 'POST',
-        headers: { "Content-Type": "application/json", token: token },
-        body: JSON.stringify({ id: id })
-      })
-    const result = await res.json()
+    const result = await deletProductApi(id, token)
     toast(result)
   }
 

@@ -3,7 +3,7 @@ import { useContext, useState, useEffect } from 'react';
 import { FaShoppingCart } from "react-icons/fa";
 import { AppContext } from '../Context/StoreContext';
 import { itemsApi, toast } from '../utlis/helper'
-import { itemById } from '../Api/user.api';
+import { addInCart, itemById } from '../Api/user.api';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { showAlertToast } from '../utlis/toast';
 
@@ -48,13 +48,7 @@ const Detail = () => {
         if (!token) {
             return showAlertToast('Login required!')
         }
-        const res = await fetch(`${url}/cart/addincart`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json", token: token },
-            body: JSON.stringify({ itemId: itemId })
-        }
-        )
-        const result = await res.json()
+        const result = await addInCart(itemId, token)
         toast(result)
     }
 

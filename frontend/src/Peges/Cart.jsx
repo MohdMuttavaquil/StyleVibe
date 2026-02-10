@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { FaTrash } from 'react-icons/fa'
 import { AppContext } from '../Context/StoreContext'
-import { itemById, userCartApi } from '../Api/user.api'
+import { itemById, removeToCart, userCartApi } from '../Api/user.api'
 import { Link, useNavigate } from 'react-router-dom'
 import { showRemoveToast } from '../utlis/toast'
 
 const Cart = () => {
 
-    const { token, url } = useContext(AppContext)
+    const { token } = useContext(AppContext)
     const [cartItems, setCartItems] = useState([])
     const navigate = useNavigate()
 
@@ -31,26 +31,22 @@ const Cart = () => {
     // set Items detail 
     const itemDetail = async (id) => {
         const res = await itemById(id)
-        navigate('/detail', { state: res })
+        navigate(`/detail/${id}`, { state: res })
     }
 
     // Remove from cart 
     const remove = async (itemId) => {
-        const res = await fetch(`${url}/cart/removeincart`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json", token: token },
-            body: JSON.stringify({ itemId: itemId })
-        }
-        )
-        const result = await res.json()
+       
+        const result = await removeToCart(itemId, token)
         setCartItems([])
-        setItems(result.userCart)
+        setItems(result)
         showRemoveToast("Item Removed")
     }
 
     return (
-        <>
-            {token ? <div className='sm:w-[80%] sm:mx-auto mx-2 min-h-screen '>
+        <div className='md:w-[80%] md:mx-auto'>
+
+            {token ? <div className='md:w-[70%] xl:w-[60%] mx-2 min-h-screen '>
 
                 {cartItems && cartItems.map((i, index) => <div key={index} className='box-shadow bg-[#f5f2f0] text-gray-700 rounded-2xl sm:h-[40vh] w-full sm:my-2 my-6 flex sm:flex-row flex-col pb-5 sm:pb-0'>
 
@@ -74,7 +70,7 @@ const Cart = () => {
                     <Link to='/singin' className='button bg-blue-500'>login</Link>
                 </div>}
 
-        </>
+        </div>
     )
 }
 

@@ -56,4 +56,22 @@ const returnOrder = async (id, data) =>{
   return res.data.success ? res.data.message : alert('some erro')
 }
 
-export { singinApi, loginApi, trendingApi, allItemsApi, categoryItmeApi, itemById, userCartApi, allOrder, userData, suggestion, returnOrder }
+const removeToCart = async (id, token) =>{
+ const res = await axiosInstance.post('/cart/removeincart', {itemId : id}, 
+  {headers: { token :token } })
+  return res.data.userCart 
+}
+
+const addInCart = async (id, token) =>{
+  const res = await axiosInstance.post('/cart/addincart', {itemId : id}, 
+  {headers: { token :token } })
+   return res.data.success ? res.data : alert('some erro')
+}
+
+const onlineApi = async (amount) =>{
+  const res = await axiosInstance.post('/order/onlinepay', {amount: amount})
+  return res.data
+}
+
+
+export { singinApi, loginApi, trendingApi, allItemsApi, categoryItmeApi, itemById, userCartApi, allOrder, userData, suggestion, returnOrder, removeToCart, addInCart, onlineApi }
