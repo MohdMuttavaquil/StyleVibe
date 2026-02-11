@@ -1,13 +1,14 @@
 import Fuse from 'fuse.js'
+import { showAlertToast } from '../utlis/toast'
 
 // Find best Categori for items 
 const categoryKeywords = {
-    "mens were": ["jeans", "shirt", "tshirt", "menwear", "jackets"],
-    "womens were": ["Saree", "Lehenga", "Top", "womens were"],
+    "mens were": ["jeans", "shirt", "tshirt", "men wear", "jackets", "for men"],
+    "womens were": ["Saree", "Lehenga", "Top", "womens were", "for women", "kurti"],
     "Jewelary": ["ring", "necklace"],
-    "shose": ["sports shoes", "casual shoes", "Boot"],
-    "mens Accessories": ["watch", "perfume", "belt"],
-    "Beauity Products": ["lipstick", "foundation", "cream", "makeup"],
+    "shose": ["sports shoes", "casual shoes", "Boot", "shose"],
+    "mens Accessories": ["watch", "perfume", "belt", "for men"],
+    "Beauity Products": ["lipstick", "foundation", "cream", "makeup", "for women"],
     "kids wear": ["kids", "boy", "girl", "children"]
 }
 const setCategoy = (word) => {
@@ -21,7 +22,7 @@ const setCategoy = (word) => {
 
 
 // Fix Search items spelling
-const categories = ["jeans", "shirt", "tshirt", "shoes", "menwear", "Saree", "Lehenga", "womens were", "watch", "perfume", "ring", "necklace", "lipstick", "makeup", "foundation", "cream", "Top", "kids were", "belt", "kids", "boy", "girl", "children", "sports shoes", "casual shoes"];
+const categories = ["jeans", "shirt", "tshirt", "shoes", "menwear", "Saree", "Lehenga", "womens were", "watch", "perfume", "ring", "necklace", "lipstick", "makeup", "foundation", "cream", "Top", "kids were", "belt", "kids", "boy", "girl", "children", "shose for men", "shose", "sports shoes", "casual shoes", "kurti", "for men", "for women"];
 const fuse = new Fuse(categories, { includeScore: true })
 
 const fixMistake = (value) => {
@@ -32,7 +33,7 @@ const fixMistake = (value) => {
         const result = setCategoy(word)
         return result
     } else {
-        alert(`${value} did not find any items `)
+        showAlertToast(`${value} did not find any items `)
     }
 
 }

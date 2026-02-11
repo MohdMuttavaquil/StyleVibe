@@ -8,7 +8,7 @@ const EditProduct = () => {
 
   const { state } = useLocation()
   const navigate  = useNavigate()
-  const { url, token } = useContext(AppContext)
+  const { token } = useContext(AppContext)
 
   const [proSize, setProSize] = useState('')
   const [rproSize, setRproSize] = useState('')
