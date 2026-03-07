@@ -29,7 +29,7 @@ app.use('/api/cart', cartRoute)
 
 
 app.get('/', (req, res)=>{
-   res.json("Servier is running")
+   res.send("Servier is running")
 })
 
 app.listen(PORT, ()=>{
