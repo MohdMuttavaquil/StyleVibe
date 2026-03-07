@@ -27,7 +27,7 @@ function App() {
     <>
       {role === 'admain' ? <ANavbar /> : <Navbar />}
 
-      <div className='sm:mt-24 mt-16 '>
+      <div className='sm:my-24 my-16 font-sans'>
 
         <ScrollToTop />
 

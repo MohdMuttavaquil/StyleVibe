@@ -23,7 +23,7 @@ const Home = () => {
     navigate(`/detail/${id}`, {state: res})
   }
   return (
-    <>
+    <div className='bg-[#E1DFEA] text-gray-700'>
 
       {/* Hero image */}
       <div className='heroImage relative h-[60vh] mx-2 sm:h-[75vh] my-10 sm:w-[90%] sm:mx-auto rounded-2xl '>
@@ -50,8 +50,8 @@ const Home = () => {
       </div>
 
       {/*products Trending products */}
-      <div className='my-10 sm:w-[80%] mx-2 sm:mx-auto '>
-        <p className='my-5 text-2xl font-semibold'>Tranding In India</p>
+      <div className='my-10 md:w-[90%] xl:w-[80%] mx-2 sm:mx-auto '>
+        <p className='mt-5 text-gray-950 logo text-2xl font-semibold'>Tranding In India</p>
 
         <div className='flex w-full justify-evenly flex-wrap'>
 
@@ -63,7 +63,7 @@ const Home = () => {
         </div>
 
        {/* Suggest products */}
-        <p className='my-5 text-2xl font-semibold'>For You</p>
+        <p className='mt-5 text-gray-950 logo text-2xl font-semibold'>For You</p>
 
         <div className='flex w-full justify-evenly flex-wrap'>
 
@@ -79,7 +79,7 @@ const Home = () => {
 
       </div>
 
-    </>
+    </div>
   )
 }
 

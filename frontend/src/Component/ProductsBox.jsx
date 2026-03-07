@@ -24,7 +24,7 @@ const ProductsBox = () => {
         <>
             
             <div className='my-10'>
-                <h1 className='my-5 text-2xl font-semibold'>Shose</h1>
+                <h1 className='mt-5 text-gray-950 logo text-2xl font-semibold'>Shose</h1>
 
                 <div className='flex w-full justify-evenly flex-wrap'>
 
@@ -39,7 +39,7 @@ const ProductsBox = () => {
 
 
             <div className='my-10'>
-                <h1 className='my-5 text-2xl font-semibold'>Beauity Products</h1>
+                <h1 className='mt-5 text-gray-950 logo text-2xl font-semibold'>Beauity Products</h1>
 
                 <div className='flex w-full justify-evenly flex-wrap'>
 
