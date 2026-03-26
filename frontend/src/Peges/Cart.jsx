@@ -36,7 +36,7 @@ const Cart = () => {
 
     // Remove from cart 
     const remove = async (itemId) => {
-       
+
         const result = await removeToCart(itemId, token)
         setCartItems([])
         setItems(result)
@@ -48,23 +48,31 @@ const Cart = () => {
 
             {token ? <div className='md:w-[70%] xl:w-[60%] mx-2 min-h-screen '>
 
-                {cartItems && cartItems.map((i, index) => <div key={index} className='box-shadow bg-[#f5f2f0] text-gray-700 rounded-2xl sm:h-[40vh] w-full sm:my-2 my-6 flex sm:flex-row flex-col pb-5 sm:pb-0'>
+                {cartItems.length === 0 ? <div className='flex flex-col font-semibold text-gray-700 min-h-[60vh] justify-center items-center text-center'>
+                    <p className='text-3xl'>Your cart is empty </p>
+                   <p className='md:text-xl'> Browse the store and discover amazing products to add!</p>
+                </div> : <div>
 
-                    <img src={i.images[0].url} onClick={() => itemDetail(i._id)} className='sm:h-[40vh] sm:min-w-[50%] sm:max-w-[50%]  rounded-2xl cursor-pointer'></img>
+                    {cartItems.map((i, index) => <div key={index} className='box-shadow bg-[#f5f2f0] text-gray-700 rounded-2xl sm:h-[40vh] w-full sm:my-2 my-6 flex sm:flex-row flex-col pb-5 sm:pb-0'>
 
-                    <div className='sm:my-10 px-3'>
-                        <p className='text-xl font-semibold'>{i.name}</p>
-                        <p className='text-2xl font-semibold my-1 sm:my-4'>₹{i.price}</p>
+                        <img src={i.images[0].url} onClick={() => itemDetail(i._id)} className='sm:h-[40vh] sm:min-w-[50%] sm:max-w-[50%]  rounded-2xl cursor-pointer'></img>
 
-                        <button onClick={() => remove(i._id)} className='px-4 py-1 bg-red-500 text-white rounded-2xl cursor-pointer flex gap-2 items-center mt-8'>Reomve To Cart
-                            <FaTrash className='h-4 w-4 ' />
-                        </button>
+                        <div className='sm:my-10 px-3'>
+                            <p className='text-xl font-semibold'>{i.name}</p>
+                            <p className='text-2xl font-semibold my-1 sm:my-4'>₹{i.price}</p>
 
-                    </div>
-                </div>)}
+                            <button onClick={() => remove(i._id)} className='px-4 py-1 bg-red-500 text-white rounded-2xl cursor-pointer flex gap-2 items-center mt-8'>Reomve To Cart
+                                <FaTrash className='h-4 w-4 ' />
+                            </button>
+
+                        </div>
+                    </div>)}
+
+                </div>}
 
 
             </div> :
+
                 <div className=' min-h-[50vh] flex flex-col gap-2 justify-center items-center'>
                     <p className='font-semibold text-2xl'>Please login first</p>
                     <Link to='/singin' className='button bg-blue-500'>login</Link>
