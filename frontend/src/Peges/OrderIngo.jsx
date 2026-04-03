@@ -20,33 +20,41 @@ const OrderIngo = () => {
     }, [])
 
     const cancel = async (id) => {
-    const result = await cancelOrder(id)
-    toast(result)
-    fetchData()
-  }
+        const result = await cancelOrder(id)
+        toast(result)
+        fetchData()
+    }
 
     return (
         <div className='sm:w-[85%] sm:mx-auto mx-2 min-h-screen'>
 
-            {orders && orders.map((i, index) => <div key={index} className='bg-[#f5f2f0] text-gray-700 rounded-2xl sm:h-[40vh] md:w-[70%] xl:w-[60%] sm:my-2 my-6 flex sm:flex-row flex-col pb-5 sm:pb-0'>
+            {orders.length === 0 ? <div className='flex flex-col font-semibold text-gray-700 min-h-[60vh] justify-center items-center text-center'>
+                <p className='text-3xl'>Nothing here yet! </p>
+                <p className='md:text-xl'>Go explore, pick your favorites, and make your first purchase today.</p>
+                <Link to='/' className='button bg-blue-500 hover:bg-blue-700'>Explore Store</Link>
+            </div> : <div>
 
-                {/* Products detail */}
-                <div className='sm:my-10 px-3'>
-                   
-                    <p className='text-2xl font-semibold my-1 '>Product Information</p>
-                    <p className='text-xl font-semibold'>Product Name : <span className='text-lg'>{i.productName}</span></p>
-                    <p className='text-2xl font-semibold my-1 '>Price: ₹{i.price}</p>
-                    <p className='text-xl font-semibold'>Payment Mode: {i.payment}</p>
-                    <p className='text-xl font-semibold'>Order Status : <span className='text-lg'>{i.status}</span></p>
+                {orders.map((i, index) => <div key={index} className='bg-[#f5f2f0] text-gray-700 rounded-2xl sm:h-[40vh] md:w-[70%] xl:w-[60%] sm:my-2 my-6 flex sm:flex-row flex-col pb-5 sm:pb-0'>
 
-                    <div className='my-4'>
-                        <button onClick={() => cancel(i._id)} className={`button bg-red-600 ${i.status === 'Delivered' || i.status === 'Cancel' || i.status === "Return" ? "hidden" : ""}`}>Cancel Oeder </button>
+                    {/* Products detail */}
+                    <div className='sm:my-10 px-3'>
 
-                        <Link to='/order/return' state={{id: i._id, name: i.productName}} className={`button bg-orange-600 ${i.status === "Delivered" ? "" : "hidden"}`}> Return Item </Link>
+                        <p className='text-2xl font-semibold my-1 '>Product Information</p>
+                        <p className='text-xl font-semibold'>Product Name : <span className='text-lg'>{i.productName}</span></p>
+                        <p className='text-2xl font-semibold my-1 '>Price: ₹{i.price}</p>
+                        <p className='text-xl font-semibold'>Payment Mode: {i.payment}</p>
+                        <p className='text-xl font-semibold'>Order Status : <span className='text-lg'>{i.status}</span></p>
+
+                        <div className='my-4'>
+                            <button onClick={() => cancel(i._id)} className={`button bg-red-600 ${i.status === 'Delivered' || i.status === 'Cancel' || i.status === "Return" ? "hidden" : ""}`}>Cancel Oeder </button>
+
+                            <Link to='/order/return' state={{ id: i._id, name: i.productName }} className={`button bg-orange-600 ${i.status === "Delivered" ? "" : "hidden"}`}> Return Item </Link>
+                        </div>
                     </div>
-                </div>
 
-            </div>)}
+                </div>)}
+
+            </div>}
 
         </div>
     )

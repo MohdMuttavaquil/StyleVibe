@@ -93,7 +93,7 @@ const Detail = () => {
                             <FaShoppingCart className='h-5 w-5 ' />
                         </button>
                         <Link to='/order'>
-                            <button className='px-4 py-1 bg-amber-500 text-white rounded-2xl cursor-pointer flex gap-2'>Bye Now</button>
+                            <button className='px-4 py-1 bg-amber-500 text-white rounded-2xl cursor-pointer flex gap-2'>Buy Now</button>
                         </Link>
                     </div>
                 </div>

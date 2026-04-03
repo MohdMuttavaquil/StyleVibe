@@ -13,22 +13,22 @@ const loginApi = async (data)=>{
 
 const trendingApi = async ()=>{
   const res = await axiosInstance.get('/items/trending')
-  return res.data.success ? res.data.items : alert('some erro')
+  return res.data.success ? res.data.items : alert(res.data.message)
 }
 
 const allItemsApi = async () =>{
   const res = await axiosInstance.get('/items/allItems')
-   return res.data.success ? res.data.items : alert('some erro')
+   return res.data.success ? res.data.items : alert(res.data.message)
 }
 
 const categoryItmeApi = async(category) =>{
   const res = await axiosInstance.post('/items/category', category)
-   return res.data.success ? res.data.items : alert('some erro')
+   return res.data.success ? res.data.items : alert(res.data.message)
 }
 
 const itemById = async(id)=>{
   const res = await axiosInstance.get(`/items/${id}`)
-    return res.data.success ? res.data.item : alert('some erro')
+    return res.data.success ? res.data.item : alert(res.data.message)
 }
 
 const userCartApi = async(token)=>{
@@ -53,7 +53,7 @@ const suggestion = async (category)=>{
 
 const returnOrder = async (id, data) =>{
   const res = await axiosInstance.post('/order/return', { id, data })
-  return res.data.success ? res.data.message : alert('some erro')
+  return res.data.success ? res.data.message : alert(res.data.message)
 }
 
 const removeToCart = async (id, token) =>{
@@ -65,7 +65,7 @@ const removeToCart = async (id, token) =>{
 const addInCart = async (id, token) =>{
   const res = await axiosInstance.post('/cart/addincart', {itemId : id}, 
   {headers: { token :token } })
-   return res.data.success ? res.data : alert('some erro')
+   return res.data.success ? res.data : alert(res.data.message)
 }
 
 const onlineApi = async (amount) =>{

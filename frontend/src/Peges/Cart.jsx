@@ -50,7 +50,8 @@ const Cart = () => {
 
                 {cartItems.length === 0 ? <div className='flex flex-col font-semibold text-gray-700 min-h-[60vh] justify-center items-center text-center'>
                     <p className='text-3xl'>Your cart is empty </p>
-                   <p className='md:text-xl'> Browse the store and discover amazing products to add!</p>
+                <p className='md:text-xl'> Browse the store and discover amazing products to add!</p>
+                     <Link to='/' className='button bg-blue-500 hover:bg-blue-700'>Explore Store</Link>
                 </div> : <div>
 
                     {cartItems.map((i, index) => <div key={index} className='box-shadow bg-[#f5f2f0] text-gray-700 rounded-2xl sm:h-[40vh] w-full sm:my-2 my-6 flex sm:flex-row flex-col pb-5 sm:pb-0'>
@@ -75,7 +76,7 @@ const Cart = () => {
 
                 <div className=' min-h-[50vh] flex flex-col gap-2 justify-center items-center'>
                     <p className='font-semibold text-2xl'>Please login first</p>
-                    <Link to='/singin' className='button bg-blue-500'>login</Link>
+                    <Link to='/singin' className='button bg-blue-500 hover:bg-blue-700'>login</Link>
                 </div>}
 
         </div>
