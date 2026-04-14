@@ -1,5 +1,6 @@
+import axios from "axios"
 import { categoryItmeApi } from "../Api//user.api"
-import { showErrorToast, showSuccessToast } from './toast'
+import { showAlertToast, showErrorToast, showSuccessToast } from './toast'
 const url = "http://localhost:3000/api"
 
 
@@ -78,5 +79,19 @@ const toast = (res)=>{
     }
 }
 
+// Check Token Expirey
+const checkTokenApi = async (token) =>{
 
-export { itemsApi, onlinepay, orderApi, toast }
+    const res = await fetch(`${url}/user/check`, {
+        method: 'GET',
+        headers: { "Content-Type": "application/json", token: token },
+    })
+
+    if (res.status === 401) {
+        localStorage.clear()
+        return true
+    }
+    return false
+}
+
+export { itemsApi, onlinepay, orderApi, toast, checkTokenApi }

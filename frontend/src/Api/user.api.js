@@ -1,75 +1,76 @@
 import axiosInstance from "./axiosInstance";
+import { showErrorToast } from "../utlis/toast";
 
 
-const singinApi = async (data)=>{
+const singinApi = async (data) => {
   const res = await axiosInstance.post('/user/singin', data)
   return res.data
 }
 
-const loginApi = async (data)=>{
- const res = await axiosInstance.post('/user/login', data)
- return res.data
+const loginApi = async (data) => {
+  const res = await axiosInstance.post('/user/login', data)
+  return res.data
 }
 
-const trendingApi = async ()=>{
+const trendingApi = async () => {
   const res = await axiosInstance.get('/items/trending')
-  return res.data.success ? res.data.items : alert(res.data.message)
+  return res.data.success ? res.data.items : showErrorToast(res.data.message)
 }
 
-const allItemsApi = async () =>{
+const allItemsApi = async () => {
   const res = await axiosInstance.get('/items/allItems')
-   return res.data.success ? res.data.items : alert(res.data.message)
+  return res.data.success ? res.data.items : showErrorToast(res.data.message)
 }
 
-const categoryItmeApi = async(category) =>{
+const categoryItmeApi = async (category) => {
   const res = await axiosInstance.post('/items/category', category)
-   return res.data.success ? res.data.items : alert(res.data.message)
+  return res.data.success ? res.data.items : showErrorToast(res.data.message)
 }
 
-const itemById = async(id)=>{
+const itemById = async (id) => {
   const res = await axiosInstance.get(`/items/${id}`)
-    return res.data.success ? res.data.item : alert(res.data.message)
+  return res.data.success ? res.data.item : showErrorToast(res.data.message)
 }
 
-const userCartApi = async(token)=>{
-  const res = await axiosInstance.get('/cart', {headers: {token: token}})
+const userCartApi = async (token) => {
+  const res = await axiosInstance.get('/cart', { headers: { token: token } })
   return res.data.cart
 }
 
-const allOrder = async (token)=>{
-    const res = await axiosInstance.get('/order/userorder', {headers: {token: token}} )
-    return res.data.order
+const allOrder = async (token) => {
+  const res = await axiosInstance.get('/order/userorder', { headers: { token: token } })
+  return res.data.order
 }
 
-const userData = async (token)=>{
-    const res = await axiosInstance.get('/user/info', {headers: {token: token}} )
-    return res.data.user
+const userData = async (token) => {
+  const res = await axiosInstance.get('/user/info', { headers: { token: token } })
+  return res.data.user
 }
 
-const suggestion = async (category)=>{
-  const res = await axiosInstance.post('/items/suggestion', { category: category } )
+const suggestion = async (category) => {
+  const res = await axiosInstance.post('/items/suggestion', { category: category })
   return res.data.items
 }
 
-const returnOrder = async (id, data) =>{
+const returnOrder = async (id, data) => {
   const res = await axiosInstance.post('/order/return', { id, data })
-  return res.data.success ? res.data.message : alert(res.data.message)
+  return res.data.success ? res.data.message : showErrorToast(res.data.message)
 }
 
-const removeToCart = async (id, token) =>{
- const res = await axiosInstance.post('/cart/removeincart', {itemId : id}, 
-  {headers: { token :token } })
-  return res.data.userCart 
+const removeToCart = async (id, token) => {
+  const res = await axiosInstance.post('/cart/removeincart', { itemId: id },
+    { headers: { token: token } })
+  return res.data.userCart
 }
 
-const addInCart = async (id, token) =>{
-  const res = await axiosInstance.post('/cart/addincart', {itemId : id}, 
-  {headers: { token :token } })
-   return res.data.success ? res.data : alert(res.data.message)
+const addInCart = async (id, token) => {
+  const res = await axiosInstance.post('/cart/addincart', { itemId: id },
+    { headers: { token: token } })
+  return res.data.success ? res.data : showErrorToast(res.data.message)
 }
 
-const onlineApi = async (amount) =>{
-  const res = await axiosInstance.post('/order/onlinepay', {amount: amount})
+const onlineApi = async (amount) => {
+  const res = await axiosInstance.post('/order/onlinepay', { amount: amount })
   return res.data
 }
 

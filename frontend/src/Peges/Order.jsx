@@ -57,7 +57,6 @@ const Order = () => {
         value = { ...value, payment: paymentMode }
 
         const result = await onlineApi(total)
-        console.log(result)
         onlinepay(result, value, token)
         clear()
         navigate('/')

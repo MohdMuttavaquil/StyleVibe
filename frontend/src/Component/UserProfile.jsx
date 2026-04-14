@@ -23,9 +23,9 @@ const UserProfile = ({ setSideBar }) => {
     }, [token])
 
     const singOut = () => {
-        sessionStorage.clear()
+        localStorage.clear()
         setSideBar(false)
-        setToken('')
+        setToken(null)
         setRole('')
         navigate('/')
     }
