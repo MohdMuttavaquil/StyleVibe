@@ -1,83 +1,92 @@
 import React, { useContext } from 'react'
-import { cetogry } from '../Data/Data'
 import { useQuery } from '@tanstack/react-query'
 import { Link, useNavigate } from 'react-router-dom'
 import { AppContext } from '../Context/StoreContext'
-import { allItemsApi, itemById, trendingApi } from '../Api/user.api'
-import  ProductsBox  from '../Component/ProductsBox'
+import { allItemsApi, suggestion, trendingApi } from '../Api/user.api'
+import ProductsBox from '../Component/ProductsBox'
 
 const Home = () => {
 
-  const navigate = useNavigate()
   const { setCategory } = useContext(AppContext)
 
   const { data: trendingItems } = useQuery(
-    {queryKey: ['trendingItems'], queryFn: trendingApi, staleTime: Infinity })
+    { queryKey: ['trendingItems'], queryFn: trendingApi, staleTime: Infinity })
 
   const { data: allItems } = useQuery(
-    {queryKey:['allItems'], queryFn: allItemsApi, staleTime: Infinity })
+    { queryKey: ['allItems'], queryFn: allItemsApi, staleTime: Infinity })
 
-  // set item detail 
-  const itemDetail = async(id) => {
-   const res = await itemById(id)
-    navigate(`/detail/${id}`, {state: res})
-  }
+  const { data: beauity } = useQuery(
+    { queryKey: ['beauity'], queryFn: () => suggestion('beauity products'), staleTime: Infinity }
+  )
+
+  const { data: accessories } = useQuery(
+    { queryKey: ['accessories'], queryFn: () => suggestion('mens accessories'), staleTime: Infinity }
+  )
+
   return (
-    <div className='bg-[#E1DFEA] text-gray-700'>
+    <div className='md:mb-24 mb-16'>
 
       {/* Hero image */}
-      <div className='heroImage relative h-[60vh] mx-2 sm:h-[75vh] my-10 sm:w-[90%] sm:mx-auto rounded-2xl '>
-
-        <div className="absolute inset-0 bg-black/40 rounded-2xl"></div>
-
-        <div className="relative z-10 flex flex-col justify-center my-2 h-full text-white text-center px-4">
-          <h1 className="sm:text-5xl text-3xl font-bold mb-4">All Fashion in One Place</h1>
-          <p className="text-xl">Shop the latest trends at CartZo</p>
-        </div>
-      </div>
+      <div className='md:h-screen h-[30vh] w-full bg-cover bg-center md:mt-20 mt-16 bg-[url("/home-image.jpg")]'></div>
 
 
       {/* Product Cetogry */}
-      <div className="flex flex-nowrap overflow-x-auto gap-4 sm:w-[80%] sm:mx-auto mx-2 py-3 cetogry">
+      <div className='w-full md:my-15 my-6 flex flex-col md:gap-4 gap-1.5 justify-center items-center '>
 
-        {cetogry.map((i, index) => <div key={index} onClick={() => setCategory(i.name)}>
-          <Link to='/search'>
-            <img src={i.url} className='min-h-40 min-w-40 max-h-40 max-w-40 rounded-full hover:px-2 hover:py-1 cursor-pointer' ></img>
-            <p className='text-center font-semibold text-lg mt-2'>{i.name}</p>
-          </Link>
-        </div>)}
+        <p className='text-gray-800 font-semibold text-xl md:text-3xl'>New Arrival</p>
+
+        <ul className='flex md:gap-8 gap-3 text-gray-400 '>
+
+          <li className="md:text-lg hover:font-semibold hover:text-gray-700" onClick={() => setCategory('mens were')}>
+            <Link to='/search'>Men</Link>
+          </li>
+          <li className="md:text-lg hover:font-semibold hover:text-gray-700" onClick={() => setCategory('womens were')}>
+            <Link to='/search'>Women</Link>
+          </li>
+          <li className="md:text-lg hover:font-semibold hover:text-gray-700" onClick={() => setCategory('shose')}
+          ><Link to='/search'>Shoes</Link>
+          </li>
+          <li className="md:text-lg hover:font-semibold hover:text-gray-700" onClick={() => setCategory('Beauity Products')}>
+            <Link to='/search'>Beauty</Link>
+          </li>
+          <li className="md:text-lg hover:font-semibold hover:text-gray-700" onClick={() => setCategory('Mens Accessories')}>
+            <Link to='/search'>Accessories</Link>
+          </li>
+
+        </ul>
+      </div>
+
+
+
+
+      {/*products */}
+      <div className='my-10 md:w-[96%] xl:w-[90%] mx-2 sm:mx-auto '>
+
+        <ProductsBox itemsDetail={trendingItems} />
+
+        <div className='h-[30vh] md:h-[65vh] w-full rounded-2xl'>
+          <img src='./hero-image.jpg' className='h-full w-full' />
+        </div>
+        <ProductsBox itemsDetail={allItems} />
+
+        <div className='discont text-[#5A4634] md:h-34 h-20 w-full text-2xl md:text-5xl md:mt-4 my-2 font-semibold rounded-2xl flex items-center justify-center'>
+          <p>Beauty product upto 50% off</p>
+        </div>
+        <ProductsBox itemsDetail={beauity} />
+
+        <div className='discont text-[#5A4634] md:h-34 h-20 w-full text-2xl md:text-5xl md:mt-4 my-2  font-semibold rounded-2xl flex items-center justify-center'>
+          <p>Mens Accessories upto 50% off</p>
+        </div>
+        <ProductsBox itemsDetail={accessories} />
 
       </div>
 
-      {/*products Trending products */}
-      <div className='my-10 md:w-[90%] xl:w-[80%] mx-2 sm:mx-auto '>
-        <p className='mt-5 text-gray-950 logo text-2xl font-semibold'>Tranding In India</p>
 
-        <div className='flex w-full justify-evenly flex-wrap'>
-
-          {trendingItems && trendingItems.map((i, index) => <div onClick={() => itemDetail(i._id)} key={index} className='box-shadow rounded-2xl bg-[#f5f2f0] text-gray-700 h-[45vh] sm:w-[30%] w-[45%] cursor-pointer sm:my-6 my-3'>
-            <img src={i.images[0].url} className='h-[30vh] w-full rounded-2xl'></img>
-            <p className='text-lg md:font-semibold my-2 px-2 mt-4'>{i.name}</p>
-          </div>)}
-
+      {/* Get or app*/}
+        <div className={`flex justify-evenly sm:mt-24 mt-16 md:w-[80%] mx-auto`}>
+          <img src='/google-play.webp' className='md:w-[30%] w-[40%] cursor-pointer'/>
+          <img src='/app-store.png'  className='md:w-[30%] w-[40%] cursor-pointer'/>
         </div>
-
-       {/* Suggest products */}
-        <p className='mt-5 text-gray-950 logo text-2xl font-semibold'>For You</p>
-
-        <div className='flex w-full justify-evenly flex-wrap'>
-
-          {allItems && allItems.map((i, index) => <div onClick={() => itemDetail(i._id)} key={index} className='box-shadow rounded-2xl bg-[#f5f2f0] text-gray-700 h-[45vh] sm:w-[30%] w-[45%] cursor-pointer sm:my-6 my-3'>
-            <img src={i.images[0].url} className='h-[30vh] w-full rounded-2xl'></img>
-            <p className='text-lg md:font-semibold my-2 px-2 mt-4'>{i.name}</p>
-          </div>)}
-
-        </div>
-
-        { /* Products with category */ }
-        <ProductsBox />
-
-      </div>
 
     </div>
   )

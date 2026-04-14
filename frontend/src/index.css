@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 .input {
-    @apply  py-1 my-1 outline-none border-b-2 border-b-amber-500;
+  @apply py-1 my-1 outline-none border-b-2 border-b-amber-500;
 }
 
 .no-scrollbar::-webkit-scrollbar {
@@ -12,6 +12,16 @@
   @apply px-3 py-1 text-white font-semibold cursor-pointer my-2 rounded-xl
 }
 
-.box-shadow{
-     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+.discont {
+  background: linear-gradient(90deg, #E3F2FD, #F0F7FF, #FFFFFF, #E3F2FD);
+}
+
+.box-shadow {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+@media (max-width: 768px) {
+  .box-shadow {
+      box-shadow: none !important;
+  }
 }
