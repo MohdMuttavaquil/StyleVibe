@@ -32,13 +32,15 @@ const divbar = () => {
 
                 <div className='flex sm:h-20 h-16 sm:[80%] sm:mx-auto mx-1 justify-around items-center'>
 
-                    <div className='logo sm:text-2xl font-semibold text-[#1f2937]'>
-                        <Link to='/'>StyleVibe</Link>
+                    <div className='flex md:bg-blue-500 md:h-12 h-8 px-2 gap-1 py-1 rounded-2xl' onClick={()=> {naviagte('/')}}>
+                        <img src='/svlogo.png' className='md:h-10 md:w-10 h-8 w-8 rounded-lg' />
+                        <h1 className='logo text-[16px] hidden md:flex text-white h-full mt-3'>StyleVibe</h1>
                     </div>
 
+
                     <div className={`${location.pathname === '/search' ? "hidden" : ""} flex items-center gap-1 sm:w-[30%] ml-1`}>
-                        <input type='text' placeholder='Search Products' value={data} onChange={handleChenge} className='outline-none border-b-2 border-amber-400 w-[80%] pt-1 text-gray-700 text-lg' />
-                        <button onClick={() => search()} className='bg-[#f97316] rounded-lg px-2 py-2 cursor-pointer'><FaSearch className='sm:h-6 sm:w-6 h-4 w-4 text-white' /></button>
+                        <input type='text' placeholder='Search Products' value={data} onChange={handleChenge} className='outline-none border-b-2 border-blue-300 w-[80%] pt-1 text-gray-700 text-lg' />
+                        <button onClick={() => search()} className='bg-blue-500 rounded-lg px-2 py-2 cursor-pointer'><FaSearch className='sm:h-6 sm:w-6 h-4 w-4 text-white' /></button>
                     </div>
 
                     <div className={`flex sm:gap-8 gap-2 items-center`} >
@@ -56,9 +58,9 @@ const divbar = () => {
 
             </nav>
 
-          {/* For Side bar */}
+            {/* For Side bar */}
             <div className={`${sideBar ? "right-0 fixed z-50 text-gray-700 sm:w-[30%] w-[75%] pt-2 pb-10 mx-auto bg-[#f5f2f0] rounded-2xl" : "hidden"}`}>
-              <UserProfile setSideBar={setSideBar} />
+                <UserProfile setSideBar={setSideBar} />
             </div>
 
         </>
