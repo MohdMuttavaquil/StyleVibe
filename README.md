@@ -1,6 +1,6 @@
 # 🛍️ Style Vibe – Full Stack E-commerce Store
 
-🚀 **Live Demo** https://www.online.stylevibe.fun
+🚀 **Live Demo** https://online.stylevibe.fun/
 
 ## 📌 Description
 Style Vibe is a full-stack e-commerce web application designed to manage and sell 100+ products across multiple categories. Users can explore products, search efficiently, manage their cart, place orders, and track their purchase history.
